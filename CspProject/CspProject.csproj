@@ -1,0 +1,31 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Images\tomco.png" />
+  </ItemGroup>
+
+
+	<ItemGroup>
+		<!-- Gerekli DevExpress WPF Paketleri -->
+		<PackageReference Include="DevExpress.Wpf.Core" Version="25.1.3" />
+		<PackageReference Include="DevExpress.Wpf.Spreadsheet" Version="25.1.3" /> 
+        <PackageReference Include="DevExpress.Wpf.Ribbon" Version="23.2.6" /> 
+
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.7" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+	  <None Remove="Images\csp_logo.png" />
+	  <Resource Include="Images\csp_logo.png" />
+	</ItemGroup>
+
+</Project>

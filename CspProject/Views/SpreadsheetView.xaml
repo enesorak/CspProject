@@ -1,0 +1,54 @@
+<UserControl x:Class="CspProject.Views.SpreadsheetView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
+             xmlns:dxsps="http://schemas.devexpress.com/winfx/2008/xaml/spreadsheet"
+             xmlns:dxr="http://schemas.devexpress.com/winfx/2008/xaml/ribbon"
+             xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
+             xmlns:dxsprui="clr-namespace:DevExpress.Xpf.Spreadsheet.UI;assembly=DevExpress.Xpf.Spreadsheet.v23.2"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             mc:Ignorable="d" 
+             d:DesignHeight="700" d:DesignWidth="1000">
+    <Grid>
+        <dxsps:SpreadsheetControl x:Name="spreadsheetControl" 
+                                  CommandBarStyle="Ribbon"
+                                  ShowFormulaBar="True">
+            <dxsps:SpreadsheetControl.RibbonActions>
+                <!-- First, remove the spreadsheet's default File page -->
+                <dxb:RemoveAction ElementName="{x:Static dxsps:DefaultBarItemNames.RibbonPage_File}"/>
+                
+                <!-- Then, insert our own custom File page at the beginning -->
+                <dxb:InsertAction ContainerName="{x:Static dxsps:DefaultBarItemNames.RibbonCategory_Default}" Index="0">
+                    <dxr:RibbonPage Caption="File">
+                        <dxr:RibbonPageGroup Caption="Actions">
+                             <dxb:BarButtonItem Content="Back to Home" RibbonStyle="Large" Glyph="{dx:DXImage 'SvgImages/Icon Builder/Actions_Home.svg'}" ItemClick="BackToHome_Click"/>
+                        </dxr:RibbonPageGroup>
+                        <dxr:RibbonPageGroup Caption="File Operations">
+                            <dxb:BarButtonItem Content="Open"  RibbonStyle="Large" Glyph="{dx:DXImage 'SvgImages/Actions/Open.svg'}" ItemClick="OpenButton_Click"/>
+                            <dxb:BarButtonItem Content="Rename" RibbonStyle="Large" Glyph="{dx:DXImage 'SvgImages/Dashboards/RenameQuery.svg'}" ItemClick="RenameButton_Click"/>
+
+                            <dxb:BarButtonItem Content="Save" RibbonStyle="Large" Glyph="{dx:DXImage 'SvgImages/DiagramIcons/save.svg'}" ItemClick="SaveButton_Click"/>
+                            <dxb:BarButtonItem Content="Export" RibbonStyle="Large" Glyph="{dx:DXImage 'SvgImages/Export/ExportToXLSX.svg'}" ItemClick="ExportButton_Click"/>
+                        </dxr:RibbonPageGroup>
+                        <dxr:RibbonPageGroup Caption="Print">
+                            <dxb:BarButtonItem Content="Quick Print" 
+                                                 Command="{Binding Path=CommandProvider.QuickPrint, ElementName=spreadsheetControl}"
+                                                 RibbonStyle="Large"
+                                                 Glyph="{dx:DXImage 'SvgImages/DiagramIcons/QuickPrint.svg'}"/>
+                            <dxb:BarButtonItem Content="Print" Command="{Binding Path=CommandProvider.Print, ElementName=spreadsheetControl}" Glyph="{dx:DXImage 'SvgImages/Dashboards/Print.svg'}"/>
+                            <dxb:BarButtonItem Content="Print Preview" Command="{Binding Path=CommandProvider.PrintPreview, ElementName=spreadsheetControl}" Glyph="{dx:DXImage 'SvgImages/DiagramIcons/ShowPrintPreview.svg'}"/>
+                        </dxr:RibbonPageGroup>
+                        <dxr:RibbonPageGroup Caption="Edit">
+                            <dxb:BarButtonItem Content="Undo" RibbonStyle="Large" Command="{Binding Path=CommandProvider.Undo, ElementName=spreadsheetControl}" Glyph="{dx:DXImage 'SvgImages/Dashboards/Undo.svg'}"/>
+                            <dxb:BarButtonItem Content="Redo" RibbonStyle="Large" Command="{Binding Path=CommandProvider.Redo, ElementName=spreadsheetControl}" Glyph="{dx:DXImage 'SvgImages/Dashboards/Redo.svg'}"/>
+                        </dxr:RibbonPageGroup>
+                    </dxr:RibbonPage>
+                </dxb:InsertAction>
+            </dxsps:SpreadsheetControl.RibbonActions>
+        </dxsps:SpreadsheetControl>
+        
+        
+    </Grid>
+</UserControl>

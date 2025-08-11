@@ -1,0 +1,42 @@
+<!-- *********************************************************************************** -->
+<!-- File: CspProject/OpenDocumentWindow.xaml                                          -->
+<!-- Description: The UI for the document selection window.                            -->
+<!-- Author: Enes Orak                                                                 -->
+<!-- *********************************************************************************** -->
+<core:ThemedWindow x:Class="CspProject.OpenDocumentWindow"
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                 xmlns:dx="[http://schemas.devexpress.com/winfx/2008/xaml/core](http://schemas.devexpress.com/winfx/2008/xaml/core)"
+
+                 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                 xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                 xmlns:core="http://schemas.devexpress.com/winfx/2008/xaml/core"
+                 Title="Open Document" Height="450" Width="600"
+                 WindowStartupLocation="CenterOwner"
+                 WindowStyle="ToolWindow"
+                 Icon="{core:DXImage Image=Open_16x16.png}"
+
+                 ShowInTaskbar="False">
+        <Grid Margin="15">
+                <Grid.RowDefinitions>
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+        
+                <ListView x:Name="DocumentsListView" Grid.Row="0" Margin="0,0,0,15" MouseDoubleClick="OpenButton_Click" BorderThickness="1" BorderBrush="LightGray">
+                        <ListView.View>
+                                <GridView>
+                                       <GridViewColumn Header="Document Name" DisplayMemberBinding="{Binding DocumentName}" Width="200"/>
+                                        <GridViewColumn Header="Status" DisplayMemberBinding="{Binding Status}" Width="100"/>
+                                        <GridViewColumn Header="Last Modified" DisplayMemberBinding="{Binding ModifiedDate, StringFormat='g'}" Width="150"/>
+                                        <GridViewColumn Header="Version" DisplayMemberBinding="{Binding Version}" Width="Auto"/>
+                                </GridView>
+                        </ListView.View>
+                </ListView>
+
+                <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right">
+                        <Button Content="Open" Width="80" IsDefault="True" Click="OpenButton_Click" Margin="0,0,10,0"/>
+                        <Button Content="Cancel" Width="80" IsCancel="True" />
+                </StackPanel>
+        </Grid>
+</core:ThemedWindow>

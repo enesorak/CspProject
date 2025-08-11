@@ -1,0 +1,5049 @@
+{
+  "version": 3,
+  "targets": {
+    "net9.0-windows7.0": {
+      "DevExpress.Charts.Core/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]"
+        },
+        "compile": {
+          "lib/net8.0/DevExpress.Charts.v25.1.Core.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/DevExpress.Charts.v25.1.Core.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DevExpress.CodeParser/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "System.CodeDom": "4.4.0"
+        },
+        "compile": {
+          "lib/net8.0/DevExpress.CodeParser.v25.1.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/DevExpress.CodeParser.v25.1.dll": {}
+        }
+      },
+      "DevExpress.Data/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "System.Drawing.Common": "8.0.15"
+        },
+        "compile": {
+          "lib/net8.0/DevExpress.Data.v25.1.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/DevExpress.Data.v25.1.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DevExpress.Data.Desktop/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "DevExpress.Drawing": "[25.1.3]",
+          "System.Data.OleDb": "8.0.1"
+        },
+        "compile": {
+          "lib/net8.0-windows/DevExpress.Data.Desktop.v25.1.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0-windows/DevExpress.Data.Desktop.v25.1.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "build/net8.0-windows/DevExpress.Data.Desktop.props": {}
+        }
+      },
+      "DevExpress.DataAccess/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.CodeParser": "[25.1.3]",
+          "DevExpress.Data": "[25.1.3]",
+          "DevExpress.Drawing": "[25.1.3]",
+          "DevExpress.Office.Core": "[25.1.3]",
+          "DevExpress.Printing.Core": "[25.1.3]",
+          "DevExpress.RichEdit.Core": "[25.1.3]",
+          "DevExpress.Xpo": "[25.1.3]",
+          "System.Configuration.ConfigurationManager": "8.0.1"
+        },
+        "compile": {
+          "lib/net8.0/DevExpress.DataAccess.v25.1.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/DevExpress.DataAccess.v25.1.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DevExpress.DataVisualization.Core/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "DevExpress.Drawing": "[25.1.3]"
+        },
+        "compile": {
+          "lib/net8.0/DevExpress.DataVisualization.v25.1.Core.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/DevExpress.DataVisualization.v25.1.Core.dll": {}
+        }
+      },
+      "DevExpress.Drawing/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "System.Drawing.Common": "8.0.15"
+        },
+        "compile": {
+          "lib/net8.0/DevExpress.Drawing.v25.1.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/DevExpress.Drawing.v25.1.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DevExpress.Images/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "DevExpress.Drawing": "[25.1.3]",
+          "System.Drawing.Common": "8.0.15"
+        },
+        "compile": {
+          "lib/net8.0/DevExpress.Images.v25.1.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/DevExpress.Images.v25.1.dll": {}
+        }
+      },
+      "DevExpress.Mvvm/25.1.3": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0-windows/DevExpress.Mvvm.v25.1.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0-windows/DevExpress.Mvvm.v25.1.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DevExpress.Office.Core/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "DevExpress.Drawing": "[25.1.3]",
+          "DevExpress.Pdf.Core": "[25.1.3]",
+          "DevExpress.Printing.Core": "[25.1.3]",
+          "System.Drawing.Common": "8.0.15"
+        },
+        "compile": {
+          "lib/net8.0/DevExpress.Office.v25.1.Core.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/DevExpress.Office.v25.1.Core.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DevExpress.Pdf.Core/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "DevExpress.Drawing": "[25.1.3]",
+          "System.Drawing.Common": "8.0.15",
+          "System.Security.Cryptography.Pkcs": "8.0.1"
+        },
+        "compile": {
+          "lib/net8.0/DevExpress.Pdf.v25.1.Core.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/DevExpress.Pdf.v25.1.Core.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DevExpress.Pdf.Drawing/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "DevExpress.Drawing": "[25.1.3]",
+          "DevExpress.Pdf.Core": "[25.1.3]",
+          "System.Drawing.Common": "8.0.15"
+        },
+        "compile": {
+          "lib/net8.0/DevExpress.Pdf.v25.1.Drawing.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/DevExpress.Pdf.v25.1.Drawing.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DevExpress.Printing.Core/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "DevExpress.Drawing": "[25.1.3]",
+          "DevExpress.Pdf.Core": "[25.1.3]",
+          "DevExpress.Pdf.Drawing": "[25.1.3]",
+          "System.Drawing.Common": "8.0.15",
+          "System.ServiceModel.Http": "8.1.2"
+        },
+        "compile": {
+          "lib/net8.0/DevExpress.Printing.v25.1.Core.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/DevExpress.Printing.v25.1.Core.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DevExpress.RichEdit.Core/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "DevExpress.Drawing": "[25.1.3]",
+          "DevExpress.Office.Core": "[25.1.3]",
+          "DevExpress.Pdf.Core": "[25.1.3]",
+          "DevExpress.Printing.Core": "[25.1.3]",
+          "System.Drawing.Common": "8.0.15"
+        },
+        "compile": {
+          "lib/net8.0/DevExpress.RichEdit.v25.1.Core.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/DevExpress.RichEdit.v25.1.Core.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DevExpress.Sparkline.Core/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "DevExpress.Drawing": "[25.1.3]",
+          "System.Drawing.Common": "8.0.15"
+        },
+        "compile": {
+          "lib/net8.0/DevExpress.Sparkline.v25.1.Core.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/DevExpress.Sparkline.v25.1.Core.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DevExpress.Spreadsheet.Core/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "DevExpress.DataAccess": "[25.1.3]",
+          "DevExpress.DataVisualization.Core": "[25.1.3]",
+          "DevExpress.Drawing": "[25.1.3]",
+          "DevExpress.Office.Core": "[25.1.3]",
+          "DevExpress.Pdf.Core": "[25.1.3]",
+          "DevExpress.Printing.Core": "[25.1.3]",
+          "DevExpress.Sparkline.Core": "[25.1.3]",
+          "System.Drawing.Common": "8.0.15"
+        },
+        "compile": {
+          "lib/net8.0/DevExpress.Spreadsheet.v25.1.Core.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/DevExpress.Spreadsheet.v25.1.Core.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DevExpress.TreeMap.Core/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]"
+        },
+        "compile": {
+          "lib/net8.0/DevExpress.TreeMap.v25.1.Core.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/DevExpress.TreeMap.v25.1.Core.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DevExpress.Wpf.Charts/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Charts.Core": "[25.1.3]",
+          "DevExpress.Data": "[25.1.3]",
+          "DevExpress.Data.Desktop": "[25.1.3]",
+          "DevExpress.DataVisualization.Core": "[25.1.3]",
+          "DevExpress.Drawing": "[25.1.3]",
+          "DevExpress.Mvvm": "[25.1.3]",
+          "DevExpress.Printing.Core": "[25.1.3]",
+          "DevExpress.Wpf.Core": "[25.1.3]",
+          "DevExpress.Wpf.Docking": "[25.1.3]",
+          "DevExpress.Wpf.Grid.Core": "[25.1.3]",
+          "DevExpress.Wpf.Printing": "[25.1.3]",
+          "DevExpress.Wpf.PropertyGrid": "[25.1.3]",
+          "DevExpress.Wpf.Ribbon": "[25.1.3]"
+        },
+        "compile": {
+          "lib/net8.0-windows/DevExpress.Charts.Designer.v25.1.dll": {
+            "related": ".xml"
+          },
+          "lib/net8.0-windows/DevExpress.Xpf.Charts.v25.1.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0-windows/DevExpress.Charts.Designer.v25.1.dll": {
+            "related": ".xml"
+          },
+          "lib/net8.0-windows/DevExpress.Xpf.Charts.v25.1.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DevExpress.Wpf.Controls/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "DevExpress.Data.Desktop": "[25.1.3]",
+          "DevExpress.Mvvm": "[25.1.3]",
+          "DevExpress.Printing.Core": "[25.1.3]",
+          "DevExpress.Wpf.Core": "[25.1.3]"
+        },
+        "compile": {
+          "lib/net8.0-windows/DevExpress.Xpf.Controls.v25.1.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0-windows/DevExpress.Xpf.Controls.v25.1.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DevExpress.Wpf.Core/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "DevExpress.Data.Desktop": "[25.1.3]",
+          "DevExpress.Drawing": "[25.1.3]",
+          "DevExpress.Mvvm": "[25.1.3]",
+          "DevExpress.Pdf.Core": "[25.1.3]",
+          "DevExpress.Printing.Core": "[25.1.3]",
+          "DevExpress.Wpf.Themes.Office2019Colorful": "[25.1.3]"
+        },
+        "compile": {
+          "lib/net8.0-windows/DevExpress.Xpf.Core.v25.1.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0-windows/DevExpress.Xpf.Core.v25.1.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "build/net8.0-windows/DevExpress.Wpf.Core.props": {}
+        }
+      },
+      "DevExpress.Wpf.Docking/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "DevExpress.Data.Desktop": "[25.1.3]",
+          "DevExpress.Mvvm": "[25.1.3]",
+          "DevExpress.Wpf.Core": "[25.1.3]"
+        },
+        "compile": {
+          "lib/net8.0-windows/DevExpress.Xpf.Docking.v25.1.dll": {
+            "related": ".xml"
+          },
+          "lib/net8.0-windows/DevExpress.Xpf.Layout.v25.1.Core.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0-windows/DevExpress.Xpf.Docking.v25.1.dll": {
+            "related": ".xml"
+          },
+          "lib/net8.0-windows/DevExpress.Xpf.Layout.v25.1.Core.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DevExpress.Wpf.DocumentViewer.Core/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "DevExpress.Mvvm": "[25.1.3]",
+          "DevExpress.Wpf.Controls": "[25.1.3]",
+          "DevExpress.Wpf.Core": "[25.1.3]",
+          "DevExpress.Wpf.Grid.Core": "[25.1.3]",
+          "DevExpress.Wpf.Ribbon": "[25.1.3]"
+        },
+        "compile": {
+          "lib/net8.0-windows/DevExpress.Xpf.DocumentViewer.v25.1.Core.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0-windows/DevExpress.Xpf.DocumentViewer.v25.1.Core.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DevExpress.Wpf.Grid.Core/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "DevExpress.Data.Desktop": "[25.1.3]",
+          "DevExpress.Drawing": "[25.1.3]",
+          "DevExpress.Mvvm": "[25.1.3]",
+          "DevExpress.Printing.Core": "[25.1.3]",
+          "DevExpress.Wpf.Core": "[25.1.3]"
+        },
+        "compile": {
+          "lib/net8.0-windows/DevExpress.Xpf.Grid.v25.1.Core.dll": {
+            "related": ".xml"
+          },
+          "lib/net8.0-windows/DevExpress.Xpf.Grid.v25.1.Extensions.dll": {
+            "related": ".xml"
+          },
+          "lib/net8.0-windows/DevExpress.Xpf.Grid.v25.1.dll": {
+            "related": ".Core.xml;.Extensions.xml;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0-windows/DevExpress.Xpf.Grid.v25.1.Core.dll": {
+            "related": ".xml"
+          },
+          "lib/net8.0-windows/DevExpress.Xpf.Grid.v25.1.Extensions.dll": {
+            "related": ".xml"
+          },
+          "lib/net8.0-windows/DevExpress.Xpf.Grid.v25.1.dll": {
+            "related": ".Core.xml;.Extensions.xml;.xml"
+          }
+        }
+      },
+      "DevExpress.Wpf.LayoutControl/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "DevExpress.Data.Desktop": "[25.1.3]",
+          "DevExpress.Mvvm": "[25.1.3]",
+          "DevExpress.Wpf.Core": "[25.1.3]"
+        },
+        "compile": {
+          "lib/net8.0-windows/DevExpress.Xpf.LayoutControl.v25.1.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0-windows/DevExpress.Xpf.LayoutControl.v25.1.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DevExpress.Wpf.NavBar/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "DevExpress.Mvvm": "[25.1.3]",
+          "DevExpress.Wpf.Controls": "[25.1.3]",
+          "DevExpress.Wpf.Core": "[25.1.3]"
+        },
+        "compile": {
+          "lib/net8.0-windows/DevExpress.Xpf.NavBar.v25.1.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0-windows/DevExpress.Xpf.NavBar.v25.1.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DevExpress.Wpf.Office/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "DevExpress.Drawing": "[25.1.3]",
+          "DevExpress.Office.Core": "[25.1.3]",
+          "DevExpress.Wpf.Core": "[25.1.3]"
+        },
+        "compile": {
+          "lib/net8.0-windows/DevExpress.Xpf.Office.v25.1.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0-windows/DevExpress.Xpf.Office.v25.1.dll": {}
+        }
+      },
+      "DevExpress.Wpf.Printing/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "DevExpress.Data.Desktop": "[25.1.3]",
+          "DevExpress.Drawing": "[25.1.3]",
+          "DevExpress.Mvvm": "[25.1.3]",
+          "DevExpress.Office.Core": "[25.1.3]",
+          "DevExpress.Printing.Core": "[25.1.3]",
+          "DevExpress.RichEdit.Core": "[25.1.3]",
+          "DevExpress.Wpf.Controls": "[25.1.3]",
+          "DevExpress.Wpf.Core": "[25.1.3]",
+          "DevExpress.Wpf.Docking": "[25.1.3]",
+          "DevExpress.Wpf.DocumentViewer.Core": "[25.1.3]",
+          "DevExpress.Wpf.Grid.Core": "[25.1.3]",
+          "DevExpress.Wpf.LayoutControl": "[25.1.3]",
+          "DevExpress.Wpf.Ribbon": "[25.1.3]",
+          "System.ServiceModel.Http": "8.1.2"
+        },
+        "compile": {
+          "lib/net8.0-windows/DevExpress.Xpf.Printing.v25.1.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0-windows/DevExpress.Xpf.Printing.v25.1.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DevExpress.Wpf.PropertyGrid/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "DevExpress.Mvvm": "[25.1.3]",
+          "DevExpress.Printing.Core": "[25.1.3]",
+          "DevExpress.Wpf.Core": "[25.1.3]"
+        },
+        "compile": {
+          "lib/net8.0-windows/DevExpress.Xpf.PropertyGrid.v25.1.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0-windows/DevExpress.Xpf.PropertyGrid.v25.1.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DevExpress.Wpf.Ribbon/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "DevExpress.Data.Desktop": "[25.1.3]",
+          "DevExpress.Mvvm": "[25.1.3]",
+          "DevExpress.Wpf.Core": "[25.1.3]"
+        },
+        "compile": {
+          "lib/net8.0-windows/DevExpress.Xpf.Ribbon.v25.1.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0-windows/DevExpress.Xpf.Ribbon.v25.1.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DevExpress.Wpf.Spreadsheet/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "DevExpress.Data.Desktop": "[25.1.3]",
+          "DevExpress.DataVisualization.Core": "[25.1.3]",
+          "DevExpress.Drawing": "[25.1.3]",
+          "DevExpress.Images": "[25.1.3]",
+          "DevExpress.Mvvm": "[25.1.3]",
+          "DevExpress.Office.Core": "[25.1.3]",
+          "DevExpress.Printing.Core": "[25.1.3]",
+          "DevExpress.Spreadsheet.Core": "[25.1.3]",
+          "DevExpress.Wpf.Charts": "[25.1.3]",
+          "DevExpress.Wpf.Core": "[25.1.3]",
+          "DevExpress.Wpf.Docking": "[25.1.3]",
+          "DevExpress.Wpf.DocumentViewer.Core": "[25.1.3]",
+          "DevExpress.Wpf.Grid.Core": "[25.1.3]",
+          "DevExpress.Wpf.NavBar": "[25.1.3]",
+          "DevExpress.Wpf.Office": "[25.1.3]",
+          "DevExpress.Wpf.Printing": "[25.1.3]",
+          "DevExpress.Wpf.Ribbon": "[25.1.3]",
+          "DevExpress.Wpf.TreeMap": "[25.1.3]"
+        },
+        "compile": {
+          "lib/net8.0-windows/DevExpress.Xpf.Spreadsheet.v25.1.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0-windows/DevExpress.Xpf.Spreadsheet.v25.1.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DevExpress.Wpf.Themes.Office2019Colorful/25.1.3": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0-windows/DevExpress.Xpf.Themes.Office2019Colorful.v25.1.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0-windows/DevExpress.Xpf.Themes.Office2019Colorful.v25.1.dll": {}
+        }
+      },
+      "DevExpress.Wpf.TreeMap/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "DevExpress.DataVisualization.Core": "[25.1.3]",
+          "DevExpress.Mvvm": "[25.1.3]",
+          "DevExpress.TreeMap.Core": "[25.1.3]",
+          "DevExpress.Wpf.Core": "[25.1.3]"
+        },
+        "compile": {
+          "lib/net8.0-windows/DevExpress.Xpf.TreeMap.v25.1.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0-windows/DevExpress.Xpf.TreeMap.v25.1.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DevExpress.Xpo/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "Microsoft.Extensions.DependencyInjection": "8.0.1",
+          "System.Drawing.Common": "8.0.15",
+          "System.ServiceModel.Http": "8.1.2",
+          "System.ServiceModel.NetTcp": "8.1.2"
+        },
+        "compile": {
+          "lib/net8.0/DevExpress.Xpo.v25.1.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/DevExpress.Xpo.v25.1.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.Data.Sqlite.Core/8.0.7": {
+        "type": "package",
+        "dependencies": {
+          "SQLitePCLRaw.core": "2.1.6"
+        },
+        "compile": {
+          "lib/net8.0/Microsoft.Data.Sqlite.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Data.Sqlite.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.EntityFrameworkCore/8.0.7": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Abstractions": "8.0.7",
+          "Microsoft.EntityFrameworkCore.Analyzers": "8.0.7",
+          "Microsoft.Extensions.Caching.Memory": "8.0.0",
+          "Microsoft.Extensions.Logging": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Microsoft.EntityFrameworkCore.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.EntityFrameworkCore.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net8.0/Microsoft.EntityFrameworkCore.props": {}
+        }
+      },
+      "Microsoft.EntityFrameworkCore.Abstractions/8.0.7": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Microsoft.EntityFrameworkCore.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.EntityFrameworkCore.Abstractions.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.EntityFrameworkCore.Analyzers/8.0.7": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/_._": {}
+        }
+      },
+      "Microsoft.EntityFrameworkCore.Relational/8.0.7": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "8.0.7",
+          "Microsoft.Extensions.Configuration.Abstractions": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Microsoft.EntityFrameworkCore.Relational.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.EntityFrameworkCore.Relational.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.EntityFrameworkCore.Sqlite/8.0.7": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Sqlite.Core": "8.0.7",
+          "SQLitePCLRaw.bundle_e_sqlite3": "2.1.6"
+        },
+        "compile": {
+          "lib/net8.0/_._": {}
+        },
+        "runtime": {
+          "lib/net8.0/_._": {}
+        }
+      },
+      "Microsoft.EntityFrameworkCore.Sqlite.Core/8.0.7": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Data.Sqlite.Core": "8.0.7",
+          "Microsoft.EntityFrameworkCore.Relational": "8.0.7",
+          "Microsoft.Extensions.DependencyModel": "8.0.1"
+        },
+        "compile": {
+          "lib/net8.0/Microsoft.EntityFrameworkCore.Sqlite.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.EntityFrameworkCore.Sqlite.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.Extensions.Caching.Abstractions/8.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Primitives": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Microsoft.Extensions.Caching.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Extensions.Caching.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "Microsoft.Extensions.Caching.Memory/8.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Caching.Abstractions": "8.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.0",
+          "Microsoft.Extensions.Logging.Abstractions": "8.0.0",
+          "Microsoft.Extensions.Options": "8.0.0",
+          "Microsoft.Extensions.Primitives": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Microsoft.Extensions.Caching.Memory.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Extensions.Caching.Memory.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "Microsoft.Extensions.Configuration.Abstractions/8.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Primitives": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Microsoft.Extensions.Configuration.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Extensions.Configuration.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "Microsoft.Extensions.DependencyInjection/8.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.2"
+        },
+        "compile": {
+          "lib/net8.0/Microsoft.Extensions.DependencyInjection.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Extensions.DependencyInjection.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "Microsoft.Extensions.DependencyInjection.Abstractions/8.0.2": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "Microsoft.Extensions.DependencyModel/8.0.1": {
+        "type": "package",
+        "dependencies": {
+          "System.Text.Encodings.Web": "8.0.0",
+          "System.Text.Json": "8.0.4"
+        },
+        "compile": {
+          "lib/net8.0/Microsoft.Extensions.DependencyModel.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Extensions.DependencyModel.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "Microsoft.Extensions.Logging/8.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection": "8.0.0",
+          "Microsoft.Extensions.Logging.Abstractions": "8.0.0",
+          "Microsoft.Extensions.Options": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Microsoft.Extensions.Logging.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Extensions.Logging.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "Microsoft.Extensions.Logging.Abstractions/8.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Microsoft.Extensions.Logging.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Extensions.Logging.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/Microsoft.Extensions.Logging.Abstractions.targets": {}
+        }
+      },
+      "Microsoft.Extensions.ObjectPool/8.0.10": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Microsoft.Extensions.ObjectPool.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Extensions.ObjectPool.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.Extensions.Options/8.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.0",
+          "Microsoft.Extensions.Primitives": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Microsoft.Extensions.Options.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Extensions.Options.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/Microsoft.Extensions.Options.targets": {}
+        }
+      },
+      "Microsoft.Extensions.Primitives/8.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Microsoft.Extensions.Primitives.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Extensions.Primitives.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "Microsoft.Win32.SystemEvents/8.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Microsoft.Win32.SystemEvents.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Win32.SystemEvents.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/net8.0/Microsoft.Win32.SystemEvents.dll": {
+            "assetType": "runtime",
+            "rid": "win"
+          }
+        }
+      },
+      "SQLitePCLRaw.bundle_e_sqlite3/2.1.6": {
+        "type": "package",
+        "dependencies": {
+          "SQLitePCLRaw.lib.e_sqlite3": "2.1.6",
+          "SQLitePCLRaw.provider.e_sqlite3": "2.1.6"
+        },
+        "compile": {
+          "lib/netstandard2.0/SQLitePCLRaw.batteries_v2.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/SQLitePCLRaw.batteries_v2.dll": {}
+        }
+      },
+      "SQLitePCLRaw.core/2.1.6": {
+        "type": "package",
+        "dependencies": {
+          "System.Memory": "4.5.3"
+        },
+        "compile": {
+          "lib/netstandard2.0/SQLitePCLRaw.core.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/SQLitePCLRaw.core.dll": {}
+        }
+      },
+      "SQLitePCLRaw.lib.e_sqlite3/2.1.6": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/_._": {}
+        },
+        "build": {
+          "buildTransitive/net8.0/SQLitePCLRaw.lib.e_sqlite3.targets": {}
+        },
+        "runtimeTargets": {
+          "runtimes/browser-wasm/nativeassets/net8.0/e_sqlite3.a": {
+            "assetType": "native",
+            "rid": "browser-wasm"
+          },
+          "runtimes/linux-arm/native/libe_sqlite3.so": {
+            "assetType": "native",
+            "rid": "linux-arm"
+          },
+          "runtimes/linux-arm64/native/libe_sqlite3.so": {
+            "assetType": "native",
+            "rid": "linux-arm64"
+          },
+          "runtimes/linux-armel/native/libe_sqlite3.so": {
+            "assetType": "native",
+            "rid": "linux-armel"
+          },
+          "runtimes/linux-mips64/native/libe_sqlite3.so": {
+            "assetType": "native",
+            "rid": "linux-mips64"
+          },
+          "runtimes/linux-musl-arm/native/libe_sqlite3.so": {
+            "assetType": "native",
+            "rid": "linux-musl-arm"
+          },
+          "runtimes/linux-musl-arm64/native/libe_sqlite3.so": {
+            "assetType": "native",
+            "rid": "linux-musl-arm64"
+          },
+          "runtimes/linux-musl-x64/native/libe_sqlite3.so": {
+            "assetType": "native",
+            "rid": "linux-musl-x64"
+          },
+          "runtimes/linux-ppc64le/native/libe_sqlite3.so": {
+            "assetType": "native",
+            "rid": "linux-ppc64le"
+          },
+          "runtimes/linux-s390x/native/libe_sqlite3.so": {
+            "assetType": "native",
+            "rid": "linux-s390x"
+          },
+          "runtimes/linux-x64/native/libe_sqlite3.so": {
+            "assetType": "native",
+            "rid": "linux-x64"
+          },
+          "runtimes/linux-x86/native/libe_sqlite3.so": {
+            "assetType": "native",
+            "rid": "linux-x86"
+          },
+          "runtimes/maccatalyst-arm64/native/libe_sqlite3.dylib": {
+            "assetType": "native",
+            "rid": "maccatalyst-arm64"
+          },
+          "runtimes/maccatalyst-x64/native/libe_sqlite3.dylib": {
+            "assetType": "native",
+            "rid": "maccatalyst-x64"
+          },
+          "runtimes/osx-arm64/native/libe_sqlite3.dylib": {
+            "assetType": "native",
+            "rid": "osx-arm64"
+          },
+          "runtimes/osx-x64/native/libe_sqlite3.dylib": {
+            "assetType": "native",
+            "rid": "osx-x64"
+          },
+          "runtimes/win-arm/native/e_sqlite3.dll": {
+            "assetType": "native",
+            "rid": "win-arm"
+          },
+          "runtimes/win-arm64/native/e_sqlite3.dll": {
+            "assetType": "native",
+            "rid": "win-arm64"
+          },
+          "runtimes/win-x64/native/e_sqlite3.dll": {
+            "assetType": "native",
+            "rid": "win-x64"
+          },
+          "runtimes/win-x86/native/e_sqlite3.dll": {
+            "assetType": "native",
+            "rid": "win-x86"
+          }
+        }
+      },
+      "SQLitePCLRaw.provider.e_sqlite3/2.1.6": {
+        "type": "package",
+        "dependencies": {
+          "SQLitePCLRaw.core": "2.1.6"
+        },
+        "compile": {
+          "lib/net6.0-windows7.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
+        },
+        "runtime": {
+          "lib/net6.0-windows7.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
+        }
+      },
+      "System.CodeDom/4.4.0": {
+        "type": "package",
+        "compile": {
+          "ref/netstandard2.0/System.CodeDom.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.CodeDom.dll": {}
+        }
+      },
+      "System.Configuration.ConfigurationManager/8.0.1": {
+        "type": "package",
+        "dependencies": {
+          "System.Diagnostics.EventLog": "8.0.1",
+          "System.Security.Cryptography.ProtectedData": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/System.Configuration.ConfigurationManager.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/System.Configuration.ConfigurationManager.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "System.Data.OleDb/8.0.1": {
+        "type": "package",
+        "dependencies": {
+          "System.Configuration.ConfigurationManager": "8.0.1",
+          "System.Diagnostics.PerformanceCounter": "8.0.1"
+        },
+        "compile": {
+          "lib/net8.0/System.Data.OleDb.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/System.Data.OleDb.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/net8.0/System.Data.OleDb.dll": {
+            "assetType": "runtime",
+            "rid": "win"
+          }
+        }
+      },
+      "System.Diagnostics.EventLog/8.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/System.Diagnostics.EventLog.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/System.Diagnostics.EventLog.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/net8.0/System.Diagnostics.EventLog.Messages.dll": {
+            "assetType": "runtime",
+            "rid": "win"
+          },
+          "runtimes/win/lib/net8.0/System.Diagnostics.EventLog.dll": {
+            "assetType": "runtime",
+            "rid": "win"
+          }
+        }
+      },
+      "System.Diagnostics.PerformanceCounter/8.0.1": {
+        "type": "package",
+        "dependencies": {
+          "System.Configuration.ConfigurationManager": "8.0.1"
+        },
+        "compile": {
+          "lib/net8.0/System.Diagnostics.PerformanceCounter.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/System.Diagnostics.PerformanceCounter.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/net8.0/System.Diagnostics.PerformanceCounter.dll": {
+            "assetType": "runtime",
+            "rid": "win"
+          }
+        }
+      },
+      "System.Drawing.Common/8.0.15": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Win32.SystemEvents": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/System.Drawing.Common.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/System.Drawing.Common.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "System.Memory/4.5.3": {
+        "type": "package",
+        "compile": {
+          "ref/netcoreapp2.1/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/_._": {}
+        }
+      },
+      "System.Security.Cryptography.Pkcs/8.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/System.Security.Cryptography.Pkcs.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/System.Security.Cryptography.Pkcs.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        },
+        "runtimeTargets": {
+          "runtimes/win/lib/net8.0/System.Security.Cryptography.Pkcs.dll": {
+            "assetType": "runtime",
+            "rid": "win"
+          }
+        }
+      },
+      "System.Security.Cryptography.ProtectedData/8.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/System.Security.Cryptography.ProtectedData.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/System.Security.Cryptography.ProtectedData.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "System.Security.Cryptography.Xml/8.0.2": {
+        "type": "package",
+        "dependencies": {
+          "System.Security.Cryptography.Pkcs": "8.0.1"
+        },
+        "compile": {
+          "lib/net8.0/System.Security.Cryptography.Xml.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/System.Security.Cryptography.Xml.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "System.ServiceModel.Http/8.1.2": {
+        "type": "package",
+        "dependencies": {
+          "System.ServiceModel.Primitives": "8.1.2"
+        },
+        "compile": {
+          "ref/net8.0/System.ServiceModel.Http.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/System.ServiceModel.Http.dll": {
+            "related": ".pdb"
+          }
+        },
+        "resource": {
+          "lib/net8.0/cs/System.ServiceModel.Http.resources.dll": {
+            "locale": "cs"
+          },
+          "lib/net8.0/de/System.ServiceModel.Http.resources.dll": {
+            "locale": "de"
+          },
+          "lib/net8.0/es/System.ServiceModel.Http.resources.dll": {
+            "locale": "es"
+          },
+          "lib/net8.0/fr/System.ServiceModel.Http.resources.dll": {
+            "locale": "fr"
+          },
+          "lib/net8.0/it/System.ServiceModel.Http.resources.dll": {
+            "locale": "it"
+          },
+          "lib/net8.0/ja/System.ServiceModel.Http.resources.dll": {
+            "locale": "ja"
+          },
+          "lib/net8.0/ko/System.ServiceModel.Http.resources.dll": {
+            "locale": "ko"
+          },
+          "lib/net8.0/pl/System.ServiceModel.Http.resources.dll": {
+            "locale": "pl"
+          },
+          "lib/net8.0/pt-BR/System.ServiceModel.Http.resources.dll": {
+            "locale": "pt-BR"
+          },
+          "lib/net8.0/ru/System.ServiceModel.Http.resources.dll": {
+            "locale": "ru"
+          },
+          "lib/net8.0/tr/System.ServiceModel.Http.resources.dll": {
+            "locale": "tr"
+          },
+          "lib/net8.0/zh-Hans/System.ServiceModel.Http.resources.dll": {
+            "locale": "zh-Hans"
+          },
+          "lib/net8.0/zh-Hant/System.ServiceModel.Http.resources.dll": {
+            "locale": "zh-Hant"
+          }
+        }
+      },
+      "System.ServiceModel.NetFramingBase/8.1.2": {
+        "type": "package",
+        "dependencies": {
+          "System.ServiceModel.Primitives": "8.1.2"
+        },
+        "compile": {
+          "ref/net8.0/System.ServiceModel.NetFramingBase.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/System.ServiceModel.NetFramingBase.dll": {
+            "related": ".pdb"
+          }
+        },
+        "resource": {
+          "lib/net8.0/cs/System.ServiceModel.NetFramingBase.resources.dll": {
+            "locale": "cs"
+          },
+          "lib/net8.0/de/System.ServiceModel.NetFramingBase.resources.dll": {
+            "locale": "de"
+          },
+          "lib/net8.0/es/System.ServiceModel.NetFramingBase.resources.dll": {
+            "locale": "es"
+          },
+          "lib/net8.0/fr/System.ServiceModel.NetFramingBase.resources.dll": {
+            "locale": "fr"
+          },
+          "lib/net8.0/it/System.ServiceModel.NetFramingBase.resources.dll": {
+            "locale": "it"
+          },
+          "lib/net8.0/ja/System.ServiceModel.NetFramingBase.resources.dll": {
+            "locale": "ja"
+          },
+          "lib/net8.0/ko/System.ServiceModel.NetFramingBase.resources.dll": {
+            "locale": "ko"
+          },
+          "lib/net8.0/pl/System.ServiceModel.NetFramingBase.resources.dll": {
+            "locale": "pl"
+          },
+          "lib/net8.0/pt-BR/System.ServiceModel.NetFramingBase.resources.dll": {
+            "locale": "pt-BR"
+          },
+          "lib/net8.0/ru/System.ServiceModel.NetFramingBase.resources.dll": {
+            "locale": "ru"
+          },
+          "lib/net8.0/tr/System.ServiceModel.NetFramingBase.resources.dll": {
+            "locale": "tr"
+          },
+          "lib/net8.0/zh-Hans/System.ServiceModel.NetFramingBase.resources.dll": {
+            "locale": "zh-Hans"
+          },
+          "lib/net8.0/zh-Hant/System.ServiceModel.NetFramingBase.resources.dll": {
+            "locale": "zh-Hant"
+          }
+        }
+      },
+      "System.ServiceModel.NetTcp/8.1.2": {
+        "type": "package",
+        "dependencies": {
+          "System.ServiceModel.NetFramingBase": "8.1.2",
+          "System.ServiceModel.Primitives": "8.1.2"
+        },
+        "compile": {
+          "ref/net8.0/System.ServiceModel.NetTcp.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/System.ServiceModel.NetTcp.dll": {
+            "related": ".pdb"
+          }
+        },
+        "resource": {
+          "lib/net8.0/cs/System.ServiceModel.NetTcp.resources.dll": {
+            "locale": "cs"
+          },
+          "lib/net8.0/de/System.ServiceModel.NetTcp.resources.dll": {
+            "locale": "de"
+          },
+          "lib/net8.0/es/System.ServiceModel.NetTcp.resources.dll": {
+            "locale": "es"
+          },
+          "lib/net8.0/fr/System.ServiceModel.NetTcp.resources.dll": {
+            "locale": "fr"
+          },
+          "lib/net8.0/it/System.ServiceModel.NetTcp.resources.dll": {
+            "locale": "it"
+          },
+          "lib/net8.0/ja/System.ServiceModel.NetTcp.resources.dll": {
+            "locale": "ja"
+          },
+          "lib/net8.0/ko/System.ServiceModel.NetTcp.resources.dll": {
+            "locale": "ko"
+          },
+          "lib/net8.0/pl/System.ServiceModel.NetTcp.resources.dll": {
+            "locale": "pl"
+          },
+          "lib/net8.0/pt-BR/System.ServiceModel.NetTcp.resources.dll": {
+            "locale": "pt-BR"
+          },
+          "lib/net8.0/ru/System.ServiceModel.NetTcp.resources.dll": {
+            "locale": "ru"
+          },
+          "lib/net8.0/tr/System.ServiceModel.NetTcp.resources.dll": {
+            "locale": "tr"
+          },
+          "lib/net8.0/zh-Hans/System.ServiceModel.NetTcp.resources.dll": {
+            "locale": "zh-Hans"
+          },
+          "lib/net8.0/zh-Hant/System.ServiceModel.NetTcp.resources.dll": {
+            "locale": "zh-Hant"
+          }
+        }
+      },
+      "System.ServiceModel.Primitives/8.1.2": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.ObjectPool": "8.0.10",
+          "System.Security.Cryptography.Xml": "8.0.2"
+        },
+        "compile": {
+          "ref/net8.0/System.ServiceModel.Duplex.dll": {},
+          "ref/net8.0/System.ServiceModel.Primitives.dll": {},
+          "ref/net8.0/System.ServiceModel.Security.dll": {},
+          "ref/net8.0/System.ServiceModel.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/System.ServiceModel.Duplex.dll": {
+            "related": ".pdb"
+          },
+          "lib/net8.0/System.ServiceModel.Primitives.dll": {
+            "related": ".pdb"
+          },
+          "lib/net8.0/System.ServiceModel.Security.dll": {
+            "related": ".pdb"
+          },
+          "lib/net8.0/System.ServiceModel.dll": {
+            "related": ".Duplex.pdb;.pdb;.Primitives.pdb;.Security.pdb"
+          }
+        },
+        "resource": {
+          "lib/net8.0/cs/System.ServiceModel.Primitives.resources.dll": {
+            "locale": "cs"
+          },
+          "lib/net8.0/de/System.ServiceModel.Primitives.resources.dll": {
+            "locale": "de"
+          },
+          "lib/net8.0/es/System.ServiceModel.Primitives.resources.dll": {
+            "locale": "es"
+          },
+          "lib/net8.0/fr/System.ServiceModel.Primitives.resources.dll": {
+            "locale": "fr"
+          },
+          "lib/net8.0/it/System.ServiceModel.Primitives.resources.dll": {
+            "locale": "it"
+          },
+          "lib/net8.0/ja/System.ServiceModel.Primitives.resources.dll": {
+            "locale": "ja"
+          },
+          "lib/net8.0/ko/System.ServiceModel.Primitives.resources.dll": {
+            "locale": "ko"
+          },
+          "lib/net8.0/pl/System.ServiceModel.Primitives.resources.dll": {
+            "locale": "pl"
+          },
+          "lib/net8.0/pt-BR/System.ServiceModel.Primitives.resources.dll": {
+            "locale": "pt-BR"
+          },
+          "lib/net8.0/ru/System.ServiceModel.Primitives.resources.dll": {
+            "locale": "ru"
+          },
+          "lib/net8.0/tr/System.ServiceModel.Primitives.resources.dll": {
+            "locale": "tr"
+          },
+          "lib/net8.0/zh-Hans/System.ServiceModel.Primitives.resources.dll": {
+            "locale": "zh-Hans"
+          },
+          "lib/net8.0/zh-Hant/System.ServiceModel.Primitives.resources.dll": {
+            "locale": "zh-Hant"
+          }
+        }
+      },
+      "System.Text.Encodings.Web/8.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/System.Text.Encodings.Web.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/System.Text.Encodings.Web.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        },
+        "runtimeTargets": {
+          "runtimes/browser/lib/net8.0/System.Text.Encodings.Web.dll": {
+            "assetType": "runtime",
+            "rid": "browser"
+          }
+        }
+      },
+      "System.Text.Json/8.0.4": {
+        "type": "package",
+        "dependencies": {
+          "System.Text.Encodings.Web": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/System.Text.Json.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/System.Text.Json.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/System.Text.Json.targets": {}
+        }
+      }
+    },
+    "net9.0-windows7.0/win-x64": {
+      "DevExpress.Charts.Core/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]"
+        },
+        "compile": {
+          "lib/net8.0/DevExpress.Charts.v25.1.Core.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/DevExpress.Charts.v25.1.Core.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DevExpress.CodeParser/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "System.CodeDom": "4.4.0"
+        },
+        "compile": {
+          "lib/net8.0/DevExpress.CodeParser.v25.1.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/DevExpress.CodeParser.v25.1.dll": {}
+        }
+      },
+      "DevExpress.Data/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "System.Drawing.Common": "8.0.15"
+        },
+        "compile": {
+          "lib/net8.0/DevExpress.Data.v25.1.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/DevExpress.Data.v25.1.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DevExpress.Data.Desktop/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "DevExpress.Drawing": "[25.1.3]",
+          "System.Data.OleDb": "8.0.1"
+        },
+        "compile": {
+          "lib/net8.0-windows/DevExpress.Data.Desktop.v25.1.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0-windows/DevExpress.Data.Desktop.v25.1.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "build/net8.0-windows/DevExpress.Data.Desktop.props": {}
+        }
+      },
+      "DevExpress.DataAccess/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.CodeParser": "[25.1.3]",
+          "DevExpress.Data": "[25.1.3]",
+          "DevExpress.Drawing": "[25.1.3]",
+          "DevExpress.Office.Core": "[25.1.3]",
+          "DevExpress.Printing.Core": "[25.1.3]",
+          "DevExpress.RichEdit.Core": "[25.1.3]",
+          "DevExpress.Xpo": "[25.1.3]",
+          "System.Configuration.ConfigurationManager": "8.0.1"
+        },
+        "compile": {
+          "lib/net8.0/DevExpress.DataAccess.v25.1.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/DevExpress.DataAccess.v25.1.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DevExpress.DataVisualization.Core/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "DevExpress.Drawing": "[25.1.3]"
+        },
+        "compile": {
+          "lib/net8.0/DevExpress.DataVisualization.v25.1.Core.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/DevExpress.DataVisualization.v25.1.Core.dll": {}
+        }
+      },
+      "DevExpress.Drawing/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "System.Drawing.Common": "8.0.15"
+        },
+        "compile": {
+          "lib/net8.0/DevExpress.Drawing.v25.1.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/DevExpress.Drawing.v25.1.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DevExpress.Images/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "DevExpress.Drawing": "[25.1.3]",
+          "System.Drawing.Common": "8.0.15"
+        },
+        "compile": {
+          "lib/net8.0/DevExpress.Images.v25.1.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/DevExpress.Images.v25.1.dll": {}
+        }
+      },
+      "DevExpress.Mvvm/25.1.3": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0-windows/DevExpress.Mvvm.v25.1.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0-windows/DevExpress.Mvvm.v25.1.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DevExpress.Office.Core/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "DevExpress.Drawing": "[25.1.3]",
+          "DevExpress.Pdf.Core": "[25.1.3]",
+          "DevExpress.Printing.Core": "[25.1.3]",
+          "System.Drawing.Common": "8.0.15"
+        },
+        "compile": {
+          "lib/net8.0/DevExpress.Office.v25.1.Core.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/DevExpress.Office.v25.1.Core.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DevExpress.Pdf.Core/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "DevExpress.Drawing": "[25.1.3]",
+          "System.Drawing.Common": "8.0.15",
+          "System.Security.Cryptography.Pkcs": "8.0.1"
+        },
+        "compile": {
+          "lib/net8.0/DevExpress.Pdf.v25.1.Core.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/DevExpress.Pdf.v25.1.Core.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DevExpress.Pdf.Drawing/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "DevExpress.Drawing": "[25.1.3]",
+          "DevExpress.Pdf.Core": "[25.1.3]",
+          "System.Drawing.Common": "8.0.15"
+        },
+        "compile": {
+          "lib/net8.0/DevExpress.Pdf.v25.1.Drawing.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/DevExpress.Pdf.v25.1.Drawing.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DevExpress.Printing.Core/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "DevExpress.Drawing": "[25.1.3]",
+          "DevExpress.Pdf.Core": "[25.1.3]",
+          "DevExpress.Pdf.Drawing": "[25.1.3]",
+          "System.Drawing.Common": "8.0.15",
+          "System.ServiceModel.Http": "8.1.2"
+        },
+        "compile": {
+          "lib/net8.0/DevExpress.Printing.v25.1.Core.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/DevExpress.Printing.v25.1.Core.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DevExpress.RichEdit.Core/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "DevExpress.Drawing": "[25.1.3]",
+          "DevExpress.Office.Core": "[25.1.3]",
+          "DevExpress.Pdf.Core": "[25.1.3]",
+          "DevExpress.Printing.Core": "[25.1.3]",
+          "System.Drawing.Common": "8.0.15"
+        },
+        "compile": {
+          "lib/net8.0/DevExpress.RichEdit.v25.1.Core.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/DevExpress.RichEdit.v25.1.Core.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DevExpress.Sparkline.Core/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "DevExpress.Drawing": "[25.1.3]",
+          "System.Drawing.Common": "8.0.15"
+        },
+        "compile": {
+          "lib/net8.0/DevExpress.Sparkline.v25.1.Core.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/DevExpress.Sparkline.v25.1.Core.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DevExpress.Spreadsheet.Core/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "DevExpress.DataAccess": "[25.1.3]",
+          "DevExpress.DataVisualization.Core": "[25.1.3]",
+          "DevExpress.Drawing": "[25.1.3]",
+          "DevExpress.Office.Core": "[25.1.3]",
+          "DevExpress.Pdf.Core": "[25.1.3]",
+          "DevExpress.Printing.Core": "[25.1.3]",
+          "DevExpress.Sparkline.Core": "[25.1.3]",
+          "System.Drawing.Common": "8.0.15"
+        },
+        "compile": {
+          "lib/net8.0/DevExpress.Spreadsheet.v25.1.Core.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/DevExpress.Spreadsheet.v25.1.Core.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DevExpress.TreeMap.Core/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]"
+        },
+        "compile": {
+          "lib/net8.0/DevExpress.TreeMap.v25.1.Core.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/DevExpress.TreeMap.v25.1.Core.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DevExpress.Wpf.Charts/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Charts.Core": "[25.1.3]",
+          "DevExpress.Data": "[25.1.3]",
+          "DevExpress.Data.Desktop": "[25.1.3]",
+          "DevExpress.DataVisualization.Core": "[25.1.3]",
+          "DevExpress.Drawing": "[25.1.3]",
+          "DevExpress.Mvvm": "[25.1.3]",
+          "DevExpress.Printing.Core": "[25.1.3]",
+          "DevExpress.Wpf.Core": "[25.1.3]",
+          "DevExpress.Wpf.Docking": "[25.1.3]",
+          "DevExpress.Wpf.Grid.Core": "[25.1.3]",
+          "DevExpress.Wpf.Printing": "[25.1.3]",
+          "DevExpress.Wpf.PropertyGrid": "[25.1.3]",
+          "DevExpress.Wpf.Ribbon": "[25.1.3]"
+        },
+        "compile": {
+          "lib/net8.0-windows/DevExpress.Charts.Designer.v25.1.dll": {
+            "related": ".xml"
+          },
+          "lib/net8.0-windows/DevExpress.Xpf.Charts.v25.1.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0-windows/DevExpress.Charts.Designer.v25.1.dll": {
+            "related": ".xml"
+          },
+          "lib/net8.0-windows/DevExpress.Xpf.Charts.v25.1.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DevExpress.Wpf.Controls/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "DevExpress.Data.Desktop": "[25.1.3]",
+          "DevExpress.Mvvm": "[25.1.3]",
+          "DevExpress.Printing.Core": "[25.1.3]",
+          "DevExpress.Wpf.Core": "[25.1.3]"
+        },
+        "compile": {
+          "lib/net8.0-windows/DevExpress.Xpf.Controls.v25.1.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0-windows/DevExpress.Xpf.Controls.v25.1.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DevExpress.Wpf.Core/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "DevExpress.Data.Desktop": "[25.1.3]",
+          "DevExpress.Drawing": "[25.1.3]",
+          "DevExpress.Mvvm": "[25.1.3]",
+          "DevExpress.Pdf.Core": "[25.1.3]",
+          "DevExpress.Printing.Core": "[25.1.3]",
+          "DevExpress.Wpf.Themes.Office2019Colorful": "[25.1.3]"
+        },
+        "compile": {
+          "lib/net8.0-windows/DevExpress.Xpf.Core.v25.1.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0-windows/DevExpress.Xpf.Core.v25.1.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "build/net8.0-windows/DevExpress.Wpf.Core.props": {}
+        }
+      },
+      "DevExpress.Wpf.Docking/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "DevExpress.Data.Desktop": "[25.1.3]",
+          "DevExpress.Mvvm": "[25.1.3]",
+          "DevExpress.Wpf.Core": "[25.1.3]"
+        },
+        "compile": {
+          "lib/net8.0-windows/DevExpress.Xpf.Docking.v25.1.dll": {
+            "related": ".xml"
+          },
+          "lib/net8.0-windows/DevExpress.Xpf.Layout.v25.1.Core.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0-windows/DevExpress.Xpf.Docking.v25.1.dll": {
+            "related": ".xml"
+          },
+          "lib/net8.0-windows/DevExpress.Xpf.Layout.v25.1.Core.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DevExpress.Wpf.DocumentViewer.Core/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "DevExpress.Mvvm": "[25.1.3]",
+          "DevExpress.Wpf.Controls": "[25.1.3]",
+          "DevExpress.Wpf.Core": "[25.1.3]",
+          "DevExpress.Wpf.Grid.Core": "[25.1.3]",
+          "DevExpress.Wpf.Ribbon": "[25.1.3]"
+        },
+        "compile": {
+          "lib/net8.0-windows/DevExpress.Xpf.DocumentViewer.v25.1.Core.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0-windows/DevExpress.Xpf.DocumentViewer.v25.1.Core.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DevExpress.Wpf.Grid.Core/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "DevExpress.Data.Desktop": "[25.1.3]",
+          "DevExpress.Drawing": "[25.1.3]",
+          "DevExpress.Mvvm": "[25.1.3]",
+          "DevExpress.Printing.Core": "[25.1.3]",
+          "DevExpress.Wpf.Core": "[25.1.3]"
+        },
+        "compile": {
+          "lib/net8.0-windows/DevExpress.Xpf.Grid.v25.1.Core.dll": {
+            "related": ".xml"
+          },
+          "lib/net8.0-windows/DevExpress.Xpf.Grid.v25.1.Extensions.dll": {
+            "related": ".xml"
+          },
+          "lib/net8.0-windows/DevExpress.Xpf.Grid.v25.1.dll": {
+            "related": ".Core.xml;.Extensions.xml;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0-windows/DevExpress.Xpf.Grid.v25.1.Core.dll": {
+            "related": ".xml"
+          },
+          "lib/net8.0-windows/DevExpress.Xpf.Grid.v25.1.Extensions.dll": {
+            "related": ".xml"
+          },
+          "lib/net8.0-windows/DevExpress.Xpf.Grid.v25.1.dll": {
+            "related": ".Core.xml;.Extensions.xml;.xml"
+          }
+        }
+      },
+      "DevExpress.Wpf.LayoutControl/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "DevExpress.Data.Desktop": "[25.1.3]",
+          "DevExpress.Mvvm": "[25.1.3]",
+          "DevExpress.Wpf.Core": "[25.1.3]"
+        },
+        "compile": {
+          "lib/net8.0-windows/DevExpress.Xpf.LayoutControl.v25.1.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0-windows/DevExpress.Xpf.LayoutControl.v25.1.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DevExpress.Wpf.NavBar/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "DevExpress.Mvvm": "[25.1.3]",
+          "DevExpress.Wpf.Controls": "[25.1.3]",
+          "DevExpress.Wpf.Core": "[25.1.3]"
+        },
+        "compile": {
+          "lib/net8.0-windows/DevExpress.Xpf.NavBar.v25.1.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0-windows/DevExpress.Xpf.NavBar.v25.1.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DevExpress.Wpf.Office/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "DevExpress.Drawing": "[25.1.3]",
+          "DevExpress.Office.Core": "[25.1.3]",
+          "DevExpress.Wpf.Core": "[25.1.3]"
+        },
+        "compile": {
+          "lib/net8.0-windows/DevExpress.Xpf.Office.v25.1.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0-windows/DevExpress.Xpf.Office.v25.1.dll": {}
+        }
+      },
+      "DevExpress.Wpf.Printing/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "DevExpress.Data.Desktop": "[25.1.3]",
+          "DevExpress.Drawing": "[25.1.3]",
+          "DevExpress.Mvvm": "[25.1.3]",
+          "DevExpress.Office.Core": "[25.1.3]",
+          "DevExpress.Printing.Core": "[25.1.3]",
+          "DevExpress.RichEdit.Core": "[25.1.3]",
+          "DevExpress.Wpf.Controls": "[25.1.3]",
+          "DevExpress.Wpf.Core": "[25.1.3]",
+          "DevExpress.Wpf.Docking": "[25.1.3]",
+          "DevExpress.Wpf.DocumentViewer.Core": "[25.1.3]",
+          "DevExpress.Wpf.Grid.Core": "[25.1.3]",
+          "DevExpress.Wpf.LayoutControl": "[25.1.3]",
+          "DevExpress.Wpf.Ribbon": "[25.1.3]",
+          "System.ServiceModel.Http": "8.1.2"
+        },
+        "compile": {
+          "lib/net8.0-windows/DevExpress.Xpf.Printing.v25.1.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0-windows/DevExpress.Xpf.Printing.v25.1.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DevExpress.Wpf.PropertyGrid/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "DevExpress.Mvvm": "[25.1.3]",
+          "DevExpress.Printing.Core": "[25.1.3]",
+          "DevExpress.Wpf.Core": "[25.1.3]"
+        },
+        "compile": {
+          "lib/net8.0-windows/DevExpress.Xpf.PropertyGrid.v25.1.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0-windows/DevExpress.Xpf.PropertyGrid.v25.1.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DevExpress.Wpf.Ribbon/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "DevExpress.Data.Desktop": "[25.1.3]",
+          "DevExpress.Mvvm": "[25.1.3]",
+          "DevExpress.Wpf.Core": "[25.1.3]"
+        },
+        "compile": {
+          "lib/net8.0-windows/DevExpress.Xpf.Ribbon.v25.1.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0-windows/DevExpress.Xpf.Ribbon.v25.1.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DevExpress.Wpf.Spreadsheet/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "DevExpress.Data.Desktop": "[25.1.3]",
+          "DevExpress.DataVisualization.Core": "[25.1.3]",
+          "DevExpress.Drawing": "[25.1.3]",
+          "DevExpress.Images": "[25.1.3]",
+          "DevExpress.Mvvm": "[25.1.3]",
+          "DevExpress.Office.Core": "[25.1.3]",
+          "DevExpress.Printing.Core": "[25.1.3]",
+          "DevExpress.Spreadsheet.Core": "[25.1.3]",
+          "DevExpress.Wpf.Charts": "[25.1.3]",
+          "DevExpress.Wpf.Core": "[25.1.3]",
+          "DevExpress.Wpf.Docking": "[25.1.3]",
+          "DevExpress.Wpf.DocumentViewer.Core": "[25.1.3]",
+          "DevExpress.Wpf.Grid.Core": "[25.1.3]",
+          "DevExpress.Wpf.NavBar": "[25.1.3]",
+          "DevExpress.Wpf.Office": "[25.1.3]",
+          "DevExpress.Wpf.Printing": "[25.1.3]",
+          "DevExpress.Wpf.Ribbon": "[25.1.3]",
+          "DevExpress.Wpf.TreeMap": "[25.1.3]"
+        },
+        "compile": {
+          "lib/net8.0-windows/DevExpress.Xpf.Spreadsheet.v25.1.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0-windows/DevExpress.Xpf.Spreadsheet.v25.1.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DevExpress.Wpf.Themes.Office2019Colorful/25.1.3": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0-windows/DevExpress.Xpf.Themes.Office2019Colorful.v25.1.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0-windows/DevExpress.Xpf.Themes.Office2019Colorful.v25.1.dll": {}
+        }
+      },
+      "DevExpress.Wpf.TreeMap/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "DevExpress.DataVisualization.Core": "[25.1.3]",
+          "DevExpress.Mvvm": "[25.1.3]",
+          "DevExpress.TreeMap.Core": "[25.1.3]",
+          "DevExpress.Wpf.Core": "[25.1.3]"
+        },
+        "compile": {
+          "lib/net8.0-windows/DevExpress.Xpf.TreeMap.v25.1.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0-windows/DevExpress.Xpf.TreeMap.v25.1.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "DevExpress.Xpo/25.1.3": {
+        "type": "package",
+        "dependencies": {
+          "DevExpress.Data": "[25.1.3]",
+          "Microsoft.Extensions.DependencyInjection": "8.0.1",
+          "System.Drawing.Common": "8.0.15",
+          "System.ServiceModel.Http": "8.1.2",
+          "System.ServiceModel.NetTcp": "8.1.2"
+        },
+        "compile": {
+          "lib/net8.0/DevExpress.Xpo.v25.1.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/DevExpress.Xpo.v25.1.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.Data.Sqlite.Core/8.0.7": {
+        "type": "package",
+        "dependencies": {
+          "SQLitePCLRaw.core": "2.1.6"
+        },
+        "compile": {
+          "lib/net8.0/Microsoft.Data.Sqlite.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Data.Sqlite.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.EntityFrameworkCore/8.0.7": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Abstractions": "8.0.7",
+          "Microsoft.EntityFrameworkCore.Analyzers": "8.0.7",
+          "Microsoft.Extensions.Caching.Memory": "8.0.0",
+          "Microsoft.Extensions.Logging": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Microsoft.EntityFrameworkCore.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.EntityFrameworkCore.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net8.0/Microsoft.EntityFrameworkCore.props": {}
+        }
+      },
+      "Microsoft.EntityFrameworkCore.Abstractions/8.0.7": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Microsoft.EntityFrameworkCore.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.EntityFrameworkCore.Abstractions.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.EntityFrameworkCore.Analyzers/8.0.7": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/_._": {}
+        }
+      },
+      "Microsoft.EntityFrameworkCore.Relational/8.0.7": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "8.0.7",
+          "Microsoft.Extensions.Configuration.Abstractions": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Microsoft.EntityFrameworkCore.Relational.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.EntityFrameworkCore.Relational.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.EntityFrameworkCore.Sqlite/8.0.7": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore.Sqlite.Core": "8.0.7",
+          "SQLitePCLRaw.bundle_e_sqlite3": "2.1.6"
+        },
+        "compile": {
+          "lib/net8.0/_._": {}
+        },
+        "runtime": {
+          "lib/net8.0/_._": {}
+        }
+      },
+      "Microsoft.EntityFrameworkCore.Sqlite.Core/8.0.7": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Data.Sqlite.Core": "8.0.7",
+          "Microsoft.EntityFrameworkCore.Relational": "8.0.7",
+          "Microsoft.Extensions.DependencyModel": "8.0.1"
+        },
+        "compile": {
+          "lib/net8.0/Microsoft.EntityFrameworkCore.Sqlite.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.EntityFrameworkCore.Sqlite.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.Extensions.Caching.Abstractions/8.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Primitives": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Microsoft.Extensions.Caching.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Extensions.Caching.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "Microsoft.Extensions.Caching.Memory/8.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Caching.Abstractions": "8.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.0",
+          "Microsoft.Extensions.Logging.Abstractions": "8.0.0",
+          "Microsoft.Extensions.Options": "8.0.0",
+          "Microsoft.Extensions.Primitives": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Microsoft.Extensions.Caching.Memory.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Extensions.Caching.Memory.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "Microsoft.Extensions.Configuration.Abstractions/8.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Primitives": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Microsoft.Extensions.Configuration.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Extensions.Configuration.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "Microsoft.Extensions.DependencyInjection/8.0.1": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.2"
+        },
+        "compile": {
+          "lib/net8.0/Microsoft.Extensions.DependencyInjection.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Extensions.DependencyInjection.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "Microsoft.Extensions.DependencyInjection.Abstractions/8.0.2": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "Microsoft.Extensions.DependencyModel/8.0.1": {
+        "type": "package",
+        "dependencies": {
+          "System.Text.Encodings.Web": "8.0.0",
+          "System.Text.Json": "8.0.4"
+        },
+        "compile": {
+          "lib/net8.0/Microsoft.Extensions.DependencyModel.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Extensions.DependencyModel.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "Microsoft.Extensions.Logging/8.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection": "8.0.0",
+          "Microsoft.Extensions.Logging.Abstractions": "8.0.0",
+          "Microsoft.Extensions.Options": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Microsoft.Extensions.Logging.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Extensions.Logging.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "Microsoft.Extensions.Logging.Abstractions/8.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Microsoft.Extensions.Logging.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Extensions.Logging.Abstractions.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/Microsoft.Extensions.Logging.Abstractions.targets": {}
+        }
+      },
+      "Microsoft.Extensions.ObjectPool/8.0.10": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Microsoft.Extensions.ObjectPool.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Extensions.ObjectPool.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Microsoft.Extensions.Options/8.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.0",
+          "Microsoft.Extensions.Primitives": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Microsoft.Extensions.Options.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Extensions.Options.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/Microsoft.Extensions.Options.targets": {}
+        }
+      },
+      "Microsoft.Extensions.Primitives/8.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Microsoft.Extensions.Primitives.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Microsoft.Extensions.Primitives.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "Microsoft.Win32.SystemEvents/8.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/Microsoft.Win32.SystemEvents.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "runtimes/win/lib/net8.0/Microsoft.Win32.SystemEvents.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "SQLitePCLRaw.bundle_e_sqlite3/2.1.6": {
+        "type": "package",
+        "dependencies": {
+          "SQLitePCLRaw.lib.e_sqlite3": "2.1.6",
+          "SQLitePCLRaw.provider.e_sqlite3": "2.1.6"
+        },
+        "compile": {
+          "lib/netstandard2.0/SQLitePCLRaw.batteries_v2.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/SQLitePCLRaw.batteries_v2.dll": {}
+        }
+      },
+      "SQLitePCLRaw.core/2.1.6": {
+        "type": "package",
+        "dependencies": {
+          "System.Memory": "4.5.3"
+        },
+        "compile": {
+          "lib/netstandard2.0/SQLitePCLRaw.core.dll": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/SQLitePCLRaw.core.dll": {}
+        }
+      },
+      "SQLitePCLRaw.lib.e_sqlite3/2.1.6": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.0/_._": {}
+        },
+        "runtime": {
+          "lib/netstandard2.0/_._": {}
+        },
+        "native": {
+          "runtimes/win-x64/native/e_sqlite3.dll": {}
+        },
+        "build": {
+          "buildTransitive/net8.0/SQLitePCLRaw.lib.e_sqlite3.targets": {}
+        }
+      },
+      "SQLitePCLRaw.provider.e_sqlite3/2.1.6": {
+        "type": "package",
+        "dependencies": {
+          "SQLitePCLRaw.core": "2.1.6"
+        },
+        "compile": {
+          "lib/net6.0-windows7.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
+        },
+        "runtime": {
+          "lib/net6.0-windows7.0/SQLitePCLRaw.provider.e_sqlite3.dll": {}
+        }
+      },
+      "System.CodeDom/4.4.0": {
+        "type": "package",
+        "compile": {
+          "ref/netstandard2.0/System.CodeDom.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/System.CodeDom.dll": {}
+        }
+      },
+      "System.Configuration.ConfigurationManager/8.0.1": {
+        "type": "package",
+        "dependencies": {
+          "System.Diagnostics.EventLog": "8.0.1",
+          "System.Security.Cryptography.ProtectedData": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/System.Configuration.ConfigurationManager.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/System.Configuration.ConfigurationManager.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "System.Data.OleDb/8.0.1": {
+        "type": "package",
+        "dependencies": {
+          "System.Configuration.ConfigurationManager": "8.0.1",
+          "System.Diagnostics.PerformanceCounter": "8.0.1"
+        },
+        "compile": {
+          "lib/net8.0/System.Data.OleDb.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "runtimes/win/lib/net8.0/System.Data.OleDb.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "System.Diagnostics.EventLog/8.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/System.Diagnostics.EventLog.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "runtimes/win/lib/net8.0/System.Diagnostics.EventLog.Messages.dll": {},
+          "runtimes/win/lib/net8.0/System.Diagnostics.EventLog.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "System.Diagnostics.PerformanceCounter/8.0.1": {
+        "type": "package",
+        "dependencies": {
+          "System.Configuration.ConfigurationManager": "8.0.1"
+        },
+        "compile": {
+          "lib/net8.0/System.Diagnostics.PerformanceCounter.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "runtimes/win/lib/net8.0/System.Diagnostics.PerformanceCounter.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "System.Drawing.Common/8.0.15": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Win32.SystemEvents": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/System.Drawing.Common.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/System.Drawing.Common.dll": {
+            "related": ".pdb;.xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "System.Memory/4.5.3": {
+        "type": "package",
+        "compile": {
+          "ref/netcoreapp2.1/_._": {}
+        },
+        "runtime": {
+          "lib/netcoreapp2.1/_._": {}
+        }
+      },
+      "System.Security.Cryptography.Pkcs/8.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/System.Security.Cryptography.Pkcs.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "runtimes/win/lib/net8.0/System.Security.Cryptography.Pkcs.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "System.Security.Cryptography.ProtectedData/8.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/System.Security.Cryptography.ProtectedData.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/System.Security.Cryptography.ProtectedData.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "System.Security.Cryptography.Xml/8.0.2": {
+        "type": "package",
+        "dependencies": {
+          "System.Security.Cryptography.Pkcs": "8.0.1"
+        },
+        "compile": {
+          "lib/net8.0/System.Security.Cryptography.Xml.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/System.Security.Cryptography.Xml.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "System.ServiceModel.Http/8.1.2": {
+        "type": "package",
+        "dependencies": {
+          "System.ServiceModel.Primitives": "8.1.2"
+        },
+        "compile": {
+          "ref/net8.0/System.ServiceModel.Http.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/System.ServiceModel.Http.dll": {
+            "related": ".pdb"
+          }
+        },
+        "resource": {
+          "lib/net8.0/cs/System.ServiceModel.Http.resources.dll": {
+            "locale": "cs"
+          },
+          "lib/net8.0/de/System.ServiceModel.Http.resources.dll": {
+            "locale": "de"
+          },
+          "lib/net8.0/es/System.ServiceModel.Http.resources.dll": {
+            "locale": "es"
+          },
+          "lib/net8.0/fr/System.ServiceModel.Http.resources.dll": {
+            "locale": "fr"
+          },
+          "lib/net8.0/it/System.ServiceModel.Http.resources.dll": {
+            "locale": "it"
+          },
+          "lib/net8.0/ja/System.ServiceModel.Http.resources.dll": {
+            "locale": "ja"
+          },
+          "lib/net8.0/ko/System.ServiceModel.Http.resources.dll": {
+            "locale": "ko"
+          },
+          "lib/net8.0/pl/System.ServiceModel.Http.resources.dll": {
+            "locale": "pl"
+          },
+          "lib/net8.0/pt-BR/System.ServiceModel.Http.resources.dll": {
+            "locale": "pt-BR"
+          },
+          "lib/net8.0/ru/System.ServiceModel.Http.resources.dll": {
+            "locale": "ru"
+          },
+          "lib/net8.0/tr/System.ServiceModel.Http.resources.dll": {
+            "locale": "tr"
+          },
+          "lib/net8.0/zh-Hans/System.ServiceModel.Http.resources.dll": {
+            "locale": "zh-Hans"
+          },
+          "lib/net8.0/zh-Hant/System.ServiceModel.Http.resources.dll": {
+            "locale": "zh-Hant"
+          }
+        }
+      },
+      "System.ServiceModel.NetFramingBase/8.1.2": {
+        "type": "package",
+        "dependencies": {
+          "System.ServiceModel.Primitives": "8.1.2"
+        },
+        "compile": {
+          "ref/net8.0/System.ServiceModel.NetFramingBase.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/System.ServiceModel.NetFramingBase.dll": {
+            "related": ".pdb"
+          }
+        },
+        "resource": {
+          "lib/net8.0/cs/System.ServiceModel.NetFramingBase.resources.dll": {
+            "locale": "cs"
+          },
+          "lib/net8.0/de/System.ServiceModel.NetFramingBase.resources.dll": {
+            "locale": "de"
+          },
+          "lib/net8.0/es/System.ServiceModel.NetFramingBase.resources.dll": {
+            "locale": "es"
+          },
+          "lib/net8.0/fr/System.ServiceModel.NetFramingBase.resources.dll": {
+            "locale": "fr"
+          },
+          "lib/net8.0/it/System.ServiceModel.NetFramingBase.resources.dll": {
+            "locale": "it"
+          },
+          "lib/net8.0/ja/System.ServiceModel.NetFramingBase.resources.dll": {
+            "locale": "ja"
+          },
+          "lib/net8.0/ko/System.ServiceModel.NetFramingBase.resources.dll": {
+            "locale": "ko"
+          },
+          "lib/net8.0/pl/System.ServiceModel.NetFramingBase.resources.dll": {
+            "locale": "pl"
+          },
+          "lib/net8.0/pt-BR/System.ServiceModel.NetFramingBase.resources.dll": {
+            "locale": "pt-BR"
+          },
+          "lib/net8.0/ru/System.ServiceModel.NetFramingBase.resources.dll": {
+            "locale": "ru"
+          },
+          "lib/net8.0/tr/System.ServiceModel.NetFramingBase.resources.dll": {
+            "locale": "tr"
+          },
+          "lib/net8.0/zh-Hans/System.ServiceModel.NetFramingBase.resources.dll": {
+            "locale": "zh-Hans"
+          },
+          "lib/net8.0/zh-Hant/System.ServiceModel.NetFramingBase.resources.dll": {
+            "locale": "zh-Hant"
+          }
+        }
+      },
+      "System.ServiceModel.NetTcp/8.1.2": {
+        "type": "package",
+        "dependencies": {
+          "System.ServiceModel.NetFramingBase": "8.1.2",
+          "System.ServiceModel.Primitives": "8.1.2"
+        },
+        "compile": {
+          "ref/net8.0/System.ServiceModel.NetTcp.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/System.ServiceModel.NetTcp.dll": {
+            "related": ".pdb"
+          }
+        },
+        "resource": {
+          "lib/net8.0/cs/System.ServiceModel.NetTcp.resources.dll": {
+            "locale": "cs"
+          },
+          "lib/net8.0/de/System.ServiceModel.NetTcp.resources.dll": {
+            "locale": "de"
+          },
+          "lib/net8.0/es/System.ServiceModel.NetTcp.resources.dll": {
+            "locale": "es"
+          },
+          "lib/net8.0/fr/System.ServiceModel.NetTcp.resources.dll": {
+            "locale": "fr"
+          },
+          "lib/net8.0/it/System.ServiceModel.NetTcp.resources.dll": {
+            "locale": "it"
+          },
+          "lib/net8.0/ja/System.ServiceModel.NetTcp.resources.dll": {
+            "locale": "ja"
+          },
+          "lib/net8.0/ko/System.ServiceModel.NetTcp.resources.dll": {
+            "locale": "ko"
+          },
+          "lib/net8.0/pl/System.ServiceModel.NetTcp.resources.dll": {
+            "locale": "pl"
+          },
+          "lib/net8.0/pt-BR/System.ServiceModel.NetTcp.resources.dll": {
+            "locale": "pt-BR"
+          },
+          "lib/net8.0/ru/System.ServiceModel.NetTcp.resources.dll": {
+            "locale": "ru"
+          },
+          "lib/net8.0/tr/System.ServiceModel.NetTcp.resources.dll": {
+            "locale": "tr"
+          },
+          "lib/net8.0/zh-Hans/System.ServiceModel.NetTcp.resources.dll": {
+            "locale": "zh-Hans"
+          },
+          "lib/net8.0/zh-Hant/System.ServiceModel.NetTcp.resources.dll": {
+            "locale": "zh-Hant"
+          }
+        }
+      },
+      "System.ServiceModel.Primitives/8.1.2": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.ObjectPool": "8.0.10",
+          "System.Security.Cryptography.Xml": "8.0.2"
+        },
+        "compile": {
+          "ref/net8.0/System.ServiceModel.Duplex.dll": {},
+          "ref/net8.0/System.ServiceModel.Primitives.dll": {},
+          "ref/net8.0/System.ServiceModel.Security.dll": {},
+          "ref/net8.0/System.ServiceModel.dll": {}
+        },
+        "runtime": {
+          "lib/net8.0/System.ServiceModel.Duplex.dll": {
+            "related": ".pdb"
+          },
+          "lib/net8.0/System.ServiceModel.Primitives.dll": {
+            "related": ".pdb"
+          },
+          "lib/net8.0/System.ServiceModel.Security.dll": {
+            "related": ".pdb"
+          },
+          "lib/net8.0/System.ServiceModel.dll": {
+            "related": ".Duplex.pdb;.pdb;.Primitives.pdb;.Security.pdb"
+          }
+        },
+        "resource": {
+          "lib/net8.0/cs/System.ServiceModel.Primitives.resources.dll": {
+            "locale": "cs"
+          },
+          "lib/net8.0/de/System.ServiceModel.Primitives.resources.dll": {
+            "locale": "de"
+          },
+          "lib/net8.0/es/System.ServiceModel.Primitives.resources.dll": {
+            "locale": "es"
+          },
+          "lib/net8.0/fr/System.ServiceModel.Primitives.resources.dll": {
+            "locale": "fr"
+          },
+          "lib/net8.0/it/System.ServiceModel.Primitives.resources.dll": {
+            "locale": "it"
+          },
+          "lib/net8.0/ja/System.ServiceModel.Primitives.resources.dll": {
+            "locale": "ja"
+          },
+          "lib/net8.0/ko/System.ServiceModel.Primitives.resources.dll": {
+            "locale": "ko"
+          },
+          "lib/net8.0/pl/System.ServiceModel.Primitives.resources.dll": {
+            "locale": "pl"
+          },
+          "lib/net8.0/pt-BR/System.ServiceModel.Primitives.resources.dll": {
+            "locale": "pt-BR"
+          },
+          "lib/net8.0/ru/System.ServiceModel.Primitives.resources.dll": {
+            "locale": "ru"
+          },
+          "lib/net8.0/tr/System.ServiceModel.Primitives.resources.dll": {
+            "locale": "tr"
+          },
+          "lib/net8.0/zh-Hans/System.ServiceModel.Primitives.resources.dll": {
+            "locale": "zh-Hans"
+          },
+          "lib/net8.0/zh-Hant/System.ServiceModel.Primitives.resources.dll": {
+            "locale": "zh-Hant"
+          }
+        }
+      },
+      "System.Text.Encodings.Web/8.0.0": {
+        "type": "package",
+        "compile": {
+          "lib/net8.0/System.Text.Encodings.Web.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/System.Text.Encodings.Web.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/_._": {}
+        }
+      },
+      "System.Text.Json/8.0.4": {
+        "type": "package",
+        "dependencies": {
+          "System.Text.Encodings.Web": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/System.Text.Json.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/System.Text.Json.dll": {
+            "related": ".xml"
+          }
+        },
+        "build": {
+          "buildTransitive/net6.0/System.Text.Json.targets": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "DevExpress.Charts.Core/25.1.3": {
+      "sha512": "+3xrRgQmhXIcZGop1EFvARI2cKGCppxiqRyKQh1LhvdE7pDTc8elb6P6h1cWX6yvFLSgIYu12EhKb1f6K7G0Hg==",
+      "type": "package",
+      "path": "devexpress.charts.core/25.1.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "devexpress.charts.core.25.1.3.nupkg.sha512",
+        "devexpress.charts.core.nuspec",
+        "lib/net462/DevExpress.Charts.v25.1.Core.dll",
+        "lib/net462/DevExpress.Charts.v25.1.Core.xml",
+        "lib/net8.0/DevExpress.Charts.v25.1.Core.dll",
+        "lib/net8.0/DevExpress.Charts.v25.1.Core.xml"
+      ]
+    },
+    "DevExpress.CodeParser/25.1.3": {
+      "sha512": "ee2pY4Um0R6HqNLdyDIg6Y9Jg6B1TlGvogvRhaiNp8csicDQE0gzdnHzgHr03ax/P3CsjkZzDdP6mUhV3Pq0pw==",
+      "type": "package",
+      "path": "devexpress.codeparser/25.1.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "devexpress.codeparser.25.1.3.nupkg.sha512",
+        "devexpress.codeparser.nuspec",
+        "lib/net462/DevExpress.CodeParser.v25.1.dll",
+        "lib/net8.0/DevExpress.CodeParser.v25.1.dll"
+      ]
+    },
+    "DevExpress.Data/25.1.3": {
+      "sha512": "zqXiuRty9D64USkIFKFQek+wF3Ie70xmLrabt2VDG8kDx1788x3lU8XadWnoTviSAVdt83AcyAZGc77eQAf1eg==",
+      "type": "package",
+      "path": "devexpress.data/25.1.3",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "analyzers/dotnet/DevExpress.Generator.dll",
+        "devexpress.data.25.1.3.nupkg.sha512",
+        "devexpress.data.nuspec",
+        "lib/net462/DevExpress.Data.v25.1.dll",
+        "lib/net462/DevExpress.Data.v25.1.xml",
+        "lib/net8.0/DevExpress.Data.v25.1.dll",
+        "lib/net8.0/DevExpress.Data.v25.1.xml",
+        "tools/VisualStudioToolsManifest.xml",
+        "tools/install.ps1",
+        "tools/uninstall.ps1"
+      ]
+    },
+    "DevExpress.Data.Desktop/25.1.3": {
+      "sha512": "cKsXvvr3FuvwEZZVpDeAdtpSaHOpdYf80yWth0JyiMEX6v+tq1nDIn2KJ4CfJjwDvSAbVXlMi2vrvA92r2Jy6Q==",
+      "type": "package",
+      "path": "devexpress.data.desktop/25.1.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "build/net8.0-windows/DevExpress.Data.Desktop.props",
+        "devexpress.data.desktop.25.1.3.nupkg.sha512",
+        "devexpress.data.desktop.nuspec",
+        "lib/net462/DevExpress.Data.Desktop.v25.1.dll",
+        "lib/net462/DevExpress.Data.Desktop.v25.1.xml",
+        "lib/net8.0-windows/DevExpress.Data.Desktop.v25.1.dll",
+        "lib/net8.0-windows/DevExpress.Data.Desktop.v25.1.xml"
+      ]
+    },
+    "DevExpress.DataAccess/25.1.3": {
+      "sha512": "YEPGVLePtRj4YvaZvvhFxGf3k+34gsNjbfig8y0Z7k5JoslOLBxL1w/OBwl0JNDkoBJT7Y/MoL1saY05rk+fvg==",
+      "type": "package",
+      "path": "devexpress.dataaccess/25.1.3",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "devexpress.dataaccess.25.1.3.nupkg.sha512",
+        "devexpress.dataaccess.nuspec",
+        "lib/net462/DevExpress.DataAccess.v25.1.dll",
+        "lib/net462/DevExpress.DataAccess.v25.1.xml",
+        "lib/net8.0/DevExpress.DataAccess.v25.1.dll",
+        "lib/net8.0/DevExpress.DataAccess.v25.1.xml",
+        "tools/VisualStudioToolsManifest.xml"
+      ]
+    },
+    "DevExpress.DataVisualization.Core/25.1.3": {
+      "sha512": "enUoOnhpLJTkLXComJR1Q9/MRmHGoInJIrnp+EpXncbkgbBH5e8BZjwthwAt0MoatNSKVlo/ipMraUqCIV835w==",
+      "type": "package",
+      "path": "devexpress.datavisualization.core/25.1.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "devexpress.datavisualization.core.25.1.3.nupkg.sha512",
+        "devexpress.datavisualization.core.nuspec",
+        "lib/net462/DevExpress.DataVisualization.v25.1.Core.dll",
+        "lib/net8.0/DevExpress.DataVisualization.v25.1.Core.dll"
+      ]
+    },
+    "DevExpress.Drawing/25.1.3": {
+      "sha512": "r9HLuVHH+w0OvwZiLDAtdV2d7yTe9kqU1RGBq0L62/lZ3CTGKqHe3YOXwpzVAhhbynU2JrzbbwFzU3k7vkPpWA==",
+      "type": "package",
+      "path": "devexpress.drawing/25.1.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "devexpress.drawing.25.1.3.nupkg.sha512",
+        "devexpress.drawing.nuspec",
+        "lib/net462/DevExpress.Drawing.v25.1.dll",
+        "lib/net462/DevExpress.Drawing.v25.1.xml",
+        "lib/net8.0/DevExpress.Drawing.v25.1.dll",
+        "lib/net8.0/DevExpress.Drawing.v25.1.xml"
+      ]
+    },
+    "DevExpress.Images/25.1.3": {
+      "sha512": "DfZTo9xCzYsH54yyPl/zKCp29fqyu1dmuSIdUh+ot6NJdpHe1XPsOnj4fTBR1Ch/VHjxWjl4jdrgkNAKZTuWVg==",
+      "type": "package",
+      "path": "devexpress.images/25.1.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "devexpress.images.25.1.3.nupkg.sha512",
+        "devexpress.images.nuspec",
+        "lib/net462/DevExpress.Images.v25.1.dll",
+        "lib/net8.0/DevExpress.Images.v25.1.dll"
+      ]
+    },
+    "DevExpress.Mvvm/25.1.3": {
+      "sha512": "U8wDrxfhA+DY60uKWEkyf4ZjekWNOXQMgTFRNQ4K//a/winkzXMBBgVzo1l3MvjOclIcvXNTz8TUYOGqHe/Nfw==",
+      "type": "package",
+      "path": "devexpress.mvvm/25.1.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "devexpress.mvvm.25.1.3.nupkg.sha512",
+        "devexpress.mvvm.nuspec",
+        "lib/net462/DevExpress.Mvvm.v25.1.dll",
+        "lib/net462/DevExpress.Mvvm.v25.1.xml",
+        "lib/net8.0-windows/DevExpress.Mvvm.v25.1.dll",
+        "lib/net8.0-windows/DevExpress.Mvvm.v25.1.xml"
+      ]
+    },
+    "DevExpress.Office.Core/25.1.3": {
+      "sha512": "VJlyx3C6QQ/7NLviIzdSykN/te9H9ci+JJWSAX7LfvWTNap16eGOzjSS8M0Jtb7FkenyHw6VpwoL9tqTUBFrcw==",
+      "type": "package",
+      "path": "devexpress.office.core/25.1.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "devexpress.office.core.25.1.3.nupkg.sha512",
+        "devexpress.office.core.nuspec",
+        "lib/net462/DevExpress.Office.v25.1.Core.dll",
+        "lib/net462/DevExpress.Office.v25.1.Core.xml",
+        "lib/net8.0/DevExpress.Office.v25.1.Core.dll",
+        "lib/net8.0/DevExpress.Office.v25.1.Core.xml"
+      ]
+    },
+    "DevExpress.Pdf.Core/25.1.3": {
+      "sha512": "g0ZV84uzyXLM0WmO+dpGNSF6CgW39oBOUn+snBAvhY8IUsOiF/6ixY1CFZXFO02fqz6LxiT1WVBH+GM7Ly1EAw==",
+      "type": "package",
+      "path": "devexpress.pdf.core/25.1.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "devexpress.pdf.core.25.1.3.nupkg.sha512",
+        "devexpress.pdf.core.nuspec",
+        "lib/net462/DevExpress.Pdf.v25.1.Core.dll",
+        "lib/net462/DevExpress.Pdf.v25.1.Core.xml",
+        "lib/net8.0/DevExpress.Pdf.v25.1.Core.dll",
+        "lib/net8.0/DevExpress.Pdf.v25.1.Core.xml"
+      ]
+    },
+    "DevExpress.Pdf.Drawing/25.1.3": {
+      "sha512": "uLUUPTp5mpDDWNC/uWXKFtx4ncRIxp4yR/6FujsBPocVQkLOqmhw1DlmEc6T3p005UouQqg5FY/Vxsssmohyyg==",
+      "type": "package",
+      "path": "devexpress.pdf.drawing/25.1.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "devexpress.pdf.drawing.25.1.3.nupkg.sha512",
+        "devexpress.pdf.drawing.nuspec",
+        "lib/net462/DevExpress.Pdf.v25.1.Drawing.dll",
+        "lib/net462/DevExpress.Pdf.v25.1.Drawing.xml",
+        "lib/net8.0/DevExpress.Pdf.v25.1.Drawing.dll",
+        "lib/net8.0/DevExpress.Pdf.v25.1.Drawing.xml"
+      ]
+    },
+    "DevExpress.Printing.Core/25.1.3": {
+      "sha512": "I2aXPYz+v2vZvZr0rMOWzG+CWkMJp9fAEAkXtiUxSqtdTZ73Q/g4Stxj+ra2vhZGMF4yxjlCT5ejQzzsoJMw6g==",
+      "type": "package",
+      "path": "devexpress.printing.core/25.1.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "devexpress.printing.core.25.1.3.nupkg.sha512",
+        "devexpress.printing.core.nuspec",
+        "lib/net462/DevExpress.Printing.v25.1.Core.dll",
+        "lib/net462/DevExpress.Printing.v25.1.Core.xml",
+        "lib/net8.0/DevExpress.Printing.v25.1.Core.dll",
+        "lib/net8.0/DevExpress.Printing.v25.1.Core.xml"
+      ]
+    },
+    "DevExpress.RichEdit.Core/25.1.3": {
+      "sha512": "TTiCFfMMa+i4ouaE5IOUNScYIbZPj34yKUY1kuofCChgD1wYSD1kyyBvowONslf0iK5vwKkcT0TyRrAhVTSIGQ==",
+      "type": "package",
+      "path": "devexpress.richedit.core/25.1.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "devexpress.richedit.core.25.1.3.nupkg.sha512",
+        "devexpress.richedit.core.nuspec",
+        "lib/net462/DevExpress.RichEdit.v25.1.Core.dll",
+        "lib/net462/DevExpress.RichEdit.v25.1.Core.xml",
+        "lib/net8.0/DevExpress.RichEdit.v25.1.Core.dll",
+        "lib/net8.0/DevExpress.RichEdit.v25.1.Core.xml"
+      ]
+    },
+    "DevExpress.Sparkline.Core/25.1.3": {
+      "sha512": "XclXEX4UssJRE+Q7GTw4Fjo37n7W2LHbhHqcXC4zPjY7hB1U8gn9e9Z30J6SCVnyn8JHc8RQil2i8nWJQrw98Q==",
+      "type": "package",
+      "path": "devexpress.sparkline.core/25.1.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "devexpress.sparkline.core.25.1.3.nupkg.sha512",
+        "devexpress.sparkline.core.nuspec",
+        "lib/net462/DevExpress.Sparkline.v25.1.Core.dll",
+        "lib/net462/DevExpress.Sparkline.v25.1.Core.xml",
+        "lib/net8.0/DevExpress.Sparkline.v25.1.Core.dll",
+        "lib/net8.0/DevExpress.Sparkline.v25.1.Core.xml"
+      ]
+    },
+    "DevExpress.Spreadsheet.Core/25.1.3": {
+      "sha512": "RUgJYQdPAH1OwIYwGenbqU78TqNERUD9P4YCQdyqyhaglZt9PCyj7mFIzxuRIUHWJ7JIWcxsAkyr8FSaLuH0yg==",
+      "type": "package",
+      "path": "devexpress.spreadsheet.core/25.1.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "devexpress.spreadsheet.core.25.1.3.nupkg.sha512",
+        "devexpress.spreadsheet.core.nuspec",
+        "lib/net462/DevExpress.Spreadsheet.v25.1.Core.dll",
+        "lib/net462/DevExpress.Spreadsheet.v25.1.Core.xml",
+        "lib/net8.0/DevExpress.Spreadsheet.v25.1.Core.dll",
+        "lib/net8.0/DevExpress.Spreadsheet.v25.1.Core.xml"
+      ]
+    },
+    "DevExpress.TreeMap.Core/25.1.3": {
+      "sha512": "gwm0YmaY5xG+9aMxMwZ+/zAukwcwsFOsiBTeqByA9LRr3FP4vLdEanSDMYnHkK+900QUlMw5QJZVnREmBsBm1w==",
+      "type": "package",
+      "path": "devexpress.treemap.core/25.1.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "devexpress.treemap.core.25.1.3.nupkg.sha512",
+        "devexpress.treemap.core.nuspec",
+        "lib/net462/DevExpress.TreeMap.v25.1.Core.dll",
+        "lib/net462/DevExpress.TreeMap.v25.1.Core.xml",
+        "lib/net8.0/DevExpress.TreeMap.v25.1.Core.dll",
+        "lib/net8.0/DevExpress.TreeMap.v25.1.Core.xml"
+      ]
+    },
+    "DevExpress.Wpf.Charts/25.1.3": {
+      "sha512": "whhkyf8oaAHfph+dtJMtoXaiA2Iuwudj0j0EIshoqvLrulSrfH33XWwop7QIhbSnO5Y6ulxWAqPY4Tmp2qQIiw==",
+      "type": "package",
+      "path": "devexpress.wpf.charts/25.1.3",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "devexpress.wpf.charts.25.1.3.nupkg.sha512",
+        "devexpress.wpf.charts.nuspec",
+        "lib/net462/Design/DevExpress.Xpf.Charts.v25.1.Design.dll",
+        "lib/net462/Design/DevExpress.Xpf.Charts.v25.1.DesignTools.dll",
+        "lib/net462/DevExpress.Charts.Designer.v25.1.dll",
+        "lib/net462/DevExpress.Charts.Designer.v25.1.xml",
+        "lib/net462/DevExpress.Xpf.Charts.v25.1.dll",
+        "lib/net462/DevExpress.Xpf.Charts.v25.1.xml",
+        "lib/net8.0-windows/Design/DevExpress.Xpf.Charts.v25.1.DesignTools.dll",
+        "lib/net8.0-windows/DevExpress.Charts.Designer.v25.1.dll",
+        "lib/net8.0-windows/DevExpress.Charts.Designer.v25.1.xml",
+        "lib/net8.0-windows/DevExpress.Xpf.Charts.v25.1.dll",
+        "lib/net8.0-windows/DevExpress.Xpf.Charts.v25.1.xml",
+        "tools/VisualStudioToolsManifest.xml"
+      ]
+    },
+    "DevExpress.Wpf.Controls/25.1.3": {
+      "sha512": "HpClDf3yx9dlfQg9WiCQ4s8LHa5La447Xz7TbPw526IeCJ24BODMiYeJttE43h30N4nJvwjA4DhN0g6an+mZJQ==",
+      "type": "package",
+      "path": "devexpress.wpf.controls/25.1.3",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "devexpress.wpf.controls.25.1.3.nupkg.sha512",
+        "devexpress.wpf.controls.nuspec",
+        "lib/net462/Design/DevExpress.Xpf.Controls.v25.1.Design.dll",
+        "lib/net462/Design/DevExpress.Xpf.Controls.v25.1.DesignTools.dll",
+        "lib/net462/DevExpress.Xpf.Controls.v25.1.dll",
+        "lib/net462/DevExpress.Xpf.Controls.v25.1.xml",
+        "lib/net8.0-windows/Design/DevExpress.Xpf.Controls.v25.1.DesignTools.dll",
+        "lib/net8.0-windows/DevExpress.Xpf.Controls.v25.1.dll",
+        "lib/net8.0-windows/DevExpress.Xpf.Controls.v25.1.xml",
+        "tools/VisualStudioToolsManifest.xml"
+      ]
+    },
+    "DevExpress.Wpf.Core/25.1.3": {
+      "sha512": "N9qC3cjh/oUeGTYzLMTDIYhzpFYHWM24aeF0EP967sLtf45NZEgP6506g7AyRA4878DBhTrzvYABJb4a4YpX5w==",
+      "type": "package",
+      "path": "devexpress.wpf.core/25.1.3",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "build/net8.0-windows/DevExpress.Wpf.Core.props",
+        "devexpress.wpf.core.25.1.3.nupkg.sha512",
+        "devexpress.wpf.core.nuspec",
+        "lib/net462/Design/DevExpress.Design.v25.1.dll",
+        "lib/net462/Design/DevExpress.Images.v25.1.dll",
+        "lib/net462/Design/DevExpress.Utils.v25.1.dll",
+        "lib/net462/Design/DevExpress.VisualStudioInterop.VS2019.v25.1.dll",
+        "lib/net462/Design/DevExpress.VisualStudioInterop.v25.1.Base.dll",
+        "lib/net462/Design/DevExpress.Xpf.Core.v25.1.Design.Wizards.dll",
+        "lib/net462/Design/DevExpress.Xpf.Core.v25.1.Design.dll",
+        "lib/net462/Design/DevExpress.Xpf.Core.v25.1.DesignTools.dll",
+        "lib/net462/Design/DevExpress.Xpf.Core.v25.1.DesignTools.dll.config",
+        "lib/net462/Design/DevExpress.Xpf.Themes.VS2019Blue.v25.1.dll",
+        "lib/net462/Design/DevExpress.Xpf.Themes.VS2019Dark.v25.1.dll",
+        "lib/net462/Design/DevExpress.Xpf.Themes.VS2019Light.v25.1.dll",
+        "lib/net462/Design/Server/DesignerRunner.exe",
+        "lib/net462/DevExpress.Xpf.Core.v25.1.dll",
+        "lib/net462/DevExpress.Xpf.Core.v25.1.xml",
+        "lib/net8.0-windows/Design/DevExpress.Xpf.Core.v25.1.DesignTools.dll",
+        "lib/net8.0-windows/Design/DevExpress.Xpf.Core.v25.1.DesignTools.dll.config",
+        "lib/net8.0-windows/Design/Server/DesignerRunner.dll",
+        "lib/net8.0-windows/Design/Server/DesignerRunner.exe",
+        "lib/net8.0-windows/Design/Server/DesignerRunner.runtimeconfig.json",
+        "lib/net8.0-windows/DevExpress.Xpf.Core.v25.1.dll",
+        "lib/net8.0-windows/DevExpress.Xpf.Core.v25.1.xml",
+        "tools/VisualStudioToolsManifest.xml"
+      ]
+    },
+    "DevExpress.Wpf.Docking/25.1.3": {
+      "sha512": "I05rJLneT+AxSbryACL/Lu3eNJUA0ot0RZKCxwlyaou/wlgXcnEHOlQX5h6JBTrkF7fnY85I1pGWCzdS6nPuXw==",
+      "type": "package",
+      "path": "devexpress.wpf.docking/25.1.3",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "devexpress.wpf.docking.25.1.3.nupkg.sha512",
+        "devexpress.wpf.docking.nuspec",
+        "lib/net462/Design/DevExpress.Xpf.Docking.v25.1.Design.dll",
+        "lib/net462/Design/DevExpress.Xpf.Docking.v25.1.DesignTools.dll",
+        "lib/net462/DevExpress.Xpf.Docking.v25.1.dll",
+        "lib/net462/DevExpress.Xpf.Docking.v25.1.xml",
+        "lib/net462/DevExpress.Xpf.Layout.v25.1.Core.dll",
+        "lib/net462/DevExpress.Xpf.Layout.v25.1.Core.xml",
+        "lib/net8.0-windows/Design/DevExpress.Xpf.Docking.v25.1.DesignTools.dll",
+        "lib/net8.0-windows/DevExpress.Xpf.Docking.v25.1.dll",
+        "lib/net8.0-windows/DevExpress.Xpf.Docking.v25.1.xml",
+        "lib/net8.0-windows/DevExpress.Xpf.Layout.v25.1.Core.dll",
+        "lib/net8.0-windows/DevExpress.Xpf.Layout.v25.1.Core.xml",
+        "tools/VisualStudioToolsManifest.xml"
+      ]
+    },
+    "DevExpress.Wpf.DocumentViewer.Core/25.1.3": {
+      "sha512": "tSL5p2exEUPVkFHyxDxBOWoc4zYHQQS4VPP8z7uRUxWE2Xpzz5XKlxdSxxw9kA4cNFGozQqJ74HQIsV4Y3CsQw==",
+      "type": "package",
+      "path": "devexpress.wpf.documentviewer.core/25.1.3",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "devexpress.wpf.documentviewer.core.25.1.3.nupkg.sha512",
+        "devexpress.wpf.documentviewer.core.nuspec",
+        "lib/net462/DevExpress.Xpf.DocumentViewer.v25.1.Core.dll",
+        "lib/net462/DevExpress.Xpf.DocumentViewer.v25.1.Core.xml",
+        "lib/net8.0-windows/DevExpress.Xpf.DocumentViewer.v25.1.Core.dll",
+        "lib/net8.0-windows/DevExpress.Xpf.DocumentViewer.v25.1.Core.xml",
+        "tools/VisualStudioToolsManifest.xml"
+      ]
+    },
+    "DevExpress.Wpf.Grid.Core/25.1.3": {
+      "sha512": "DmGxTEkQ0hXssunVRl8H16vK8mZrZO8ElSCLfiaMHBnhZSAwjeeCCOeIVtNIa1R3ocab7lSzbu87ELh1on0EPA==",
+      "type": "package",
+      "path": "devexpress.wpf.grid.core/25.1.3",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "devexpress.wpf.grid.core.25.1.3.nupkg.sha512",
+        "devexpress.wpf.grid.core.nuspec",
+        "lib/net462/Design/DevExpress.VisualStudioInterop.VS2019.v25.1.dll",
+        "lib/net462/Design/DevExpress.VisualStudioInterop.VS2022.v25.1.dll",
+        "lib/net462/Design/DevExpress.VisualStudioInterop.v25.1.Base.dll",
+        "lib/net462/Design/DevExpress.Xpf.Grid.v25.1.Design.dll",
+        "lib/net462/Design/DevExpress.Xpf.Grid.v25.1.DesignTools.dll",
+        "lib/net462/DevExpress.Xpf.Grid.v25.1.Core.dll",
+        "lib/net462/DevExpress.Xpf.Grid.v25.1.Core.xml",
+        "lib/net462/DevExpress.Xpf.Grid.v25.1.Extensions.dll",
+        "lib/net462/DevExpress.Xpf.Grid.v25.1.Extensions.xml",
+        "lib/net462/DevExpress.Xpf.Grid.v25.1.dll",
+        "lib/net462/DevExpress.Xpf.Grid.v25.1.xml",
+        "lib/net8.0-windows/Design/DevExpress.VisualStudioInterop.VS2022.v25.1.dll",
+        "lib/net8.0-windows/Design/DevExpress.VisualStudioInterop.v25.1.Base.dll",
+        "lib/net8.0-windows/Design/DevExpress.Xpf.Grid.v25.1.DesignTools.dll",
+        "lib/net8.0-windows/DevExpress.Xpf.Grid.v25.1.Core.dll",
+        "lib/net8.0-windows/DevExpress.Xpf.Grid.v25.1.Core.xml",
+        "lib/net8.0-windows/DevExpress.Xpf.Grid.v25.1.Extensions.dll",
+        "lib/net8.0-windows/DevExpress.Xpf.Grid.v25.1.Extensions.xml",
+        "lib/net8.0-windows/DevExpress.Xpf.Grid.v25.1.dll",
+        "lib/net8.0-windows/DevExpress.Xpf.Grid.v25.1.xml",
+        "tools/VisualStudioToolsManifest.xml"
+      ]
+    },
+    "DevExpress.Wpf.LayoutControl/25.1.3": {
+      "sha512": "DzsmhJC9T0beDK0HIdAYWpzLZ56EsEusCtfe7GtJJ13eiWAPlNi+GNB9ONudfccYq6hiTQO1wThIgYuntAhYIg==",
+      "type": "package",
+      "path": "devexpress.wpf.layoutcontrol/25.1.3",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "devexpress.wpf.layoutcontrol.25.1.3.nupkg.sha512",
+        "devexpress.wpf.layoutcontrol.nuspec",
+        "lib/net462/Design/DevExpress.Xpf.LayoutControl.v25.1.Design.dll",
+        "lib/net462/Design/DevExpress.Xpf.LayoutControl.v25.1.DesignTools.dll",
+        "lib/net462/DevExpress.Xpf.LayoutControl.v25.1.dll",
+        "lib/net462/DevExpress.Xpf.LayoutControl.v25.1.xml",
+        "lib/net8.0-windows/Design/DevExpress.Xpf.LayoutControl.v25.1.DesignTools.dll",
+        "lib/net8.0-windows/DevExpress.Xpf.LayoutControl.v25.1.dll",
+        "lib/net8.0-windows/DevExpress.Xpf.LayoutControl.v25.1.xml",
+        "tools/VisualStudioToolsManifest.xml"
+      ]
+    },
+    "DevExpress.Wpf.NavBar/25.1.3": {
+      "sha512": "WTj6MfAnFy1Kuvzn7MbVO0GDBTTwfdZCT3CS0SuS94bv2iJaXtWn2GLXCvxhDTqOF+y/wIh4xs1viwLByTjoyA==",
+      "type": "package",
+      "path": "devexpress.wpf.navbar/25.1.3",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "devexpress.wpf.navbar.25.1.3.nupkg.sha512",
+        "devexpress.wpf.navbar.nuspec",
+        "lib/net462/Design/DevExpress.Xpf.NavBar.v25.1.Design.dll",
+        "lib/net462/DevExpress.Xpf.NavBar.v25.1.dll",
+        "lib/net462/DevExpress.Xpf.NavBar.v25.1.xml",
+        "lib/net8.0-windows/DevExpress.Xpf.NavBar.v25.1.dll",
+        "lib/net8.0-windows/DevExpress.Xpf.NavBar.v25.1.xml",
+        "tools/VisualStudioToolsManifest.xml"
+      ]
+    },
+    "DevExpress.Wpf.Office/25.1.3": {
+      "sha512": "S3xznz7G884CwAiDYjip79bHhLJttQJWlOQurx+Evwsn8IMHbAuycoEVl7d42U+Lks0FkNbwCsUv5upgn8lo4w==",
+      "type": "package",
+      "path": "devexpress.wpf.office/25.1.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "devexpress.wpf.office.25.1.3.nupkg.sha512",
+        "devexpress.wpf.office.nuspec",
+        "lib/net462/DevExpress.Xpf.Office.v25.1.dll",
+        "lib/net8.0-windows/DevExpress.Xpf.Office.v25.1.dll"
+      ]
+    },
+    "DevExpress.Wpf.Printing/25.1.3": {
+      "sha512": "aND4CKDXCxdtvVvTf8GuHnqj9xm/Ew7SiVAhyhndVEe6jVmDqgctiBHzlvXPz6dcrm4Wkd0P839V5GqYLlUy4g==",
+      "type": "package",
+      "path": "devexpress.wpf.printing/25.1.3",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "devexpress.wpf.printing.25.1.3.nupkg.sha512",
+        "devexpress.wpf.printing.nuspec",
+        "lib/net462/Design/DevExpress.Xpf.Printing.v25.1.Design.dll",
+        "lib/net462/Design/DevExpress.Xpf.Printing.v25.1.DesignTools.dll",
+        "lib/net462/DevExpress.Xpf.Printing.v25.1.dll",
+        "lib/net462/DevExpress.Xpf.Printing.v25.1.xml",
+        "lib/net8.0-windows/Design/DevExpress.Xpf.Printing.v25.1.DesignTools.dll",
+        "lib/net8.0-windows/DevExpress.Xpf.Printing.v25.1.dll",
+        "lib/net8.0-windows/DevExpress.Xpf.Printing.v25.1.xml",
+        "tools/VisualStudioToolsManifest.xml"
+      ]
+    },
+    "DevExpress.Wpf.PropertyGrid/25.1.3": {
+      "sha512": "pXX+jVpIPN4aXa5hVo0Kn9rjlzeyxsuhcdetQ+qG7zydPoqq77Ctb/mSVixCU9cTcPCnqnZXdyGaXc8kpr8x9A==",
+      "type": "package",
+      "path": "devexpress.wpf.propertygrid/25.1.3",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "devexpress.wpf.propertygrid.25.1.3.nupkg.sha512",
+        "devexpress.wpf.propertygrid.nuspec",
+        "lib/net462/Design/DevExpress.Xpf.PropertyGrid.v25.1.Design.dll",
+        "lib/net462/DevExpress.Xpf.PropertyGrid.v25.1.dll",
+        "lib/net462/DevExpress.Xpf.PropertyGrid.v25.1.xml",
+        "lib/net8.0-windows/DevExpress.Xpf.PropertyGrid.v25.1.dll",
+        "lib/net8.0-windows/DevExpress.Xpf.PropertyGrid.v25.1.xml",
+        "tools/VisualStudioToolsManifest.xml"
+      ]
+    },
+    "DevExpress.Wpf.Ribbon/25.1.3": {
+      "sha512": "fApQTPa8sI/PIr9cwCXDK+VkKpUBgHIxdj8FyFaOMlhz+wvFF+ifZ1wP2/f7oHNnS10M9fYjL7mlRz7luGFX+w==",
+      "type": "package",
+      "path": "devexpress.wpf.ribbon/25.1.3",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "devexpress.wpf.ribbon.25.1.3.nupkg.sha512",
+        "devexpress.wpf.ribbon.nuspec",
+        "lib/net462/Design/DevExpress.Xpf.Ribbon.v25.1.Design.dll",
+        "lib/net462/Design/DevExpress.Xpf.Ribbon.v25.1.DesignTools.dll",
+        "lib/net462/DevExpress.Xpf.Ribbon.v25.1.dll",
+        "lib/net462/DevExpress.Xpf.Ribbon.v25.1.xml",
+        "lib/net8.0-windows/Design/DevExpress.Xpf.Ribbon.v25.1.DesignTools.dll",
+        "lib/net8.0-windows/DevExpress.Xpf.Ribbon.v25.1.dll",
+        "lib/net8.0-windows/DevExpress.Xpf.Ribbon.v25.1.xml",
+        "tools/VisualStudioToolsManifest.xml"
+      ]
+    },
+    "DevExpress.Wpf.Spreadsheet/25.1.3": {
+      "sha512": "mT3MhgCtQp4+J6/ucPElrg9fwsgp8/BdNEsW0DT7Cy/4NcXq7q2gVpTdaj8PYCyamM6p1NVs76vflNXk2BZpug==",
+      "type": "package",
+      "path": "devexpress.wpf.spreadsheet/25.1.3",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "devexpress.wpf.spreadsheet.25.1.3.nupkg.sha512",
+        "devexpress.wpf.spreadsheet.nuspec",
+        "lib/net462/Design/DevExpress.Xpf.Spreadsheet.v25.1.Design.dll",
+        "lib/net462/Design/DevExpress.Xpf.Spreadsheet.v25.1.DesignTools.dll",
+        "lib/net462/DevExpress.Xpf.Spreadsheet.v25.1.dll",
+        "lib/net462/DevExpress.Xpf.Spreadsheet.v25.1.xml",
+        "lib/net8.0-windows/Design/DevExpress.Xpf.Spreadsheet.v25.1.DesignTools.dll",
+        "lib/net8.0-windows/DevExpress.Xpf.Spreadsheet.v25.1.dll",
+        "lib/net8.0-windows/DevExpress.Xpf.Spreadsheet.v25.1.xml",
+        "tools/VisualStudioToolsManifest.xml"
+      ]
+    },
+    "DevExpress.Wpf.Themes.Office2019Colorful/25.1.3": {
+      "sha512": "4LBW5v0KY3uxnxVWA1RFtHgRWg+v67M84g1kqAPypZ26xHXVbp1dXN63JpYjDyOUWJBr/55zcx+K39uw29R5Jg==",
+      "type": "package",
+      "path": "devexpress.wpf.themes.office2019colorful/25.1.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "devexpress.wpf.themes.office2019colorful.25.1.3.nupkg.sha512",
+        "devexpress.wpf.themes.office2019colorful.nuspec",
+        "lib/net462/DevExpress.Xpf.Themes.Office2019Colorful.v25.1.dll",
+        "lib/net8.0-windows/DevExpress.Xpf.Themes.Office2019Colorful.v25.1.dll"
+      ]
+    },
+    "DevExpress.Wpf.TreeMap/25.1.3": {
+      "sha512": "R1Hx21xIowkUC7LIN6b3DWTh+WUR+ChFoVs6dnhTnkaU89nKqiJ1BPqk0yjIbuly/5cjET/IcOEiUs27uvlqQw==",
+      "type": "package",
+      "path": "devexpress.wpf.treemap/25.1.3",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "devexpress.wpf.treemap.25.1.3.nupkg.sha512",
+        "devexpress.wpf.treemap.nuspec",
+        "lib/net462/Design/DevExpress.Xpf.TreeMap.v25.1.Design.dll",
+        "lib/net462/DevExpress.Xpf.TreeMap.v25.1.dll",
+        "lib/net462/DevExpress.Xpf.TreeMap.v25.1.xml",
+        "lib/net8.0-windows/DevExpress.Xpf.TreeMap.v25.1.dll",
+        "lib/net8.0-windows/DevExpress.Xpf.TreeMap.v25.1.xml",
+        "tools/VisualStudioToolsManifest.xml"
+      ]
+    },
+    "DevExpress.Xpo/25.1.3": {
+      "sha512": "58+/07WZMmbDTbaTEI60+UsDKynHVVPV/FY4ancWpwQCTwF5UOUZxPLn3HBQ+QhdSsKDdtPBGzjAxpN5yJFQBg==",
+      "type": "package",
+      "path": "devexpress.xpo/25.1.3",
+      "hasTools": true,
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "devexpress.xpo.25.1.3.nupkg.sha512",
+        "devexpress.xpo.nuspec",
+        "lib/net462/DevExpress.Xpo.v25.1.dll",
+        "lib/net462/DevExpress.Xpo.v25.1.xml",
+        "lib/net8.0/DevExpress.Xpo.v25.1.dll",
+        "lib/net8.0/DevExpress.Xpo.v25.1.xml",
+        "readme.txt",
+        "tools/VisualStudioToolsManifest.xml"
+      ]
+    },
+    "Microsoft.Data.Sqlite.Core/8.0.7": {
+      "sha512": "3H5ht15zKtw9ma9v092kI0gjV+P45EbJPsmnkk/DNVz/yDPPVYSyCGytSatN2dZQ19ZazLg3gUzoBdsoO5V5JQ==",
+      "type": "package",
+      "path": "microsoft.data.sqlite.core/8.0.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "PACKAGE.md",
+        "lib/net6.0/Microsoft.Data.Sqlite.dll",
+        "lib/net6.0/Microsoft.Data.Sqlite.xml",
+        "lib/net8.0/Microsoft.Data.Sqlite.dll",
+        "lib/net8.0/Microsoft.Data.Sqlite.xml",
+        "lib/netstandard2.0/Microsoft.Data.Sqlite.dll",
+        "lib/netstandard2.0/Microsoft.Data.Sqlite.xml",
+        "microsoft.data.sqlite.core.8.0.7.nupkg.sha512",
+        "microsoft.data.sqlite.core.nuspec"
+      ]
+    },
+    "Microsoft.EntityFrameworkCore/8.0.7": {
+      "sha512": "UOyPNAgyzw/E4hUCurqvZxi0WWVLQAGZuntFPzkTXtvJLTqRjKvokvhv+XazAUSODLsU1DZ67GjZ4mT9d82+0g==",
+      "type": "package",
+      "path": "microsoft.entityframeworkcore/8.0.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "PACKAGE.md",
+        "buildTransitive/net8.0/Microsoft.EntityFrameworkCore.props",
+        "lib/net8.0/Microsoft.EntityFrameworkCore.dll",
+        "lib/net8.0/Microsoft.EntityFrameworkCore.xml",
+        "microsoft.entityframeworkcore.8.0.7.nupkg.sha512",
+        "microsoft.entityframeworkcore.nuspec"
+      ]
+    },
+    "Microsoft.EntityFrameworkCore.Abstractions/8.0.7": {
+      "sha512": "DHX6nxcg4/tpWfTjAleKrXveDiNFY/OGOK6nm27GipUXNI2Uofev9cH5SYXmtGIgHWxlvfn754TXN4WnrixOwg==",
+      "type": "package",
+      "path": "microsoft.entityframeworkcore.abstractions/8.0.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "PACKAGE.md",
+        "lib/net8.0/Microsoft.EntityFrameworkCore.Abstractions.dll",
+        "lib/net8.0/Microsoft.EntityFrameworkCore.Abstractions.xml",
+        "microsoft.entityframeworkcore.abstractions.8.0.7.nupkg.sha512",
+        "microsoft.entityframeworkcore.abstractions.nuspec"
+      ]
+    },
+    "Microsoft.EntityFrameworkCore.Analyzers/8.0.7": {
+      "sha512": "nerD0vEOYJVhVapamRVH9DrUYbDNMJ5bPfWze4SibDDaDaekzgwQqBht97/tV+8pgdKoPAXmtiJsB+lDajwVrQ==",
+      "type": "package",
+      "path": "microsoft.entityframeworkcore.analyzers/8.0.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "analyzers/dotnet/cs/Microsoft.EntityFrameworkCore.Analyzers.dll",
+        "docs/PACKAGE.md",
+        "lib/netstandard2.0/_._",
+        "microsoft.entityframeworkcore.analyzers.8.0.7.nupkg.sha512",
+        "microsoft.entityframeworkcore.analyzers.nuspec"
+      ]
+    },
+    "Microsoft.EntityFrameworkCore.Relational/8.0.7": {
+      "sha512": "Hn86yScnW+VXb+A2LGrVGkGmjsQ9KLWR0T8GQBEcESWk8u9JYhBiRtdxz76Aq0ir82Ei48sLEZTN4VE0sJ3yIg==",
+      "type": "package",
+      "path": "microsoft.entityframeworkcore.relational/8.0.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "PACKAGE.md",
+        "lib/net8.0/Microsoft.EntityFrameworkCore.Relational.dll",
+        "lib/net8.0/Microsoft.EntityFrameworkCore.Relational.xml",
+        "microsoft.entityframeworkcore.relational.8.0.7.nupkg.sha512",
+        "microsoft.entityframeworkcore.relational.nuspec"
+      ]
+    },
+    "Microsoft.EntityFrameworkCore.Sqlite/8.0.7": {
+      "sha512": "odTJtx/J7/EyPtg+pGfDbuEZJaODH+yG7R4mkmnhrHYwJPtzSzPue1xl4jBjxwEVVWd/qdBP5z/E+8dAnW9hGQ==",
+      "type": "package",
+      "path": "microsoft.entityframeworkcore.sqlite/8.0.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "PACKAGE.md",
+        "lib/net8.0/_._",
+        "microsoft.entityframeworkcore.sqlite.8.0.7.nupkg.sha512",
+        "microsoft.entityframeworkcore.sqlite.nuspec"
+      ]
+    },
+    "Microsoft.EntityFrameworkCore.Sqlite.Core/8.0.7": {
+      "sha512": "pqjQey+EEmsLwTv4vGeSGFw4o6nGLFdEM3ii2FCjfb0YZd3+tqX4O5jNZE/2+Y9rN4QQcbsb/8Cf6NIoyuKZng==",
+      "type": "package",
+      "path": "microsoft.entityframeworkcore.sqlite.core/8.0.7",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "PACKAGE.md",
+        "lib/net8.0/Microsoft.EntityFrameworkCore.Sqlite.dll",
+        "lib/net8.0/Microsoft.EntityFrameworkCore.Sqlite.xml",
+        "microsoft.entityframeworkcore.sqlite.core.8.0.7.nupkg.sha512",
+        "microsoft.entityframeworkcore.sqlite.core.nuspec"
+      ]
+    },
+    "Microsoft.Extensions.Caching.Abstractions/8.0.0": {
+      "sha512": "3KuSxeHoNYdxVYfg2IRZCThcrlJ1XJqIXkAWikCsbm5C/bCjv7G0WoKDyuR98Q+T607QT2Zl5GsbGRkENcV2yQ==",
+      "type": "package",
+      "path": "microsoft.extensions.caching.abstractions/8.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/Microsoft.Extensions.Caching.Abstractions.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net6.0/_._",
+        "buildTransitive/netcoreapp2.0/Microsoft.Extensions.Caching.Abstractions.targets",
+        "lib/net462/Microsoft.Extensions.Caching.Abstractions.dll",
+        "lib/net462/Microsoft.Extensions.Caching.Abstractions.xml",
+        "lib/net6.0/Microsoft.Extensions.Caching.Abstractions.dll",
+        "lib/net6.0/Microsoft.Extensions.Caching.Abstractions.xml",
+        "lib/net7.0/Microsoft.Extensions.Caching.Abstractions.dll",
+        "lib/net7.0/Microsoft.Extensions.Caching.Abstractions.xml",
+        "lib/net8.0/Microsoft.Extensions.Caching.Abstractions.dll",
+        "lib/net8.0/Microsoft.Extensions.Caching.Abstractions.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.Caching.Abstractions.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.Caching.Abstractions.xml",
+        "microsoft.extensions.caching.abstractions.8.0.0.nupkg.sha512",
+        "microsoft.extensions.caching.abstractions.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "Microsoft.Extensions.Caching.Memory/8.0.0": {
+      "sha512": "7pqivmrZDzo1ADPkRwjy+8jtRKWRCPag9qPI+p7sgu7Q4QreWhcvbiWXsbhP+yY8XSiDvZpu2/LWdBv7PnmOpQ==",
+      "type": "package",
+      "path": "microsoft.extensions.caching.memory/8.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/Microsoft.Extensions.Caching.Memory.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net6.0/_._",
+        "buildTransitive/netcoreapp2.0/Microsoft.Extensions.Caching.Memory.targets",
+        "lib/net462/Microsoft.Extensions.Caching.Memory.dll",
+        "lib/net462/Microsoft.Extensions.Caching.Memory.xml",
+        "lib/net6.0/Microsoft.Extensions.Caching.Memory.dll",
+        "lib/net6.0/Microsoft.Extensions.Caching.Memory.xml",
+        "lib/net7.0/Microsoft.Extensions.Caching.Memory.dll",
+        "lib/net7.0/Microsoft.Extensions.Caching.Memory.xml",
+        "lib/net8.0/Microsoft.Extensions.Caching.Memory.dll",
+        "lib/net8.0/Microsoft.Extensions.Caching.Memory.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.Caching.Memory.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.Caching.Memory.xml",
+        "microsoft.extensions.caching.memory.8.0.0.nupkg.sha512",
+        "microsoft.extensions.caching.memory.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "Microsoft.Extensions.Configuration.Abstractions/8.0.0": {
+      "sha512": "3lE/iLSutpgX1CC0NOW70FJoGARRHbyKmG7dc0klnUZ9Dd9hS6N/POPWhKhMLCEuNN5nXEY5agmlFtH562vqhQ==",
+      "type": "package",
+      "path": "microsoft.extensions.configuration.abstractions/8.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/Microsoft.Extensions.Configuration.Abstractions.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net6.0/_._",
+        "buildTransitive/netcoreapp2.0/Microsoft.Extensions.Configuration.Abstractions.targets",
+        "lib/net462/Microsoft.Extensions.Configuration.Abstractions.dll",
+        "lib/net462/Microsoft.Extensions.Configuration.Abstractions.xml",
+        "lib/net6.0/Microsoft.Extensions.Configuration.Abstractions.dll",
+        "lib/net6.0/Microsoft.Extensions.Configuration.Abstractions.xml",
+        "lib/net7.0/Microsoft.Extensions.Configuration.Abstractions.dll",
+        "lib/net7.0/Microsoft.Extensions.Configuration.Abstractions.xml",
+        "lib/net8.0/Microsoft.Extensions.Configuration.Abstractions.dll",
+        "lib/net8.0/Microsoft.Extensions.Configuration.Abstractions.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.Configuration.Abstractions.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.Configuration.Abstractions.xml",
+        "microsoft.extensions.configuration.abstractions.8.0.0.nupkg.sha512",
+        "microsoft.extensions.configuration.abstractions.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "Microsoft.Extensions.DependencyInjection/8.0.1": {
+      "sha512": "BmANAnR5Xd4Oqw7yQ75xOAYODybZQRzdeNucg7kS5wWKd2PNnMdYtJ2Vciy0QLylRmv42DGl5+AFL9izA6F1Rw==",
+      "type": "package",
+      "path": "microsoft.extensions.dependencyinjection/8.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/Microsoft.Extensions.DependencyInjection.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net6.0/_._",
+        "buildTransitive/netcoreapp2.0/Microsoft.Extensions.DependencyInjection.targets",
+        "lib/net462/Microsoft.Extensions.DependencyInjection.dll",
+        "lib/net462/Microsoft.Extensions.DependencyInjection.xml",
+        "lib/net6.0/Microsoft.Extensions.DependencyInjection.dll",
+        "lib/net6.0/Microsoft.Extensions.DependencyInjection.xml",
+        "lib/net7.0/Microsoft.Extensions.DependencyInjection.dll",
+        "lib/net7.0/Microsoft.Extensions.DependencyInjection.xml",
+        "lib/net8.0/Microsoft.Extensions.DependencyInjection.dll",
+        "lib/net8.0/Microsoft.Extensions.DependencyInjection.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.xml",
+        "lib/netstandard2.1/Microsoft.Extensions.DependencyInjection.dll",
+        "lib/netstandard2.1/Microsoft.Extensions.DependencyInjection.xml",
+        "microsoft.extensions.dependencyinjection.8.0.1.nupkg.sha512",
+        "microsoft.extensions.dependencyinjection.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "Microsoft.Extensions.DependencyInjection.Abstractions/8.0.2": {
+      "sha512": "3iE7UF7MQkCv1cxzCahz+Y/guQbTqieyxyaWKhrRO91itI9cOKO76OHeQDahqG4MmW5umr3CcCvGmK92lWNlbg==",
+      "type": "package",
+      "path": "microsoft.extensions.dependencyinjection.abstractions/8.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/Microsoft.Extensions.DependencyInjection.Abstractions.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net6.0/_._",
+        "buildTransitive/netcoreapp2.0/Microsoft.Extensions.DependencyInjection.Abstractions.targets",
+        "lib/net462/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
+        "lib/net462/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
+        "lib/net6.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
+        "lib/net6.0/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
+        "lib/net7.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
+        "lib/net7.0/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
+        "lib/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
+        "lib/net8.0/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
+        "lib/netstandard2.1/Microsoft.Extensions.DependencyInjection.Abstractions.dll",
+        "lib/netstandard2.1/Microsoft.Extensions.DependencyInjection.Abstractions.xml",
+        "microsoft.extensions.dependencyinjection.abstractions.8.0.2.nupkg.sha512",
+        "microsoft.extensions.dependencyinjection.abstractions.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "Microsoft.Extensions.DependencyModel/8.0.1": {
+      "sha512": "5Ou6varcxLBzQ+Agfm0k0pnH7vrEITYlXMDuE6s7ZHlZHz6/G8XJ3iISZDr5rfwfge6RnXJ1+Wc479mMn52vjA==",
+      "type": "package",
+      "path": "microsoft.extensions.dependencymodel/8.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/Microsoft.Extensions.DependencyModel.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net6.0/_._",
+        "buildTransitive/netcoreapp2.0/Microsoft.Extensions.DependencyModel.targets",
+        "lib/net462/Microsoft.Extensions.DependencyModel.dll",
+        "lib/net462/Microsoft.Extensions.DependencyModel.xml",
+        "lib/net6.0/Microsoft.Extensions.DependencyModel.dll",
+        "lib/net6.0/Microsoft.Extensions.DependencyModel.xml",
+        "lib/net7.0/Microsoft.Extensions.DependencyModel.dll",
+        "lib/net7.0/Microsoft.Extensions.DependencyModel.xml",
+        "lib/net8.0/Microsoft.Extensions.DependencyModel.dll",
+        "lib/net8.0/Microsoft.Extensions.DependencyModel.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.DependencyModel.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.DependencyModel.xml",
+        "microsoft.extensions.dependencymodel.8.0.1.nupkg.sha512",
+        "microsoft.extensions.dependencymodel.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "Microsoft.Extensions.Logging/8.0.0": {
+      "sha512": "tvRkov9tAJ3xP51LCv3FJ2zINmv1P8Hi8lhhtcKGqM+ImiTCC84uOPEI4z8Cdq2C3o9e+Aa0Gw0rmrsJD77W+w==",
+      "type": "package",
+      "path": "microsoft.extensions.logging/8.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/Microsoft.Extensions.Logging.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net6.0/_._",
+        "buildTransitive/netcoreapp2.0/Microsoft.Extensions.Logging.targets",
+        "lib/net462/Microsoft.Extensions.Logging.dll",
+        "lib/net462/Microsoft.Extensions.Logging.xml",
+        "lib/net6.0/Microsoft.Extensions.Logging.dll",
+        "lib/net6.0/Microsoft.Extensions.Logging.xml",
+        "lib/net7.0/Microsoft.Extensions.Logging.dll",
+        "lib/net7.0/Microsoft.Extensions.Logging.xml",
+        "lib/net8.0/Microsoft.Extensions.Logging.dll",
+        "lib/net8.0/Microsoft.Extensions.Logging.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.Logging.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.Logging.xml",
+        "lib/netstandard2.1/Microsoft.Extensions.Logging.dll",
+        "lib/netstandard2.1/Microsoft.Extensions.Logging.xml",
+        "microsoft.extensions.logging.8.0.0.nupkg.sha512",
+        "microsoft.extensions.logging.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "Microsoft.Extensions.Logging.Abstractions/8.0.0": {
+      "sha512": "arDBqTgFCyS0EvRV7O3MZturChstm50OJ0y9bDJvAcmEPJm0FFpFyjU/JLYyStNGGey081DvnQYlncNX5SJJGA==",
+      "type": "package",
+      "path": "microsoft.extensions.logging.abstractions/8.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "analyzers/dotnet/roslyn3.11/cs/Microsoft.Extensions.Logging.Generators.dll",
+        "analyzers/dotnet/roslyn3.11/cs/cs/Microsoft.Extensions.Logging.Generators.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/de/Microsoft.Extensions.Logging.Generators.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/es/Microsoft.Extensions.Logging.Generators.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/fr/Microsoft.Extensions.Logging.Generators.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/it/Microsoft.Extensions.Logging.Generators.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/ja/Microsoft.Extensions.Logging.Generators.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/ko/Microsoft.Extensions.Logging.Generators.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/pl/Microsoft.Extensions.Logging.Generators.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/pt-BR/Microsoft.Extensions.Logging.Generators.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/ru/Microsoft.Extensions.Logging.Generators.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/tr/Microsoft.Extensions.Logging.Generators.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/zh-Hans/Microsoft.Extensions.Logging.Generators.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/zh-Hant/Microsoft.Extensions.Logging.Generators.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/Microsoft.Extensions.Logging.Generators.dll",
+        "analyzers/dotnet/roslyn4.0/cs/cs/Microsoft.Extensions.Logging.Generators.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/de/Microsoft.Extensions.Logging.Generators.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/es/Microsoft.Extensions.Logging.Generators.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/fr/Microsoft.Extensions.Logging.Generators.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/it/Microsoft.Extensions.Logging.Generators.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/ja/Microsoft.Extensions.Logging.Generators.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/ko/Microsoft.Extensions.Logging.Generators.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/pl/Microsoft.Extensions.Logging.Generators.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/pt-BR/Microsoft.Extensions.Logging.Generators.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/ru/Microsoft.Extensions.Logging.Generators.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/tr/Microsoft.Extensions.Logging.Generators.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/zh-Hans/Microsoft.Extensions.Logging.Generators.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/zh-Hant/Microsoft.Extensions.Logging.Generators.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/Microsoft.Extensions.Logging.Generators.dll",
+        "analyzers/dotnet/roslyn4.4/cs/cs/Microsoft.Extensions.Logging.Generators.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/de/Microsoft.Extensions.Logging.Generators.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/es/Microsoft.Extensions.Logging.Generators.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/fr/Microsoft.Extensions.Logging.Generators.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/it/Microsoft.Extensions.Logging.Generators.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/ja/Microsoft.Extensions.Logging.Generators.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/ko/Microsoft.Extensions.Logging.Generators.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/pl/Microsoft.Extensions.Logging.Generators.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/pt-BR/Microsoft.Extensions.Logging.Generators.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/ru/Microsoft.Extensions.Logging.Generators.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/tr/Microsoft.Extensions.Logging.Generators.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/zh-Hans/Microsoft.Extensions.Logging.Generators.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/zh-Hant/Microsoft.Extensions.Logging.Generators.resources.dll",
+        "buildTransitive/net461/Microsoft.Extensions.Logging.Abstractions.targets",
+        "buildTransitive/net462/Microsoft.Extensions.Logging.Abstractions.targets",
+        "buildTransitive/net6.0/Microsoft.Extensions.Logging.Abstractions.targets",
+        "buildTransitive/netcoreapp2.0/Microsoft.Extensions.Logging.Abstractions.targets",
+        "buildTransitive/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.targets",
+        "lib/net462/Microsoft.Extensions.Logging.Abstractions.dll",
+        "lib/net462/Microsoft.Extensions.Logging.Abstractions.xml",
+        "lib/net6.0/Microsoft.Extensions.Logging.Abstractions.dll",
+        "lib/net6.0/Microsoft.Extensions.Logging.Abstractions.xml",
+        "lib/net7.0/Microsoft.Extensions.Logging.Abstractions.dll",
+        "lib/net7.0/Microsoft.Extensions.Logging.Abstractions.xml",
+        "lib/net8.0/Microsoft.Extensions.Logging.Abstractions.dll",
+        "lib/net8.0/Microsoft.Extensions.Logging.Abstractions.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.Logging.Abstractions.xml",
+        "microsoft.extensions.logging.abstractions.8.0.0.nupkg.sha512",
+        "microsoft.extensions.logging.abstractions.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "Microsoft.Extensions.ObjectPool/8.0.10": {
+      "sha512": "u7gAG7JgxF8VSJUGPSudAcPxOt+ymJKQCSxNRxiuKV+klCQbHljQR75SilpedCTfhPWDhtUwIJpnDVtspr9nMg==",
+      "type": "package",
+      "path": "microsoft.extensions.objectpool/8.0.10",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net462/Microsoft.Extensions.ObjectPool.dll",
+        "lib/net462/Microsoft.Extensions.ObjectPool.xml",
+        "lib/net8.0/Microsoft.Extensions.ObjectPool.dll",
+        "lib/net8.0/Microsoft.Extensions.ObjectPool.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.ObjectPool.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.ObjectPool.xml",
+        "microsoft.extensions.objectpool.8.0.10.nupkg.sha512",
+        "microsoft.extensions.objectpool.nuspec"
+      ]
+    },
+    "Microsoft.Extensions.Options/8.0.0": {
+      "sha512": "JOVOfqpnqlVLUzINQ2fox8evY2SKLYJ3BV8QDe/Jyp21u1T7r45x/R/5QdteURMR5r01GxeJSBBUOCOyaNXA3g==",
+      "type": "package",
+      "path": "microsoft.extensions.options/8.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "analyzers/dotnet/roslyn4.4/cs/Microsoft.Extensions.Options.SourceGeneration.dll",
+        "analyzers/dotnet/roslyn4.4/cs/cs/Microsoft.Extensions.Options.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/de/Microsoft.Extensions.Options.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/es/Microsoft.Extensions.Options.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/fr/Microsoft.Extensions.Options.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/it/Microsoft.Extensions.Options.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/ja/Microsoft.Extensions.Options.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/ko/Microsoft.Extensions.Options.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/pl/Microsoft.Extensions.Options.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/pt-BR/Microsoft.Extensions.Options.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/ru/Microsoft.Extensions.Options.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/tr/Microsoft.Extensions.Options.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/zh-Hans/Microsoft.Extensions.Options.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/zh-Hant/Microsoft.Extensions.Options.SourceGeneration.resources.dll",
+        "buildTransitive/net461/Microsoft.Extensions.Options.targets",
+        "buildTransitive/net462/Microsoft.Extensions.Options.targets",
+        "buildTransitive/net6.0/Microsoft.Extensions.Options.targets",
+        "buildTransitive/netcoreapp2.0/Microsoft.Extensions.Options.targets",
+        "buildTransitive/netstandard2.0/Microsoft.Extensions.Options.targets",
+        "lib/net462/Microsoft.Extensions.Options.dll",
+        "lib/net462/Microsoft.Extensions.Options.xml",
+        "lib/net6.0/Microsoft.Extensions.Options.dll",
+        "lib/net6.0/Microsoft.Extensions.Options.xml",
+        "lib/net7.0/Microsoft.Extensions.Options.dll",
+        "lib/net7.0/Microsoft.Extensions.Options.xml",
+        "lib/net8.0/Microsoft.Extensions.Options.dll",
+        "lib/net8.0/Microsoft.Extensions.Options.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.Options.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.Options.xml",
+        "lib/netstandard2.1/Microsoft.Extensions.Options.dll",
+        "lib/netstandard2.1/Microsoft.Extensions.Options.xml",
+        "microsoft.extensions.options.8.0.0.nupkg.sha512",
+        "microsoft.extensions.options.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "Microsoft.Extensions.Primitives/8.0.0": {
+      "sha512": "bXJEZrW9ny8vjMF1JV253WeLhpEVzFo1lyaZu1vQ4ZxWUlVvknZ/+ftFgVheLubb4eZPSwwxBeqS1JkCOjxd8g==",
+      "type": "package",
+      "path": "microsoft.extensions.primitives/8.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/Microsoft.Extensions.Primitives.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net6.0/_._",
+        "buildTransitive/netcoreapp2.0/Microsoft.Extensions.Primitives.targets",
+        "lib/net462/Microsoft.Extensions.Primitives.dll",
+        "lib/net462/Microsoft.Extensions.Primitives.xml",
+        "lib/net6.0/Microsoft.Extensions.Primitives.dll",
+        "lib/net6.0/Microsoft.Extensions.Primitives.xml",
+        "lib/net7.0/Microsoft.Extensions.Primitives.dll",
+        "lib/net7.0/Microsoft.Extensions.Primitives.xml",
+        "lib/net8.0/Microsoft.Extensions.Primitives.dll",
+        "lib/net8.0/Microsoft.Extensions.Primitives.xml",
+        "lib/netstandard2.0/Microsoft.Extensions.Primitives.dll",
+        "lib/netstandard2.0/Microsoft.Extensions.Primitives.xml",
+        "microsoft.extensions.primitives.8.0.0.nupkg.sha512",
+        "microsoft.extensions.primitives.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "Microsoft.Win32.SystemEvents/8.0.0": {
+      "sha512": "9opKRyOKMCi2xJ7Bj7kxtZ1r9vbzosMvRrdEhVhDz8j8MoBGgB+WmC94yH839NPH+BclAjtQ/pyagvi/8gDLkw==",
+      "type": "package",
+      "path": "microsoft.win32.systemevents/8.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/Microsoft.Win32.SystemEvents.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net6.0/_._",
+        "buildTransitive/netcoreapp2.0/Microsoft.Win32.SystemEvents.targets",
+        "lib/net462/Microsoft.Win32.SystemEvents.dll",
+        "lib/net462/Microsoft.Win32.SystemEvents.xml",
+        "lib/net6.0/Microsoft.Win32.SystemEvents.dll",
+        "lib/net6.0/Microsoft.Win32.SystemEvents.xml",
+        "lib/net7.0/Microsoft.Win32.SystemEvents.dll",
+        "lib/net7.0/Microsoft.Win32.SystemEvents.xml",
+        "lib/net8.0/Microsoft.Win32.SystemEvents.dll",
+        "lib/net8.0/Microsoft.Win32.SystemEvents.xml",
+        "lib/netstandard2.0/Microsoft.Win32.SystemEvents.dll",
+        "lib/netstandard2.0/Microsoft.Win32.SystemEvents.xml",
+        "microsoft.win32.systemevents.8.0.0.nupkg.sha512",
+        "microsoft.win32.systemevents.nuspec",
+        "runtimes/win/lib/net6.0/Microsoft.Win32.SystemEvents.dll",
+        "runtimes/win/lib/net6.0/Microsoft.Win32.SystemEvents.xml",
+        "runtimes/win/lib/net7.0/Microsoft.Win32.SystemEvents.dll",
+        "runtimes/win/lib/net7.0/Microsoft.Win32.SystemEvents.xml",
+        "runtimes/win/lib/net8.0/Microsoft.Win32.SystemEvents.dll",
+        "runtimes/win/lib/net8.0/Microsoft.Win32.SystemEvents.xml",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "SQLitePCLRaw.bundle_e_sqlite3/2.1.6": {
+      "sha512": "BmAf6XWt4TqtowmiWe4/5rRot6GerAeklmOPfviOvwLoF5WwgxcJHAxZtySuyW9r9w+HLILnm8VfJFLCUJYW8A==",
+      "type": "package",
+      "path": "sqlitepclraw.bundle_e_sqlite3/2.1.6",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/monoandroid90/SQLitePCLRaw.batteries_v2.dll",
+        "lib/net461/SQLitePCLRaw.batteries_v2.dll",
+        "lib/net6.0-android31.0/SQLitePCLRaw.batteries_v2.dll",
+        "lib/net6.0-android31.0/SQLitePCLRaw.batteries_v2.xml",
+        "lib/net6.0-ios14.0/SQLitePCLRaw.batteries_v2.dll",
+        "lib/net6.0-ios14.2/SQLitePCLRaw.batteries_v2.dll",
+        "lib/net6.0-tvos10.0/SQLitePCLRaw.batteries_v2.dll",
+        "lib/netstandard2.0/SQLitePCLRaw.batteries_v2.dll",
+        "lib/xamarinios10/SQLitePCLRaw.batteries_v2.dll",
+        "sqlitepclraw.bundle_e_sqlite3.2.1.6.nupkg.sha512",
+        "sqlitepclraw.bundle_e_sqlite3.nuspec"
+      ]
+    },
+    "SQLitePCLRaw.core/2.1.6": {
+      "sha512": "wO6v9GeMx9CUngAet8hbO7xdm+M42p1XeJq47ogyRoYSvNSp0NGLI+MgC0bhrMk9C17MTVFlLiN6ylyExLCc5w==",
+      "type": "package",
+      "path": "sqlitepclraw.core/2.1.6",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.0/SQLitePCLRaw.core.dll",
+        "sqlitepclraw.core.2.1.6.nupkg.sha512",
+        "sqlitepclraw.core.nuspec"
+      ]
+    },
+    "SQLitePCLRaw.lib.e_sqlite3/2.1.6": {
+      "sha512": "2ObJJLkIUIxRpOUlZNGuD4rICpBnrBR5anjyfUFQep4hMOIeqW+XGQYzrNmHSVz5xSWZ3klSbh7sFR6UyDj68Q==",
+      "type": "package",
+      "path": "sqlitepclraw.lib.e_sqlite3/2.1.6",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "buildTransitive/net461/SQLitePCLRaw.lib.e_sqlite3.targets",
+        "buildTransitive/net6.0/SQLitePCLRaw.lib.e_sqlite3.targets",
+        "buildTransitive/net7.0/SQLitePCLRaw.lib.e_sqlite3.targets",
+        "buildTransitive/net8.0/SQLitePCLRaw.lib.e_sqlite3.targets",
+        "lib/net461/_._",
+        "lib/netstandard2.0/_._",
+        "runtimes/browser-wasm/nativeassets/net6.0/e_sqlite3.a",
+        "runtimes/browser-wasm/nativeassets/net7.0/e_sqlite3.a",
+        "runtimes/browser-wasm/nativeassets/net8.0/e_sqlite3.a",
+        "runtimes/linux-arm/native/libe_sqlite3.so",
+        "runtimes/linux-arm64/native/libe_sqlite3.so",
+        "runtimes/linux-armel/native/libe_sqlite3.so",
+        "runtimes/linux-mips64/native/libe_sqlite3.so",
+        "runtimes/linux-musl-arm/native/libe_sqlite3.so",
+        "runtimes/linux-musl-arm64/native/libe_sqlite3.so",
+        "runtimes/linux-musl-x64/native/libe_sqlite3.so",
+        "runtimes/linux-ppc64le/native/libe_sqlite3.so",
+        "runtimes/linux-s390x/native/libe_sqlite3.so",
+        "runtimes/linux-x64/native/libe_sqlite3.so",
+        "runtimes/linux-x86/native/libe_sqlite3.so",
+        "runtimes/maccatalyst-arm64/native/libe_sqlite3.dylib",
+        "runtimes/maccatalyst-x64/native/libe_sqlite3.dylib",
+        "runtimes/osx-arm64/native/libe_sqlite3.dylib",
+        "runtimes/osx-x64/native/libe_sqlite3.dylib",
+        "runtimes/win-arm/native/e_sqlite3.dll",
+        "runtimes/win-arm64/native/e_sqlite3.dll",
+        "runtimes/win-x64/native/e_sqlite3.dll",
+        "runtimes/win-x86/native/e_sqlite3.dll",
+        "runtimes/win10-arm/nativeassets/uap10.0/e_sqlite3.dll",
+        "runtimes/win10-arm64/nativeassets/uap10.0/e_sqlite3.dll",
+        "runtimes/win10-x64/nativeassets/uap10.0/e_sqlite3.dll",
+        "runtimes/win10-x86/nativeassets/uap10.0/e_sqlite3.dll",
+        "sqlitepclraw.lib.e_sqlite3.2.1.6.nupkg.sha512",
+        "sqlitepclraw.lib.e_sqlite3.nuspec"
+      ]
+    },
+    "SQLitePCLRaw.provider.e_sqlite3/2.1.6": {
+      "sha512": "PQ2Oq3yepLY4P7ll145P3xtx2bX8xF4PzaKPRpw9jZlKvfe4LE/saAV82inND9usn1XRpmxXk7Lal3MTI+6CNg==",
+      "type": "package",
+      "path": "sqlitepclraw.provider.e_sqlite3/2.1.6",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net6.0-windows7.0/SQLitePCLRaw.provider.e_sqlite3.dll",
+        "lib/net6.0/SQLitePCLRaw.provider.e_sqlite3.dll",
+        "lib/netstandard2.0/SQLitePCLRaw.provider.e_sqlite3.dll",
+        "sqlitepclraw.provider.e_sqlite3.2.1.6.nupkg.sha512",
+        "sqlitepclraw.provider.e_sqlite3.nuspec"
+      ]
+    },
+    "System.CodeDom/4.4.0": {
+      "sha512": "2sCCb7doXEwtYAbqzbF/8UAeDRMNmPaQbU2q50Psg1J9KzumyVVCgKQY8s53WIPTufNT0DpSe9QRvVjOzfDWBA==",
+      "type": "package",
+      "path": "system.codedom/4.4.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net461/System.CodeDom.dll",
+        "lib/netstandard2.0/System.CodeDom.dll",
+        "ref/net461/System.CodeDom.dll",
+        "ref/net461/System.CodeDom.xml",
+        "ref/netstandard2.0/System.CodeDom.dll",
+        "ref/netstandard2.0/System.CodeDom.xml",
+        "system.codedom.4.4.0.nupkg.sha512",
+        "system.codedom.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
+    "System.Configuration.ConfigurationManager/8.0.1": {
+      "sha512": "gPYFPDyohW2gXNhdQRSjtmeS6FymL2crg4Sral1wtvEJ7DUqFCDWDVbbLobASbzxfic8U1hQEdC7hmg9LHncMw==",
+      "type": "package",
+      "path": "system.configuration.configurationmanager/8.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/System.Configuration.ConfigurationManager.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net6.0/_._",
+        "buildTransitive/netcoreapp2.0/System.Configuration.ConfigurationManager.targets",
+        "lib/net462/System.Configuration.ConfigurationManager.dll",
+        "lib/net462/System.Configuration.ConfigurationManager.xml",
+        "lib/net6.0/System.Configuration.ConfigurationManager.dll",
+        "lib/net6.0/System.Configuration.ConfigurationManager.xml",
+        "lib/net7.0/System.Configuration.ConfigurationManager.dll",
+        "lib/net7.0/System.Configuration.ConfigurationManager.xml",
+        "lib/net8.0/System.Configuration.ConfigurationManager.dll",
+        "lib/net8.0/System.Configuration.ConfigurationManager.xml",
+        "lib/netstandard2.0/System.Configuration.ConfigurationManager.dll",
+        "lib/netstandard2.0/System.Configuration.ConfigurationManager.xml",
+        "system.configuration.configurationmanager.8.0.1.nupkg.sha512",
+        "system.configuration.configurationmanager.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "System.Data.OleDb/8.0.1": {
+      "sha512": "RO+/y2ggU5956uQDRXdjA1e2l5yJ4rTWNX76eZ+3sgtYGqGapCe2kQCyiUci+/y6Fyb21Irp4RQEdfrIiuYrxQ==",
+      "type": "package",
+      "path": "system.data.oledb/8.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/System.Data.OleDb.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net6.0/_._",
+        "buildTransitive/netcoreapp2.0/System.Data.OleDb.targets",
+        "lib/net462/System.Data.OleDb.dll",
+        "lib/net462/System.Data.OleDb.xml",
+        "lib/net6.0/System.Data.OleDb.dll",
+        "lib/net6.0/System.Data.OleDb.xml",
+        "lib/net7.0/System.Data.OleDb.dll",
+        "lib/net7.0/System.Data.OleDb.xml",
+        "lib/net8.0/System.Data.OleDb.dll",
+        "lib/net8.0/System.Data.OleDb.xml",
+        "lib/netstandard2.0/System.Data.OleDb.dll",
+        "lib/netstandard2.0/System.Data.OleDb.xml",
+        "runtimes/win/lib/net6.0/System.Data.OleDb.dll",
+        "runtimes/win/lib/net6.0/System.Data.OleDb.xml",
+        "runtimes/win/lib/net7.0/System.Data.OleDb.dll",
+        "runtimes/win/lib/net7.0/System.Data.OleDb.xml",
+        "runtimes/win/lib/net8.0/System.Data.OleDb.dll",
+        "runtimes/win/lib/net8.0/System.Data.OleDb.xml",
+        "system.data.oledb.8.0.1.nupkg.sha512",
+        "system.data.oledb.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "System.Diagnostics.EventLog/8.0.1": {
+      "sha512": "n1ZP7NM2Gkn/MgD8+eOT5MulMj6wfeQMNS2Pizvq5GHCZfjlFMXV2irQlQmJhwA2VABC57M0auudO89Iu2uRLg==",
+      "type": "package",
+      "path": "system.diagnostics.eventlog/8.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/System.Diagnostics.EventLog.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net6.0/_._",
+        "buildTransitive/netcoreapp2.0/System.Diagnostics.EventLog.targets",
+        "lib/net462/System.Diagnostics.EventLog.dll",
+        "lib/net462/System.Diagnostics.EventLog.xml",
+        "lib/net6.0/System.Diagnostics.EventLog.dll",
+        "lib/net6.0/System.Diagnostics.EventLog.xml",
+        "lib/net7.0/System.Diagnostics.EventLog.dll",
+        "lib/net7.0/System.Diagnostics.EventLog.xml",
+        "lib/net8.0/System.Diagnostics.EventLog.dll",
+        "lib/net8.0/System.Diagnostics.EventLog.xml",
+        "lib/netstandard2.0/System.Diagnostics.EventLog.dll",
+        "lib/netstandard2.0/System.Diagnostics.EventLog.xml",
+        "runtimes/win/lib/net6.0/System.Diagnostics.EventLog.Messages.dll",
+        "runtimes/win/lib/net6.0/System.Diagnostics.EventLog.dll",
+        "runtimes/win/lib/net6.0/System.Diagnostics.EventLog.xml",
+        "runtimes/win/lib/net7.0/System.Diagnostics.EventLog.Messages.dll",
+        "runtimes/win/lib/net7.0/System.Diagnostics.EventLog.dll",
+        "runtimes/win/lib/net7.0/System.Diagnostics.EventLog.xml",
+        "runtimes/win/lib/net8.0/System.Diagnostics.EventLog.Messages.dll",
+        "runtimes/win/lib/net8.0/System.Diagnostics.EventLog.dll",
+        "runtimes/win/lib/net8.0/System.Diagnostics.EventLog.xml",
+        "system.diagnostics.eventlog.8.0.1.nupkg.sha512",
+        "system.diagnostics.eventlog.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "System.Diagnostics.PerformanceCounter/8.0.1": {
+      "sha512": "9RfEDiEjlUADeThs8IPdDVTXSnPRSqjfgTQJALpmGFPKC0k2mbdufOXnb/9JZ4I0TkmxOfy3VTJxrHOJSs8cXg==",
+      "type": "package",
+      "path": "system.diagnostics.performancecounter/8.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/System.Diagnostics.PerformanceCounter.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net6.0/_._",
+        "buildTransitive/netcoreapp2.0/System.Diagnostics.PerformanceCounter.targets",
+        "lib/net462/System.Diagnostics.PerformanceCounter.dll",
+        "lib/net462/System.Diagnostics.PerformanceCounter.xml",
+        "lib/net6.0/System.Diagnostics.PerformanceCounter.dll",
+        "lib/net6.0/System.Diagnostics.PerformanceCounter.xml",
+        "lib/net7.0/System.Diagnostics.PerformanceCounter.dll",
+        "lib/net7.0/System.Diagnostics.PerformanceCounter.xml",
+        "lib/net8.0/System.Diagnostics.PerformanceCounter.dll",
+        "lib/net8.0/System.Diagnostics.PerformanceCounter.xml",
+        "lib/netstandard2.0/System.Diagnostics.PerformanceCounter.dll",
+        "lib/netstandard2.0/System.Diagnostics.PerformanceCounter.xml",
+        "runtimes/win/lib/net6.0/System.Diagnostics.PerformanceCounter.dll",
+        "runtimes/win/lib/net6.0/System.Diagnostics.PerformanceCounter.xml",
+        "runtimes/win/lib/net7.0/System.Diagnostics.PerformanceCounter.dll",
+        "runtimes/win/lib/net7.0/System.Diagnostics.PerformanceCounter.xml",
+        "runtimes/win/lib/net8.0/System.Diagnostics.PerformanceCounter.dll",
+        "runtimes/win/lib/net8.0/System.Diagnostics.PerformanceCounter.xml",
+        "system.diagnostics.performancecounter.8.0.1.nupkg.sha512",
+        "system.diagnostics.performancecounter.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "System.Drawing.Common/8.0.15": {
+      "sha512": "qe9ADU4LlSDEluFw6UCvnhUX43iu1rfIi4u3cpQ37DjFDbwyWGRrDM5gypYj1IQuAVRnMHqOyFbCjtCvijN2cA==",
+      "type": "package",
+      "path": "system.drawing.common/8.0.15",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/System.Drawing.Common.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net6.0/_._",
+        "buildTransitive/netcoreapp2.0/System.Drawing.Common.targets",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/net462/System.Drawing.Common.dll",
+        "lib/net462/System.Drawing.Common.pdb",
+        "lib/net462/System.Drawing.Common.xml",
+        "lib/net6.0/System.Drawing.Common.dll",
+        "lib/net6.0/System.Drawing.Common.pdb",
+        "lib/net6.0/System.Drawing.Common.xml",
+        "lib/net7.0/System.Drawing.Common.dll",
+        "lib/net7.0/System.Drawing.Common.pdb",
+        "lib/net7.0/System.Drawing.Common.xml",
+        "lib/net8.0/System.Drawing.Common.dll",
+        "lib/net8.0/System.Drawing.Common.pdb",
+        "lib/net8.0/System.Drawing.Common.xml",
+        "lib/netstandard2.0/System.Drawing.Common.dll",
+        "lib/netstandard2.0/System.Drawing.Common.pdb",
+        "lib/netstandard2.0/System.Drawing.Common.xml",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "lib/xamarintvos10/_._",
+        "lib/xamarinwatchos10/_._",
+        "system.drawing.common.8.0.15.nupkg.sha512",
+        "system.drawing.common.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "System.Memory/4.5.3": {
+      "sha512": "3oDzvc/zzetpTKWMShs1AADwZjQ/36HnsufHRPcOjyRAAMLDlu2iD33MBI2opxnezcVUtXyqDXXjoFMOU9c7SA==",
+      "type": "package",
+      "path": "system.memory/4.5.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/netcoreapp2.1/_._",
+        "lib/netstandard1.1/System.Memory.dll",
+        "lib/netstandard1.1/System.Memory.xml",
+        "lib/netstandard2.0/System.Memory.dll",
+        "lib/netstandard2.0/System.Memory.xml",
+        "ref/netcoreapp2.1/_._",
+        "system.memory.4.5.3.nupkg.sha512",
+        "system.memory.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
+    "System.Security.Cryptography.Pkcs/8.0.1": {
+      "sha512": "CoCRHFym33aUSf/NtWSVSZa99dkd0Hm7OCZUxORBjRB16LNhIEOf8THPqzIYlvKM0nNDAPTRBa1FxEECrgaxxA==",
+      "type": "package",
+      "path": "system.security.cryptography.pkcs/8.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/System.Security.Cryptography.Pkcs.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net6.0/_._",
+        "buildTransitive/netcoreapp2.0/System.Security.Cryptography.Pkcs.targets",
+        "lib/net462/System.Security.Cryptography.Pkcs.dll",
+        "lib/net462/System.Security.Cryptography.Pkcs.xml",
+        "lib/net6.0/System.Security.Cryptography.Pkcs.dll",
+        "lib/net6.0/System.Security.Cryptography.Pkcs.xml",
+        "lib/net7.0/System.Security.Cryptography.Pkcs.dll",
+        "lib/net7.0/System.Security.Cryptography.Pkcs.xml",
+        "lib/net8.0/System.Security.Cryptography.Pkcs.dll",
+        "lib/net8.0/System.Security.Cryptography.Pkcs.xml",
+        "lib/netstandard2.0/System.Security.Cryptography.Pkcs.dll",
+        "lib/netstandard2.0/System.Security.Cryptography.Pkcs.xml",
+        "lib/netstandard2.1/System.Security.Cryptography.Pkcs.dll",
+        "lib/netstandard2.1/System.Security.Cryptography.Pkcs.xml",
+        "runtimes/win/lib/net6.0/System.Security.Cryptography.Pkcs.dll",
+        "runtimes/win/lib/net6.0/System.Security.Cryptography.Pkcs.xml",
+        "runtimes/win/lib/net7.0/System.Security.Cryptography.Pkcs.dll",
+        "runtimes/win/lib/net7.0/System.Security.Cryptography.Pkcs.xml",
+        "runtimes/win/lib/net8.0/System.Security.Cryptography.Pkcs.dll",
+        "runtimes/win/lib/net8.0/System.Security.Cryptography.Pkcs.xml",
+        "system.security.cryptography.pkcs.8.0.1.nupkg.sha512",
+        "system.security.cryptography.pkcs.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "System.Security.Cryptography.ProtectedData/8.0.0": {
+      "sha512": "+TUFINV2q2ifyXauQXRwy4CiBhqvDEDZeVJU7qfxya4aRYOKzVBpN+4acx25VcPB9ywUN6C0n8drWl110PhZEg==",
+      "type": "package",
+      "path": "system.security.cryptography.protecteddata/8.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/System.Security.Cryptography.ProtectedData.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net6.0/_._",
+        "buildTransitive/netcoreapp2.0/System.Security.Cryptography.ProtectedData.targets",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/net462/System.Security.Cryptography.ProtectedData.dll",
+        "lib/net462/System.Security.Cryptography.ProtectedData.xml",
+        "lib/net6.0/System.Security.Cryptography.ProtectedData.dll",
+        "lib/net6.0/System.Security.Cryptography.ProtectedData.xml",
+        "lib/net7.0/System.Security.Cryptography.ProtectedData.dll",
+        "lib/net7.0/System.Security.Cryptography.ProtectedData.xml",
+        "lib/net8.0/System.Security.Cryptography.ProtectedData.dll",
+        "lib/net8.0/System.Security.Cryptography.ProtectedData.xml",
+        "lib/netstandard2.0/System.Security.Cryptography.ProtectedData.dll",
+        "lib/netstandard2.0/System.Security.Cryptography.ProtectedData.xml",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "lib/xamarintvos10/_._",
+        "lib/xamarinwatchos10/_._",
+        "system.security.cryptography.protecteddata.8.0.0.nupkg.sha512",
+        "system.security.cryptography.protecteddata.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "System.Security.Cryptography.Xml/8.0.2": {
+      "sha512": "aDM/wm0ZGEZ6ZYJLzgqjp2FZdHbDHh6/OmpGfb7AdZ105zYmPn/83JRU2xLIbwgoNz9U1SLUTJN0v5th3qmvjA==",
+      "type": "package",
+      "path": "system.security.cryptography.xml/8.0.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/System.Security.Cryptography.Xml.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net6.0/_._",
+        "buildTransitive/netcoreapp2.0/System.Security.Cryptography.Xml.targets",
+        "lib/net462/System.Security.Cryptography.Xml.dll",
+        "lib/net462/System.Security.Cryptography.Xml.xml",
+        "lib/net6.0/System.Security.Cryptography.Xml.dll",
+        "lib/net6.0/System.Security.Cryptography.Xml.xml",
+        "lib/net7.0/System.Security.Cryptography.Xml.dll",
+        "lib/net7.0/System.Security.Cryptography.Xml.xml",
+        "lib/net8.0/System.Security.Cryptography.Xml.dll",
+        "lib/net8.0/System.Security.Cryptography.Xml.xml",
+        "lib/netstandard2.0/System.Security.Cryptography.Xml.dll",
+        "lib/netstandard2.0/System.Security.Cryptography.Xml.xml",
+        "system.security.cryptography.xml.8.0.2.nupkg.sha512",
+        "system.security.cryptography.xml.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "System.ServiceModel.Http/8.1.2": {
+      "sha512": "2HoneRUCHB8kKQcuAladR16mIHuyi5f9DrrNnTjkaICv5X7YuwoI7GSrp9GTkRSxC4ddNcjMdwE01Rm0sPgoMw==",
+      "type": "package",
+      "path": "system.servicemodel.http/8.1.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "README.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/net462/System.ServiceModel.Http.dll",
+        "lib/net462/System.ServiceModel.Http.pdb",
+        "lib/net8.0/System.ServiceModel.Http.dll",
+        "lib/net8.0/System.ServiceModel.Http.pdb",
+        "lib/net8.0/cs/System.ServiceModel.Http.resources.dll",
+        "lib/net8.0/de/System.ServiceModel.Http.resources.dll",
+        "lib/net8.0/es/System.ServiceModel.Http.resources.dll",
+        "lib/net8.0/fr/System.ServiceModel.Http.resources.dll",
+        "lib/net8.0/it/System.ServiceModel.Http.resources.dll",
+        "lib/net8.0/ja/System.ServiceModel.Http.resources.dll",
+        "lib/net8.0/ko/System.ServiceModel.Http.resources.dll",
+        "lib/net8.0/pl/System.ServiceModel.Http.resources.dll",
+        "lib/net8.0/pt-BR/System.ServiceModel.Http.resources.dll",
+        "lib/net8.0/ru/System.ServiceModel.Http.resources.dll",
+        "lib/net8.0/tr/System.ServiceModel.Http.resources.dll",
+        "lib/net8.0/zh-Hans/System.ServiceModel.Http.resources.dll",
+        "lib/net8.0/zh-Hant/System.ServiceModel.Http.resources.dll",
+        "lib/netstandard2.0/System.ServiceModel.Http.dll",
+        "lib/netstandard2.0/System.ServiceModel.Http.pdb",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "lib/xamarintvos10/_._",
+        "lib/xamarinwatchos10/_._",
+        "ref/net462/System.ServiceModel.Http.dll",
+        "ref/net8.0/System.ServiceModel.Http.dll",
+        "ref/netcoreapp2.0/_._",
+        "ref/netstandard2.0/System.ServiceModel.Http.dll",
+        "system.servicemodel.http.8.1.2.nupkg.sha512",
+        "system.servicemodel.http.nuspec"
+      ]
+    },
+    "System.ServiceModel.NetFramingBase/8.1.2": {
+      "sha512": "XDNsiI4Lrv4scb10salZNbUDJNYj3Qm39KeN9uulKXbgcxF/fNC+hCrLDAhNz/rIqxOeRB/JCfQ4A/Ha0hFAWg==",
+      "type": "package",
+      "path": "system.servicemodel.netframingbase/8.1.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "README.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net8.0/System.ServiceModel.NetFramingBase.dll",
+        "lib/net8.0/System.ServiceModel.NetFramingBase.pdb",
+        "lib/net8.0/cs/System.ServiceModel.NetFramingBase.resources.dll",
+        "lib/net8.0/de/System.ServiceModel.NetFramingBase.resources.dll",
+        "lib/net8.0/es/System.ServiceModel.NetFramingBase.resources.dll",
+        "lib/net8.0/fr/System.ServiceModel.NetFramingBase.resources.dll",
+        "lib/net8.0/it/System.ServiceModel.NetFramingBase.resources.dll",
+        "lib/net8.0/ja/System.ServiceModel.NetFramingBase.resources.dll",
+        "lib/net8.0/ko/System.ServiceModel.NetFramingBase.resources.dll",
+        "lib/net8.0/pl/System.ServiceModel.NetFramingBase.resources.dll",
+        "lib/net8.0/pt-BR/System.ServiceModel.NetFramingBase.resources.dll",
+        "lib/net8.0/ru/System.ServiceModel.NetFramingBase.resources.dll",
+        "lib/net8.0/tr/System.ServiceModel.NetFramingBase.resources.dll",
+        "lib/net8.0/zh-Hans/System.ServiceModel.NetFramingBase.resources.dll",
+        "lib/net8.0/zh-Hant/System.ServiceModel.NetFramingBase.resources.dll",
+        "ref/net8.0/System.ServiceModel.NetFramingBase.dll",
+        "system.servicemodel.netframingbase.8.1.2.nupkg.sha512",
+        "system.servicemodel.netframingbase.nuspec"
+      ]
+    },
+    "System.ServiceModel.NetTcp/8.1.2": {
+      "sha512": "+H4KpATeOPxGfl8JlMpv+a7h6ZIItIhHXJRr+0/KKAP49TjHXybaNwFrUbpasAMVE+D+8M96GxRevzcqvahfAQ==",
+      "type": "package",
+      "path": "system.servicemodel.nettcp/8.1.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "README.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/net462/System.ServiceModel.NetTcp.dll",
+        "lib/net462/System.ServiceModel.NetTcp.pdb",
+        "lib/net8.0/System.ServiceModel.NetTcp.dll",
+        "lib/net8.0/System.ServiceModel.NetTcp.pdb",
+        "lib/net8.0/cs/System.ServiceModel.NetTcp.resources.dll",
+        "lib/net8.0/de/System.ServiceModel.NetTcp.resources.dll",
+        "lib/net8.0/es/System.ServiceModel.NetTcp.resources.dll",
+        "lib/net8.0/fr/System.ServiceModel.NetTcp.resources.dll",
+        "lib/net8.0/it/System.ServiceModel.NetTcp.resources.dll",
+        "lib/net8.0/ja/System.ServiceModel.NetTcp.resources.dll",
+        "lib/net8.0/ko/System.ServiceModel.NetTcp.resources.dll",
+        "lib/net8.0/pl/System.ServiceModel.NetTcp.resources.dll",
+        "lib/net8.0/pt-BR/System.ServiceModel.NetTcp.resources.dll",
+        "lib/net8.0/ru/System.ServiceModel.NetTcp.resources.dll",
+        "lib/net8.0/tr/System.ServiceModel.NetTcp.resources.dll",
+        "lib/net8.0/zh-Hans/System.ServiceModel.NetTcp.resources.dll",
+        "lib/net8.0/zh-Hant/System.ServiceModel.NetTcp.resources.dll",
+        "lib/netstandard2.0/System.ServiceModel.NetTcp.dll",
+        "lib/netstandard2.0/System.ServiceModel.NetTcp.pdb",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "lib/xamarintvos10/_._",
+        "lib/xamarinwatchos10/_._",
+        "ref/net462/System.ServiceModel.NetTcp.dll",
+        "ref/net8.0/System.ServiceModel.NetTcp.dll",
+        "ref/netcoreapp2.0/_._",
+        "ref/netstandard2.0/System.ServiceModel.NetTcp.dll",
+        "system.servicemodel.nettcp.8.1.2.nupkg.sha512",
+        "system.servicemodel.nettcp.nuspec"
+      ]
+    },
+    "System.ServiceModel.Primitives/8.1.2": {
+      "sha512": "xlJ07FAUSDjPL/GhvVY1/KVPWn2ce056X4nHPwqAa5rkNLiNN5rqh6VcgMUoF6J7ckwhkVJ1vVx/K/47nyyR9g==",
+      "type": "package",
+      "path": "system.servicemodel.primitives/8.1.2",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "README.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/MonoAndroid10/_._",
+        "lib/MonoTouch10/_._",
+        "lib/net462/System.ServiceModel.Duplex.dll",
+        "lib/net462/System.ServiceModel.Duplex.pdb",
+        "lib/net462/System.ServiceModel.Primitives.dll",
+        "lib/net462/System.ServiceModel.Primitives.pdb",
+        "lib/net462/System.ServiceModel.Security.dll",
+        "lib/net462/System.ServiceModel.Security.pdb",
+        "lib/net8.0/System.ServiceModel.Duplex.dll",
+        "lib/net8.0/System.ServiceModel.Duplex.pdb",
+        "lib/net8.0/System.ServiceModel.Primitives.dll",
+        "lib/net8.0/System.ServiceModel.Primitives.pdb",
+        "lib/net8.0/System.ServiceModel.Security.dll",
+        "lib/net8.0/System.ServiceModel.Security.pdb",
+        "lib/net8.0/System.ServiceModel.dll",
+        "lib/net8.0/System.ServiceModel.pdb",
+        "lib/net8.0/cs/System.ServiceModel.Primitives.resources.dll",
+        "lib/net8.0/de/System.ServiceModel.Primitives.resources.dll",
+        "lib/net8.0/es/System.ServiceModel.Primitives.resources.dll",
+        "lib/net8.0/fr/System.ServiceModel.Primitives.resources.dll",
+        "lib/net8.0/it/System.ServiceModel.Primitives.resources.dll",
+        "lib/net8.0/ja/System.ServiceModel.Primitives.resources.dll",
+        "lib/net8.0/ko/System.ServiceModel.Primitives.resources.dll",
+        "lib/net8.0/pl/System.ServiceModel.Primitives.resources.dll",
+        "lib/net8.0/pt-BR/System.ServiceModel.Primitives.resources.dll",
+        "lib/net8.0/ru/System.ServiceModel.Primitives.resources.dll",
+        "lib/net8.0/tr/System.ServiceModel.Primitives.resources.dll",
+        "lib/net8.0/zh-Hans/System.ServiceModel.Primitives.resources.dll",
+        "lib/net8.0/zh-Hant/System.ServiceModel.Primitives.resources.dll",
+        "lib/netstandard2.0/System.ServiceModel.Duplex.dll",
+        "lib/netstandard2.0/System.ServiceModel.Duplex.pdb",
+        "lib/netstandard2.0/System.ServiceModel.Primitives.dll",
+        "lib/netstandard2.0/System.ServiceModel.Primitives.pdb",
+        "lib/netstandard2.0/System.ServiceModel.Security.dll",
+        "lib/netstandard2.0/System.ServiceModel.Security.pdb",
+        "lib/xamarinios10/_._",
+        "lib/xamarinmac20/_._",
+        "lib/xamarintvos10/_._",
+        "lib/xamarinwatchos10/_._",
+        "ref/net462/System.ServiceModel.Duplex.dll",
+        "ref/net462/System.ServiceModel.Primitives.dll",
+        "ref/net462/System.ServiceModel.Security.dll",
+        "ref/net8.0/System.ServiceModel.Duplex.dll",
+        "ref/net8.0/System.ServiceModel.Primitives.dll",
+        "ref/net8.0/System.ServiceModel.Security.dll",
+        "ref/net8.0/System.ServiceModel.dll",
+        "ref/netcoreapp2.0/_._",
+        "ref/netstandard2.0/System.ServiceModel.Duplex.dll",
+        "ref/netstandard2.0/System.ServiceModel.Primitives.dll",
+        "ref/netstandard2.0/System.ServiceModel.Security.dll",
+        "system.servicemodel.primitives.8.1.2.nupkg.sha512",
+        "system.servicemodel.primitives.nuspec"
+      ]
+    },
+    "System.Text.Encodings.Web/8.0.0": {
+      "sha512": "yev/k9GHAEGx2Rg3/tU6MQh4HGBXJs70y7j1LaM1i/ER9po+6nnQ6RRqTJn1E7Xu0fbIFK80Nh5EoODxrbxwBQ==",
+      "type": "package",
+      "path": "system.text.encodings.web/8.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "buildTransitive/net461/System.Text.Encodings.Web.targets",
+        "buildTransitive/net462/_._",
+        "buildTransitive/net6.0/_._",
+        "buildTransitive/netcoreapp2.0/System.Text.Encodings.Web.targets",
+        "lib/net462/System.Text.Encodings.Web.dll",
+        "lib/net462/System.Text.Encodings.Web.xml",
+        "lib/net6.0/System.Text.Encodings.Web.dll",
+        "lib/net6.0/System.Text.Encodings.Web.xml",
+        "lib/net7.0/System.Text.Encodings.Web.dll",
+        "lib/net7.0/System.Text.Encodings.Web.xml",
+        "lib/net8.0/System.Text.Encodings.Web.dll",
+        "lib/net8.0/System.Text.Encodings.Web.xml",
+        "lib/netstandard2.0/System.Text.Encodings.Web.dll",
+        "lib/netstandard2.0/System.Text.Encodings.Web.xml",
+        "runtimes/browser/lib/net6.0/System.Text.Encodings.Web.dll",
+        "runtimes/browser/lib/net6.0/System.Text.Encodings.Web.xml",
+        "runtimes/browser/lib/net7.0/System.Text.Encodings.Web.dll",
+        "runtimes/browser/lib/net7.0/System.Text.Encodings.Web.xml",
+        "runtimes/browser/lib/net8.0/System.Text.Encodings.Web.dll",
+        "runtimes/browser/lib/net8.0/System.Text.Encodings.Web.xml",
+        "system.text.encodings.web.8.0.0.nupkg.sha512",
+        "system.text.encodings.web.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    },
+    "System.Text.Json/8.0.4": {
+      "sha512": "bAkhgDJ88XTsqczoxEMliSrpijKZHhbJQldhAmObj/RbrN3sU5dcokuXmWJWsdQAhiMJ9bTayWsL1C9fbbCRhw==",
+      "type": "package",
+      "path": "system.text.json/8.0.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "PACKAGE.md",
+        "THIRD-PARTY-NOTICES.TXT",
+        "analyzers/dotnet/roslyn3.11/cs/System.Text.Json.SourceGeneration.dll",
+        "analyzers/dotnet/roslyn3.11/cs/cs/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/de/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/es/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/fr/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/it/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/ja/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/ko/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/pl/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/pt-BR/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/ru/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/tr/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/zh-Hans/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn3.11/cs/zh-Hant/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/System.Text.Json.SourceGeneration.dll",
+        "analyzers/dotnet/roslyn4.0/cs/cs/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/de/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/es/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/fr/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/it/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/ja/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/ko/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/pl/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/pt-BR/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/ru/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/tr/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/zh-Hans/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.0/cs/zh-Hant/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/System.Text.Json.SourceGeneration.dll",
+        "analyzers/dotnet/roslyn4.4/cs/cs/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/de/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/es/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/fr/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/it/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/ja/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/ko/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/pl/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/pt-BR/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/ru/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/tr/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/zh-Hans/System.Text.Json.SourceGeneration.resources.dll",
+        "analyzers/dotnet/roslyn4.4/cs/zh-Hant/System.Text.Json.SourceGeneration.resources.dll",
+        "buildTransitive/net461/System.Text.Json.targets",
+        "buildTransitive/net462/System.Text.Json.targets",
+        "buildTransitive/net6.0/System.Text.Json.targets",
+        "buildTransitive/netcoreapp2.0/System.Text.Json.targets",
+        "buildTransitive/netstandard2.0/System.Text.Json.targets",
+        "lib/net462/System.Text.Json.dll",
+        "lib/net462/System.Text.Json.xml",
+        "lib/net6.0/System.Text.Json.dll",
+        "lib/net6.0/System.Text.Json.xml",
+        "lib/net7.0/System.Text.Json.dll",
+        "lib/net7.0/System.Text.Json.xml",
+        "lib/net8.0/System.Text.Json.dll",
+        "lib/net8.0/System.Text.Json.xml",
+        "lib/netstandard2.0/System.Text.Json.dll",
+        "lib/netstandard2.0/System.Text.Json.xml",
+        "system.text.json.8.0.4.nupkg.sha512",
+        "system.text.json.nuspec",
+        "useSharedDesignerContext.txt"
+      ]
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net9.0-windows7.0": [
+      "DevExpress.Wpf.Core >= 25.1.3",
+      "DevExpress.Wpf.Ribbon >= 23.2.6",
+      "DevExpress.Wpf.Spreadsheet >= 25.1.3",
+      "Microsoft.EntityFrameworkCore.Sqlite >= 8.0.7"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\Administrator\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "E:\\Projects\\CspProject\\CspProject\\CspProject.csproj",
+      "projectName": "CspProject",
+      "projectPath": "E:\\Projects\\CspProject\\CspProject\\CspProject.csproj",
+      "packagesPath": "C:\\Users\\Administrator\\.nuget\\packages\\",
+      "outputPath": "E:\\Projects\\CspProject\\CspProject\\obj\\",
+      "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
+      "configFilePaths": [
+        "C:\\Users\\Administrator\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net9.0-windows"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
+        "https://api.nuget.org/v3/index.json": {},
+        "https://nuget.devexpress.com/llfVpnpuOPCrwUi3XIoYbyoPIdpXqwJnCKdRgpepXrGglthS1M/api/v3/index.json": {}
+      },
+      "frameworks": {
+        "net9.0-windows7.0": {
+          "targetAlias": "net9.0-windows",
+          "projectReferences": {}
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
+      },
+      "SdkAnalysisLevel": "9.0.300"
+    },
+    "frameworks": {
+      "net9.0-windows7.0": {
+        "targetAlias": "net9.0-windows",
+        "dependencies": {
+          "DevExpress.Wpf.Core": {
+            "target": "Package",
+            "version": "[25.1.3, )"
+          },
+          "DevExpress.Wpf.Ribbon": {
+            "target": "Package",
+            "version": "[23.2.6, )"
+          },
+          "DevExpress.Wpf.Spreadsheet": {
+            "target": "Package",
+            "version": "[25.1.3, )"
+          },
+          "Microsoft.EntityFrameworkCore.Sqlite": {
+            "target": "Package",
+            "version": "[8.0.7, )"
+          }
+        },
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.AspNetCore.App.Runtime.win-x64",
+            "version": "[9.0.7, 9.0.7]"
+          },
+          {
+            "name": "Microsoft.NETCore.App.Runtime.win-x64",
+            "version": "[9.0.7, 9.0.7]"
+          },
+          {
+            "name": "Microsoft.WindowsDesktop.App.Runtime.win-x64",
+            "version": "[9.0.7, 9.0.7]"
+          }
+        ],
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          },
+          "Microsoft.WindowsDesktop.App.WPF": {
+            "privateAssets": "none"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.303/PortableRuntimeIdentifierGraph.json"
+      }
+    },
+    "runtimes": {
+      "win-x64": {
+        "#import": []
+      }
+    }
+  },
+  "logs": [
+    {
+      "code": "NU1603",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "CspProject depends on DevExpress.Wpf.Ribbon (>= 23.2.6) but DevExpress.Wpf.Ribbon 23.2.6 was not found. DevExpress.Wpf.Ribbon 25.1.3 was resolved instead.",
+      "libraryId": "DevExpress.Wpf.Ribbon",
+      "targetGraphs": [
+        "net9.0-windows7.0",
+        "net9.0-windows7.0/win-x64"
+      ]
+    }
+  ]
+}
