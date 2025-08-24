@@ -167,3 +167,16 @@ E:\Projects\CspProject\CspProject\obj\Debug\net9.0-windows\Views\HomeScreen.g.cs
 E:\Projects\CspProject\CspProject\obj\Debug\net9.0-windows\Views\SpreadsheetView.g.cs
 E:\Projects\CspProject\CspProject\obj\Debug\net9.0-windows\Views\LoadingSplashScreen.baml
 E:\Projects\CspProject\CspProject\obj\Debug\net9.0-windows\Views\LoadingSplashScreen.g.cs
+E:\Projects\CspProject\CspProject\obj\Debug\net9.0-windows\CspProject.sourcelink.json
+E:\Projects\CspProject\CspProject\obj\Debug\net9.0-windows\Views\ApprovalsView.g.cs
+E:\Projects\CspProject\CspProject\obj\Debug\net9.0-windows\Views\HomeContentView.g.cs
+E:\Projects\CspProject\CspProject\obj\Debug\net9.0-windows\Views\MyDocumentsView.g.cs
+E:\Projects\CspProject\CspProject\obj\Debug\net9.0-windows\Views\ApprovalsView.baml
+E:\Projects\CspProject\CspProject\obj\Debug\net9.0-windows\Views\HomeContentView.baml
+E:\Projects\CspProject\CspProject\obj\Debug\net9.0-windows\Views\MyDocumentsView.baml
+E:\Projects\CspProject\CspProject\obj\Debug\net9.0-windows\Views\SettingsView.g.cs
+E:\Projects\CspProject\CspProject\obj\Debug\net9.0-windows\Views\SettingsView.baml
+E:\Projects\CspProject\CspProject\obj\Debug\net9.0-windows\Views\ChangeLogView.g.cs
+E:\Projects\CspProject\CspProject\obj\Debug\net9.0-windows\Views\ChangeLogView.baml
+E:\Projects\CspProject\CspProject\obj\Debug\net9.0-windows\Views\TemplatesView.g.cs
+E:\Projects\CspProject\CspProject\obj\Debug\net9.0-windows\Views\TemplatesView.baml

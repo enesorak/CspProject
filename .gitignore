@@ -1,1 +1,18 @@
-/CspProject.sln
+@"
+# Build outputs
+bin/
+obj/
+.vs/
+*.user
+*.suo
+*.cache
+# Packages
+packages/
+# Logs
+*.log
+# VS code / Rider
+.vscode/
+.idea/
+# Optional: tüm zip'leri izleme dışı bırak
+*.zip
+"@ | Out-File -Encoding utf8 .gitignore

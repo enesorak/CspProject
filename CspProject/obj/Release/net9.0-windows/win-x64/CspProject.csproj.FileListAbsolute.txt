@@ -611,3 +611,16 @@ E:\Projects\CspProject\CspProject\obj\Release\net9.0-windows\win-x64\Views\Sprea
 E:\Projects\CspProject\CspProject\obj\Release\net9.0-windows\win-x64\Views\HomeScreen.g.cs
 E:\Projects\CspProject\CspProject\obj\Release\net9.0-windows\win-x64\Views\LoadingSplashScreen.g.cs
 E:\Projects\CspProject\CspProject\obj\Release\net9.0-windows\win-x64\Views\SpreadsheetView.g.cs
+E:\Projects\CspProject\CspProject\obj\Release\net9.0-windows\win-x64\CspProject.sourcelink.json
+E:\Projects\CspProject\CspProject\obj\Release\net9.0-windows\win-x64\Views\ApprovalsView.g.cs
+E:\Projects\CspProject\CspProject\obj\Release\net9.0-windows\win-x64\Views\HomeContentView.g.cs
+E:\Projects\CspProject\CspProject\obj\Release\net9.0-windows\win-x64\Views\MyDocumentsView.g.cs
+E:\Projects\CspProject\CspProject\obj\Release\net9.0-windows\win-x64\Views\ApprovalsView.baml
+E:\Projects\CspProject\CspProject\obj\Release\net9.0-windows\win-x64\Views\HomeContentView.baml
+E:\Projects\CspProject\CspProject\obj\Release\net9.0-windows\win-x64\Views\MyDocumentsView.baml
+E:\Projects\CspProject\CspProject\obj\Release\net9.0-windows\win-x64\Views\ChangeLogView.g.cs
+E:\Projects\CspProject\CspProject\obj\Release\net9.0-windows\win-x64\Views\SettingsView.g.cs
+E:\Projects\CspProject\CspProject\obj\Release\net9.0-windows\win-x64\Views\TemplatesView.g.cs
+E:\Projects\CspProject\CspProject\obj\Release\net9.0-windows\win-x64\Views\ChangeLogView.baml
+E:\Projects\CspProject\CspProject\obj\Release\net9.0-windows\win-x64\Views\SettingsView.baml
+E:\Projects\CspProject\CspProject\obj\Release\net9.0-windows\win-x64\Views\TemplatesView.baml

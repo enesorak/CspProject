@@ -10,11 +10,11 @@ none
 false
 TRACE;RELEASE;NET;NET9_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NET9_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WİNDOWS7_0_OR_GREATER
 E:\Projects\CspProject\CspProject\App.xaml
-6-516137161
+122105329238
 
-13-1316344275
+20-628399025
 274-1415363387
-MainWindow.xaml;OpenDocumentWindow.xaml;SaveDocumentWindow.xaml;Views\HomeScreen.xaml;Views\LoadingSplashScreen.xaml;Views\SpreadsheetView.xaml;
+MainWindow.xaml;OpenDocumentWindow.xaml;SaveDocumentWindow.xaml;Views\ApprovalsView.xaml;Views\ChangeLogView.xaml;Views\HomeContentView.xaml;Views\HomeScreen.xaml;Views\LoadingSplashScreen.xaml;Views\MyDocumentsView.xaml;Views\SettingsView.xaml;Views\SpreadsheetView.xaml;Views\TemplatesView.xaml;
 
 False
 

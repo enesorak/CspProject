@@ -16,7 +16,7 @@
 
                    Title="CSP Project" Height="500" Width="900"
                    WindowStartupLocation="CenterScreen"
-                   Icon="pack://application:,,,/Images/csp_logo.png" 
+                   Icon="pack://application:,,,/Images/csp_logo.png"  Loaded="ThemedWindow_Loaded" 
                 >
     <Grid>
         <ContentControl x:Name="MainContentControl"/>  

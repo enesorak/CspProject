@@ -3,6 +3,9 @@ using CspProject.Data;
  
 using Microsoft.EntityFrameworkCore;
 using System.Windows.Controls;
+using CspProject.Data.Entities;
+using Button = System.Windows.Controls.Button;
+using MessageBox = System.Windows.MessageBox;
 using UserControl = System.Windows.Controls.UserControl;
 
 namespace CspProject.Views;
@@ -11,72 +14,57 @@ namespace CspProject.Views;
     {
         public event EventHandler? RequestNewDocument;
         public event EventHandler<int>? RequestOpenDocument;
+        public event EventHandler<string>? RequestNavigate; // YENİ
 
-        public HomeScreen()
+        public HomeScreen(User currentUser)
         {
-            InitializeComponent();
-            LoadRecentDocuments();
+            InitializeComponent(); 
+            CurrentUserTextBlock.Text = currentUser.Name;
+
+            NavigateTo("Home");
         }
-
-        private async void LoadRecentDocuments(string statusFilter = "All", string searchText = "")
+        
+        private void NavigationButton_Click(object sender, RoutedEventArgs e)
         {
-            LoadingIndicator.Visibility = Visibility.Visible;
-            RecentDocumentsGrid.IsEnabled = false;
-            CreateNewButton.IsEnabled = false;
-            await Task.Delay(1);
-            try
+            if (sender is Button button && button.Tag is string page)
             {
-                using (var dbContext = new ApplicationDbContext())
-                {
-                    var query = dbContext.Documents.AsQueryable();
+                NavigateTo(page);
 
-                    if (!string.IsNullOrEmpty(statusFilter) && statusFilter != "All")
-                    {
-                        query = query.Where(d => d.Status == statusFilter);
-                    }
-
-                    if (!string.IsNullOrEmpty(searchText))
-                    {
-                        query = query.Where(d => d.DocumentName.ToLower().Contains(searchText.ToLower()));
-                    }
-
-                    var documents = await query
-                        .OrderByDescending(d => d.ModifiedDate)
-                        .Take(10) 
-                        .ToListAsync();
-                    
-                    RecentDocumentsGrid.ItemsSource = documents;
-                }
-            }
-            finally
-            {
-                LoadingIndicator.Visibility = Visibility.Collapsed;
-                RecentDocumentsGrid.IsEnabled = true;
-                CreateNewButton.IsEnabled = true;
             }
         }
+         
 
-        private void Filter_Changed(object sender, RoutedEventArgs e)
+        private void NavigateTo(string pageTag)
         {
-            string status = (StatusComboBox.EditValue as string) ?? "All";
-            string search = SearchBox.Text ?? "";
-
-            LoadRecentDocuments(status, search);
-        }
-
-        private void CreateNewButton_Click(object sender, RoutedEventArgs e)
-        {
-            RequestNewDocument?.Invoke(this, EventArgs.Empty);
-        }
-
-        private void RecentDocumentsGrid_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
-        {
-            
-            var grid = (DevExpress.Xpf.Grid.GridControl)sender;
-            if (grid.SelectedItem is Data.Entities.Document selectedDoc)
+            switch (pageTag)
             {
-             
-                RequestOpenDocument?.Invoke(this, selectedDoc.Id);
+                case "Home":
+                    var homeContent = new HomeContentView();
+                    homeContent.RequestNewDocument += (s, e) => RequestNewDocument?.Invoke(s, e);
+                    homeContent.RequestOpenDocument += (s, id) => RequestOpenDocument?.Invoke(s, id);
+                    PageContentControl.Content = homeContent;
+                    break;
+                case "MyDocuments":
+                    var myDocsView = new MyDocumentsView();
+                    myDocsView.RequestOpenDocument += (s, id) => RequestOpenDocument?.Invoke(s, id);
+                    PageContentControl.Content = myDocsView;
+                    break;
+                case "Approvals":
+                    var approvalsView = new ApprovalsView();
+                    approvalsView.RequestOpenDocument += (s, id) => RequestOpenDocument?.Invoke(s, id);
+                    PageContentControl.Content = approvalsView;
+                    break;
+                case "Templates":
+                    var templatesView = new TemplatesView();
+                    templatesView.RequestNewFmeaDocument += (s, e) => RequestNewDocument?.Invoke(s, e);
+                    PageContentControl.Content = templatesView;
+                    break;
+                case "ChangeLog":
+                    PageContentControl.Content = new ChangeLogView();
+                    break;
+                case "Settings":
+                    RequestNavigate?.Invoke(this, pageTag);
+                    break;
             }
         }
-    }
+         }

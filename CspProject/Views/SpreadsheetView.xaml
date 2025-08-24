@@ -12,9 +12,10 @@
              mc:Ignorable="d" 
              d:DesignHeight="700" d:DesignWidth="1000">
     <Grid>
-        <dxsps:SpreadsheetControl x:Name="spreadsheetControl" 
+       
+        <dxsps:SpreadsheetControl x:Name="spreadsheetControl"  
                                   CommandBarStyle="Ribbon"
-                                  ShowFormulaBar="True">
+                                  ShowFormulaBar="True" ShowStatusBar="True"   >
             <dxsps:SpreadsheetControl.RibbonActions>
                 <!-- First, remove the spreadsheet's default File page -->
                 <dxb:RemoveAction ElementName="{x:Static dxsps:DefaultBarItemNames.RibbonPage_File}"/>
@@ -46,9 +47,60 @@
                         </dxr:RibbonPageGroup>
                     </dxr:RibbonPage>
                 </dxb:InsertAction>
+                
+                      <dxb:InsertAction ContainerName="{x:Static dxsps:DefaultBarItemNames.RibbonCategory_Default}" Index="3">
+                    <dxr:RibbonPage Caption="Workflow">
+                        <dxr:RibbonPageGroup Caption="Approval Process">
+                            <dxb:BarButtonItem x:Name="SubmitButton" Content="Submit for Review" ItemClick="SubmitButton_Click" RibbonStyle="Large" Glyph="{dx:DXImage 'SvgImages/Icon Builder/Actions_Send.svg'}"/>
+                            <dxb:BarButtonItem x:Name="ApproveButton" Content="Approve" ItemClick="ApproveButton_Click" RibbonStyle="Large" Glyph="{dx:DXImage 'SvgImages/DiagramIcons/Check.svg'}"/>
+                            <dxb:BarButtonItem x:Name="RejectButton" Content="Reject" ItemClick="RejectButton_Click" RibbonStyle="Large" Glyph="{dx:DXImage 'SvgImages/Outlook Inspired/Cancel.svg'}"/>
+
+                        </dxr:RibbonPageGroup>
+                        
+                    </dxr:RibbonPage>
+                        
+                </dxb:InsertAction>
+                
             </dxsps:SpreadsheetControl.RibbonActions>
+
+
+            <dxsps:SpreadsheetControl.StatusBarActions>
+                <!--Remove the MIN and MAX items from the status bar.-->
+                <dxb:RemoveAction ElementName="{x:Static dxsps:DefaultBarItemNames.StatusBarItem_Min}"/>
+                <dxb:RemoveAction ElementName="{x:Static dxsps:DefaultBarItemNames.StatusBarItem_Max}"/>
+                <!--Remove the MIN and MAX items from the Customize Status Bar context menu.-->
+                <dxb:RemoveAction ElementName="{x:Static dxsps:DefaultBarItemNames.StatusBarItem_PopupMenu_Min}"/>
+                <dxb:RemoveAction ElementName="{x:Static dxsps:DefaultBarItemNames.StatusBarItem_PopupMenu_Max}"/>
+                <!--Add the File Name item to the status bar. This item displays a path to the current workbook.-->
+                <dxb:InsertAction ContainerName="{x:Static dxsps:DefaultBarItemNames.StatusBarControl}" CollectionTag="LeftStatusBarItems">
+                    <dxb:BarStaticItem Content="{Binding ElementName=spreadsheetControl, Path=Options.Save.CurrentFileName, Mode=OneWay}" 
+                                       IsVisible="{Binding ElementName=ShowFileName, Path=IsChecked}"/>
+                </dxb:InsertAction>
+                <!--Add the File Name item to the Customize Status Bar context menu.
+        This item allows users to control the File Name item's visibility on the status bar.-->
+                <dxb:InsertAction ContainerName="{x:Static dxsps:DefaultBarItemNames.StatusBar_PopupMenu}">
+                 
+
+                </dxb:InsertAction>
+            </dxsps:SpreadsheetControl.StatusBarActions>
+      
         </dxsps:SpreadsheetControl>
+   
+        
+        <dxr:RibbonStatusBarControl DockPanel.Dock="Bottom">
+            <dxr:RibbonStatusBarControl.LeftItems>
+                <dxb:BarStaticItem x:Name="StatusLabel" />
+            </dxr:RibbonStatusBarControl.LeftItems>
+            <dxr:RibbonStatusBarControl.RightItems>
+                <dxb:BarStaticItem x:Name="VersionLabel" />
+            </dxr:RibbonStatusBarControl.RightItems>
+        </dxr:RibbonStatusBarControl>
+        
+        
+        
         
         
     </Grid>
+    
+    
 </UserControl>

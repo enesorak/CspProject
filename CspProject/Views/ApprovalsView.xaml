@@ -4,9 +4,24 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:CspProject.Views"
+             xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
-        
-    </Grid>
+             d:DesignHeight="700" d:DesignWidth="900">
+           
+    <DockPanel Margin="30">
+        <TextBlock DockPanel.Dock="Top" Text="Approvals" FontSize="28" FontWeight="Light" Margin="0,0,0,20"/>
+        <TextBlock DockPanel.Dock="Top" Text="Documents waiting for your approval." FontSize="14" Foreground="Gray" Margin="0,0,0,20"/>
+        <dxg:GridControl x:Name="ApprovalsGrid" AutoGenerateColumns="None" MouseDoubleClick="ApprovalsGrid_MouseDoubleClick">
+            <dxg:GridControl.Columns>
+                <dxg:GridColumn FieldName="DocumentName" Header="Document Name"/>
+                <dxg:GridColumn FieldName="AuthorName" Header="Author"/>
+                <dxg:GridColumn FieldName="Version" Header="Version"/>
+                <dxg:GridColumn FieldName="ModifiedDate" Header="Submitted On"/>
+            </dxg:GridControl.Columns>
+            <dxg:GridControl.View>
+                <dxg:TableView ShowGroupPanel="False" NavigationStyle="Row"/>
+            </dxg:GridControl.View>
+        </dxg:GridControl>
+    </DockPanel>
 </UserControl>

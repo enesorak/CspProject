@@ -4,9 +4,21 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:CspProject.Views"
+             xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
              mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300">
-    <Grid>
+    <StackPanel Margin="30">
+        <TextBlock Text="Settings" FontSize="28" FontWeight="Light" Margin="0,0,0,20"/>
+        <TextBlock Text="Switch User for Testing" FontSize="20" FontWeight="Normal" Margin="0,0,0,10"/>
+        <TextBlock Text="Select a user to simulate their role and permissions within the application." Foreground="Gray" TextWrapping="Wrap" Margin="0,0,0,20"/>
         
-    </Grid>
+        <Label Content="Current User:"/>
+        <dxe:ComboBoxEdit x:Name="UserComboBox" 
+                          Width="300" 
+                          DisplayMember="Name" 
+                          ValueMember="Id"
+                          HorizontalAlignment="Left"/>
+        
+        <Button Content="Switch User" Click="SwitchUser_Click" HorizontalAlignment="Left" Padding="15,8" Margin="0,20,0,0"/>
+    </StackPanel>
 </UserControl>

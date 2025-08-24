@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("CspProject")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+71fa7c4978873a021c02060d63f6b67da21d6c75")]
 [assembly: System.Reflection.AssemblyProductAttribute("CspProject")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CspProject")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

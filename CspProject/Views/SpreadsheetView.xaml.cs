@@ -4,6 +4,8 @@ using CspProject.Data;
 using CspProject.Data.Entities;
 using CspProject.Services;
 using DevExpress.Spreadsheet;
+using DevExpress.Xpf.Bars;
+using Microsoft.EntityFrameworkCore;
 using MessageBox = System.Windows.MessageBox;
 using UserControl = System.Windows.Controls.UserControl;
 
@@ -12,21 +14,36 @@ namespace CspProject.Views;
 public partial class SpreadsheetView : UserControl
 {
     public event EventHandler? RequestGoToHome;
+    public event Action<string>? DocumentInfoChanged;
+
+    private User? _currentUser; // YENİ: Mevcut kullanıcıyı tutar
+
 
     private Document? _currentDocument;
     private readonly ApplicationDbContext _dbContext = new ApplicationDbContext();
-
-    public SpreadsheetView()
+ 
+    
+    public SpreadsheetView(User currentUser)
     {
         InitializeComponent();
-    }
+        _currentUser = currentUser;
+
+        
+        StatusLabel.Content = $"Status: {(string.IsNullOrWhiteSpace(_currentDocument?.Status) ? "New" : _currentDocument?.Status)}"; 
+        
+        //VersionLabel.Content = $"Version: {_currentDocument?.Version}";
+     }
 
     public void CreateNewFmeaDocument()
     {
-        _currentDocument = null;
+        if (_currentUser == null) return;
+        _currentDocument = new Document { AuthorId = _currentUser.Id };
         spreadsheetControl.CreateNewDocument();
         FmeaTemplateGenerator.Apply(spreadsheetControl.Document);
         spreadsheetControl.Modified = false;
+        UpdateUiForDocumentStatus();
+
+
     }
 
     public async Task LoadDocument(int documentId)
@@ -38,8 +55,19 @@ public partial class SpreadsheetView : UserControl
             // The Task.Run was causing the cross-thread exception.
             spreadsheetControl.LoadDocument(_currentDocument.Content, DocumentFormat.Xlsx);
             spreadsheetControl.Modified = false;
+            UpdateUiForDocumentStatus();
+
         }
     }
+   
+    
+    
+    
+    
+    
+    
+    
+    
     private async void OpenButton_Click(object sender, RoutedEventArgs e)
     {
         // This logic should also check for unsaved changes, will add later.
@@ -58,41 +86,18 @@ public partial class SpreadsheetView : UserControl
                 spreadsheetControl.LoadDocument(documentToOpen.Content, DocumentFormat.Xlsx);
                 MessageBox.Show($"Document '{documentToOpen.DocumentName}' (Version: {documentToOpen.Version}) has been loaded.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
                 spreadsheetControl.Modified = false;
+                UpdateUiForDocumentStatus();
             }
         }
     }
+    
+    
+        
+     
     private async void SaveButton_Click(object sender, RoutedEventArgs e)
     {
-        if (_currentDocument == null) // New document
-        {
-            var worksheet = spreadsheetControl.Document.Worksheets[0];
-            string defaultName = worksheet.Cells["G4"].Value.ToString() ?? "New Document";
-
-            var saveWindow = new SaveDocumentWindow(defaultName) { Owner = Window.GetWindow(this) };
-            if (saveWindow.ShowDialog() == true)
-            {
-                _currentDocument = new Document { Version = "0.0.1" };
-                _currentDocument.DocumentName = saveWindow.DocumentName;
-                _dbContext.Documents.Add(_currentDocument);
-                UpdateDocumentFromSpreadsheet(_currentDocument);
-                await _dbContext.SaveChangesAsync();
-                spreadsheetControl.Modified = false;
-                MessageBox.Show($"Document '{_currentDocument.DocumentName}' saved successfully as version {_currentDocument.Version}!", "Save Successful", MessageBoxButton.OK, MessageBoxImage.Information);
-            }
-        }
-        else // Existing document
-        {
-            if (!spreadsheetControl.Modified)
-            {
-                MessageBox.Show("No changes to save.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
-            _currentDocument.Version = IncrementPatchVersion(_currentDocument.Version);
-            UpdateDocumentFromSpreadsheet(_currentDocument);
-            await _dbContext.SaveChangesAsync();
-            spreadsheetControl.Modified = false;
-            MessageBox.Show($"Document '{_currentDocument.DocumentName}' saved successfully as version {_currentDocument.Version}!", "Save Successful", MessageBoxButton.OK, MessageBoxImage.Information);
-        }
+        
+        await PerformSaveAsync();
     }
     private async void RenameButton_Click(object sender, RoutedEventArgs e)
     {
@@ -109,6 +114,8 @@ public partial class SpreadsheetView : UserControl
             await _dbContext.SaveChangesAsync();
             MessageBox.Show($"Document successfully renamed to '{_currentDocument.DocumentName}'.", "Rename Successful", MessageBoxButton.OK, MessageBoxImage.Information);
         }
+        
+        UpdateUiForDocumentStatus();
     }
     private async Task SaveCurrentDocument(bool asNewMinorVersion)
     {
@@ -147,6 +154,8 @@ public partial class SpreadsheetView : UserControl
             spreadsheetControl.Modified = false;
             MessageBox.Show($"Document '{documentToSave.DocumentName}' saved successfully as version {documentToSave.Version}!", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
         }
+        
+        UpdateUiForDocumentStatus();
     }
 
     private void ExportButton_Click(object sender, RoutedEventArgs e)
@@ -239,5 +248,142 @@ public partial class SpreadsheetView : UserControl
             }
             catch { /* Fallback for invalid format */ }
             return "0.1.0";
+        }
+        
+        
+        private async void SubmitButton_Click(object sender, RoutedEventArgs e)
+        {
+            /*if (_currentDocument == null) return;
+            _currentDocument.Status = "Under Review";
+            await SaveAndRefreshUi();*/
+            
+            if (await PerformSaveAsync())
+            {
+                if (_currentDocument == null) return;
+                
+                var approver = await _dbContext.Users.FirstOrDefaultAsync(u => u.Role == "Approver");
+                if (approver == null)
+                {
+                    MessageBox.Show("No approver found in the system.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                    return;
+                }
+                _currentDocument.ApproverId = approver.Id;
+                _currentDocument.Status = "Under Review";
+                await SaveAndRefreshUi();
+            }
+        }
+        
+        
+private async Task<bool> PerformSaveAsync()
+        {
+            // FIX: A new document is identified by having an Id of 0.
+            if (_currentDocument == null || _currentDocument.Id == 0)
+            {
+                var worksheet = spreadsheetControl.Document.Worksheets[0];
+                string defaultName = worksheet.Cells["G4"].Value.ToString() ?? "New Document";
+                var saveWindow = new SaveDocumentWindow(defaultName) { Owner = Window.GetWindow(this) };
+                
+                if (saveWindow.ShowDialog() == true)
+                {
+                    if (_currentDocument == null) // Should not happen, but as a safeguard
+                    {
+                         if (_currentUser != null) _currentDocument = new Document { AuthorId = _currentUser.Id };
+                    }
+                    _currentDocument.DocumentName = saveWindow.DocumentName;
+                    _currentDocument.Version = "0.0.1";
+                    _dbContext.Documents.Add(_currentDocument);
+                }
+                else
+                {
+                    return false; // User cancelled the save dialog
+                }
+            }
+            else if (!spreadsheetControl.Modified)
+            {
+                MessageBox.Show("No changes to save.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+                return true; // No changes, but operation is considered successful
+            }
+            else
+            {
+                _currentDocument.Version = IncrementPatchVersion(_currentDocument.Version);
+            }
+
+            UpdateDocumentFromSpreadsheet(_currentDocument);
+            await _dbContext.SaveChangesAsync();
+            spreadsheetControl.Modified = false;
+            MessageBox.Show($"Document '{_currentDocument.DocumentName}' saved successfully as version {_currentDocument.Version}!", "Save Successful", MessageBoxButton.OK, MessageBoxImage.Information);
+            UpdateUiForDocumentStatus();
+            return true;
+        }
+
+        private async void ApproveButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (_currentDocument == null || _currentUser == null) return;
+            if (_currentDocument.AuthorId == _currentUser.Id)
+            {
+                MessageBox.Show("Authors cannot approve their own documents.", "Authorization Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+            _currentDocument.Status = "Approved";
+            _currentDocument.Version = IncrementMajorVersion(_currentDocument.Version); // YENİ: Ana versiyonu artır
+
+            await SaveAndRefreshUi();
+        }
+        
+        private string IncrementMajorVersion(string version)
+        {
+            if (string.IsNullOrWhiteSpace(version)) return "1.0.0";
+            try
+            {
+                var parts = version.Split('.').Select(int.Parse).ToList();
+                if (parts.Count == 3)
+                {
+                    parts[0]++; // Ana versiyonu artır
+                    parts[1] = 0; // Alt versiyonu sıfırla
+                    parts[2] = 0; // Yama versiyonunu sıfırla
+                    return string.Join(".", parts);
+                }
+            }
+            catch { /* Hatalı format için geri dönüş */ }
+            return "1.0.0"; // Güvenli bir varsayılana geri dön
+        }
+
+        private async void RejectButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (_currentDocument == null) return;
+            _currentDocument.Status = "Draft";
+            await SaveAndRefreshUi();
+        }
+        
+        
+        private async Task SaveAndRefreshUi()
+        {
+            await _dbContext.SaveChangesAsync();
+            UpdateUiForDocumentStatus();
+            MessageBox.Show($"Document status changed to: {_currentDocument?.Status}");
+        }
+
+        // --- YENİ: Arayüz Güncelleme Mantığı ---
+        private void UpdateUiForDocumentStatus()
+        {
+            if (_currentDocument == null || _currentUser == null) return;
+
+
+            string status = _currentDocument.Status;
+            DocumentInfoChanged?.Invoke($"Status: {status} | Version: {_currentDocument.Version}");
+
+            StatusLabel.Content = $"Status: {(string.IsNullOrWhiteSpace(status) ? "New" : status)}";
+            VersionLabel.Content = $"Version: {_currentDocument.Version}";
+
+            bool isAuthor = _currentDocument.AuthorId == _currentUser.Id;
+            bool isApprover = _currentUser.Role == "Approver";
+
+            bool isEditable = (status == "Draft");
+            spreadsheetControl.ReadOnly = !isEditable;
+
+            // Control button visibility based on status
+            SubmitButton.IsVisible = (status == "Draft" && isAuthor);
+            ApproveButton.IsVisible = (status == "Under Review" && isApprover);
+            RejectButton.IsVisible = (status == "Under Review" && isApprover);
         }
 }
