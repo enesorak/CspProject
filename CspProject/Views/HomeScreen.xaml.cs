@@ -1,11 +1,6 @@
 using System.Windows;
-using CspProject.Data;
- 
-using Microsoft.EntityFrameworkCore;
-using System.Windows.Controls;
 using CspProject.Data.Entities;
 using Button = System.Windows.Controls.Button;
-using MessageBox = System.Windows.MessageBox;
 using UserControl = System.Windows.Controls.UserControl;
 
 namespace CspProject.Views;
@@ -20,6 +15,7 @@ namespace CspProject.Views;
         {
             InitializeComponent(); 
             CurrentUserTextBlock.Text = currentUser.Name;
+            VersionTextBlock.Text = $"Version: {App.AppVersion}"; // Versiyonu ayarla
 
             NavigateTo("Home");
         }

@@ -5,35 +5,36 @@
     <RestoreTool Condition=" '$(RestoreTool)' == '' ">NuGet</RestoreTool>
     <ProjectAssetsFile Condition=" '$(ProjectAssetsFile)' == '' ">$(MSBuildThisFileDirectory)project.assets.json</ProjectAssetsFile>
     <NuGetPackageRoot Condition=" '$(NuGetPackageRoot)' == '' ">$(UserProfile)\.nuget\packages\</NuGetPackageRoot>
-    <NuGetPackageFolders Condition=" '$(NuGetPackageFolders)' == '' ">C:\Users\Administrator\.nuget\packages\;C:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages</NuGetPackageFolders>
+    <NuGetPackageFolders Condition=" '$(NuGetPackageFolders)' == '' ">C:\Users\penshark\.nuget\packages\;C:\Program Files\DevExpress 25.1\Components\Offline Packages;C:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages</NuGetPackageFolders>
     <NuGetProjectStyle Condition=" '$(NuGetProjectStyle)' == '' ">PackageReference</NuGetProjectStyle>
     <NuGetToolVersion Condition=" '$(NuGetToolVersion)' == '' ">6.14.0</NuGetToolVersion>
   </PropertyGroup>
   <ItemGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <SourceRoot Include="C:\Users\Administrator\.nuget\packages\" />
+    <SourceRoot Include="C:\Users\penshark\.nuget\packages\" />
+    <SourceRoot Include="C:\Program Files\DevExpress 25.1\Components\Offline Packages\" />
     <SourceRoot Include="C:\Program Files (x86)\Microsoft Visual Studio\Shared\NuGetPackages\" />
   </ItemGroup>
   <ImportGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
     <Import Project="$(NuGetPackageRoot)microsoft.entityframeworkcore\8.0.7\buildTransitive\net8.0\Microsoft.EntityFrameworkCore.props" Condition="Exists('$(NuGetPackageRoot)microsoft.entityframeworkcore\8.0.7\buildTransitive\net8.0\Microsoft.EntityFrameworkCore.props')" />
-    <Import Project="$(NuGetPackageRoot)devexpress.data.desktop\25.1.3\build\net8.0-windows\DevExpress.Data.Desktop.props" Condition="Exists('$(NuGetPackageRoot)devexpress.data.desktop\25.1.3\build\net8.0-windows\DevExpress.Data.Desktop.props')" />
-    <Import Project="$(NuGetPackageRoot)devexpress.wpf.core\25.1.3\build\net8.0-windows\DevExpress.Wpf.Core.props" Condition="Exists('$(NuGetPackageRoot)devexpress.wpf.core\25.1.3\build\net8.0-windows\DevExpress.Wpf.Core.props')" />
+    <Import Project="C:\Program Files\DevExpress 25.1\Components\Offline Packages\devexpress.data.desktop\25.1.3\build\net8.0-windows\DevExpress.Data.Desktop.props" Condition="Exists('C:\Program Files\DevExpress 25.1\Components\Offline Packages\devexpress.data.desktop\25.1.3\build\net8.0-windows\DevExpress.Data.Desktop.props')" />
+    <Import Project="C:\Program Files\DevExpress 25.1\Components\Offline Packages\devexpress.wpf.core\25.1.3\build\net8.0-windows\DevExpress.Wpf.Core.props" Condition="Exists('C:\Program Files\DevExpress 25.1\Components\Offline Packages\devexpress.wpf.core\25.1.3\build\net8.0-windows\DevExpress.Wpf.Core.props')" />
   </ImportGroup>
   <PropertyGroup Condition=" '$(ExcludeRestorePackageImports)' != 'true' ">
-    <PkgDevExpress_Data Condition=" '$(PkgDevExpress_Data)' == '' ">C:\Users\Administrator\.nuget\packages\devexpress.data\25.1.3</PkgDevExpress_Data>
-    <PkgDevExpress_Xpo Condition=" '$(PkgDevExpress_Xpo)' == '' ">C:\Users\Administrator\.nuget\packages\devexpress.xpo\25.1.3</PkgDevExpress_Xpo>
-    <PkgDevExpress_Wpf_Core Condition=" '$(PkgDevExpress_Wpf_Core)' == '' ">C:\Users\Administrator\.nuget\packages\devexpress.wpf.core\25.1.3</PkgDevExpress_Wpf_Core>
-    <PkgDevExpress_Wpf_TreeMap Condition=" '$(PkgDevExpress_Wpf_TreeMap)' == '' ">C:\Users\Administrator\.nuget\packages\devexpress.wpf.treemap\25.1.3</PkgDevExpress_Wpf_TreeMap>
-    <PkgDevExpress_Wpf_Ribbon Condition=" '$(PkgDevExpress_Wpf_Ribbon)' == '' ">C:\Users\Administrator\.nuget\packages\devexpress.wpf.ribbon\25.1.3</PkgDevExpress_Wpf_Ribbon>
-    <PkgDevExpress_Wpf_PropertyGrid Condition=" '$(PkgDevExpress_Wpf_PropertyGrid)' == '' ">C:\Users\Administrator\.nuget\packages\devexpress.wpf.propertygrid\25.1.3</PkgDevExpress_Wpf_PropertyGrid>
-    <PkgDevExpress_Wpf_LayoutControl Condition=" '$(PkgDevExpress_Wpf_LayoutControl)' == '' ">C:\Users\Administrator\.nuget\packages\devexpress.wpf.layoutcontrol\25.1.3</PkgDevExpress_Wpf_LayoutControl>
-    <PkgDevExpress_Wpf_Grid_Core Condition=" '$(PkgDevExpress_Wpf_Grid_Core)' == '' ">C:\Users\Administrator\.nuget\packages\devexpress.wpf.grid.core\25.1.3</PkgDevExpress_Wpf_Grid_Core>
-    <PkgDevExpress_Wpf_Controls Condition=" '$(PkgDevExpress_Wpf_Controls)' == '' ">C:\Users\Administrator\.nuget\packages\devexpress.wpf.controls\25.1.3</PkgDevExpress_Wpf_Controls>
-    <PkgDevExpress_Wpf_DocumentViewer_Core Condition=" '$(PkgDevExpress_Wpf_DocumentViewer_Core)' == '' ">C:\Users\Administrator\.nuget\packages\devexpress.wpf.documentviewer.core\25.1.3</PkgDevExpress_Wpf_DocumentViewer_Core>
-    <PkgDevExpress_Wpf_Docking Condition=" '$(PkgDevExpress_Wpf_Docking)' == '' ">C:\Users\Administrator\.nuget\packages\devexpress.wpf.docking\25.1.3</PkgDevExpress_Wpf_Docking>
-    <PkgDevExpress_Wpf_Printing Condition=" '$(PkgDevExpress_Wpf_Printing)' == '' ">C:\Users\Administrator\.nuget\packages\devexpress.wpf.printing\25.1.3</PkgDevExpress_Wpf_Printing>
-    <PkgDevExpress_Wpf_NavBar Condition=" '$(PkgDevExpress_Wpf_NavBar)' == '' ">C:\Users\Administrator\.nuget\packages\devexpress.wpf.navbar\25.1.3</PkgDevExpress_Wpf_NavBar>
-    <PkgDevExpress_Wpf_Charts Condition=" '$(PkgDevExpress_Wpf_Charts)' == '' ">C:\Users\Administrator\.nuget\packages\devexpress.wpf.charts\25.1.3</PkgDevExpress_Wpf_Charts>
-    <PkgDevExpress_DataAccess Condition=" '$(PkgDevExpress_DataAccess)' == '' ">C:\Users\Administrator\.nuget\packages\devexpress.dataaccess\25.1.3</PkgDevExpress_DataAccess>
-    <PkgDevExpress_Wpf_Spreadsheet Condition=" '$(PkgDevExpress_Wpf_Spreadsheet)' == '' ">C:\Users\Administrator\.nuget\packages\devexpress.wpf.spreadsheet\25.1.3</PkgDevExpress_Wpf_Spreadsheet>
+    <PkgDevExpress_Data Condition=" '$(PkgDevExpress_Data)' == '' ">C:\Program Files\DevExpress 25.1\Components\Offline Packages\devexpress.data\25.1.3</PkgDevExpress_Data>
+    <PkgDevExpress_Xpo Condition=" '$(PkgDevExpress_Xpo)' == '' ">C:\Program Files\DevExpress 25.1\Components\Offline Packages\devexpress.xpo\25.1.3</PkgDevExpress_Xpo>
+    <PkgDevExpress_Wpf_Core Condition=" '$(PkgDevExpress_Wpf_Core)' == '' ">C:\Program Files\DevExpress 25.1\Components\Offline Packages\devexpress.wpf.core\25.1.3</PkgDevExpress_Wpf_Core>
+    <PkgDevExpress_Wpf_TreeMap Condition=" '$(PkgDevExpress_Wpf_TreeMap)' == '' ">C:\Program Files\DevExpress 25.1\Components\Offline Packages\devexpress.wpf.treemap\25.1.3</PkgDevExpress_Wpf_TreeMap>
+    <PkgDevExpress_Wpf_Ribbon Condition=" '$(PkgDevExpress_Wpf_Ribbon)' == '' ">C:\Program Files\DevExpress 25.1\Components\Offline Packages\devexpress.wpf.ribbon\25.1.3</PkgDevExpress_Wpf_Ribbon>
+    <PkgDevExpress_Wpf_PropertyGrid Condition=" '$(PkgDevExpress_Wpf_PropertyGrid)' == '' ">C:\Program Files\DevExpress 25.1\Components\Offline Packages\devexpress.wpf.propertygrid\25.1.3</PkgDevExpress_Wpf_PropertyGrid>
+    <PkgDevExpress_Wpf_LayoutControl Condition=" '$(PkgDevExpress_Wpf_LayoutControl)' == '' ">C:\Program Files\DevExpress 25.1\Components\Offline Packages\devexpress.wpf.layoutcontrol\25.1.3</PkgDevExpress_Wpf_LayoutControl>
+    <PkgDevExpress_Wpf_Grid_Core Condition=" '$(PkgDevExpress_Wpf_Grid_Core)' == '' ">C:\Program Files\DevExpress 25.1\Components\Offline Packages\devexpress.wpf.grid.core\25.1.3</PkgDevExpress_Wpf_Grid_Core>
+    <PkgDevExpress_Wpf_Controls Condition=" '$(PkgDevExpress_Wpf_Controls)' == '' ">C:\Program Files\DevExpress 25.1\Components\Offline Packages\devexpress.wpf.controls\25.1.3</PkgDevExpress_Wpf_Controls>
+    <PkgDevExpress_Wpf_DocumentViewer_Core Condition=" '$(PkgDevExpress_Wpf_DocumentViewer_Core)' == '' ">C:\Program Files\DevExpress 25.1\Components\Offline Packages\devexpress.wpf.documentviewer.core\25.1.3</PkgDevExpress_Wpf_DocumentViewer_Core>
+    <PkgDevExpress_Wpf_Docking Condition=" '$(PkgDevExpress_Wpf_Docking)' == '' ">C:\Program Files\DevExpress 25.1\Components\Offline Packages\devexpress.wpf.docking\25.1.3</PkgDevExpress_Wpf_Docking>
+    <PkgDevExpress_Wpf_Printing Condition=" '$(PkgDevExpress_Wpf_Printing)' == '' ">C:\Program Files\DevExpress 25.1\Components\Offline Packages\devexpress.wpf.printing\25.1.3</PkgDevExpress_Wpf_Printing>
+    <PkgDevExpress_Wpf_NavBar Condition=" '$(PkgDevExpress_Wpf_NavBar)' == '' ">C:\Program Files\DevExpress 25.1\Components\Offline Packages\devexpress.wpf.navbar\25.1.3</PkgDevExpress_Wpf_NavBar>
+    <PkgDevExpress_Wpf_Charts Condition=" '$(PkgDevExpress_Wpf_Charts)' == '' ">C:\Program Files\DevExpress 25.1\Components\Offline Packages\devexpress.wpf.charts\25.1.3</PkgDevExpress_Wpf_Charts>
+    <PkgDevExpress_DataAccess Condition=" '$(PkgDevExpress_DataAccess)' == '' ">C:\Program Files\DevExpress 25.1\Components\Offline Packages\devexpress.dataaccess\25.1.3</PkgDevExpress_DataAccess>
+    <PkgDevExpress_Wpf_Spreadsheet Condition=" '$(PkgDevExpress_Wpf_Spreadsheet)' == '' ">C:\Program Files\DevExpress 25.1\Components\Offline Packages\devexpress.wpf.spreadsheet\25.1.3</PkgDevExpress_Wpf_Spreadsheet>
   </PropertyGroup>
 </Project>

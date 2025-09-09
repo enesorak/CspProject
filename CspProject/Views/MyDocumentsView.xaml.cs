@@ -1,4 +1,5 @@
 using CspProject.Data;
+using CspProject.Data.Entities;
 using Microsoft.EntityFrameworkCore;
 using UserControl = System.Windows.Controls.UserControl;
 
@@ -28,9 +29,8 @@ public partial class MyDocumentsView : UserControl
     private void AllDocumentsGrid_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
         var grid = (DevExpress.Xpf.Grid.GridControl)sender;
-        if (grid.SelectedItem is Data.Entities.Document selectedDoc)
-        {
-            RequestOpenDocument?.Invoke(this, selectedDoc.Id);
-        }
+        var selectedDoc = grid.SelectedItem as Document;
+        if (selectedDoc == null) return; 
+        RequestOpenDocument?.Invoke(this, selectedDoc.Id);
     }
 }

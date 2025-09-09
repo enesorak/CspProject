@@ -18,6 +18,9 @@ namespace CspProject;
 /// </summary>
 public partial class App : Application
 {
+    
+    public static string AppVersion { get; } = "3.1.3";
+
     public App()
     {
         // FIX: Set the culture to be invariant at the very start of the application.

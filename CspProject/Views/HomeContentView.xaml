@@ -47,7 +47,7 @@
             
             <!-- Grid for Documents and Loading Indicator Overlay -->
             <Grid>
-                <dxg:GridControl x:Name="RecentDocumentsGrid" AutoGenerateColumns="None" MaxHeight="400" MouseDoubleClick="RecentDocumentsGrid_MouseDoubleClick">
+                <dxg:GridControl x:Name="RecentDocumentsGrid" AutoGenerateColumns="None" MaxHeight="400"   MouseDoubleClick="RecentDocumentsGrid_MouseDoubleClick">
                     <dxg:GridControl.Columns>
                         <dxg:GridColumn FieldName="DocumentName" Header="Document Name"/>
                         <!-- YENİ SÜTUNLAR -->

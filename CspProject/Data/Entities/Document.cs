@@ -30,6 +30,9 @@ public class Document
     public string? Team { get; set; }
     public string? ResponsibleParty { get; set; }
     public string? ApprovedBy { get; set; }
+    
+    public DateTime? DateCompleted { get; set; } // YENİ
+
     public string Version { get; set; } = "0.0.1";
     
     public string Status { get; set; } = "Draft";

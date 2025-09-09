@@ -22,7 +22,7 @@ public partial class HomeContentView : UserControl
             LoadingIndicator.Visibility = Visibility.Visible;
             RecentDocumentsGrid.IsEnabled = false;
             CreateNewButton.IsEnabled = false;
-            await Task.Delay(1);
+            //await Task.Delay(1);
             try
             {
                 using (var dbContext = new ApplicationDbContext())
@@ -92,11 +92,16 @@ public partial class HomeContentView : UserControl
         {
             
             var grid = (DevExpress.Xpf.Grid.GridControl)sender;
-            if (grid.SelectedItem is Data.Entities.Document selectedDoc)
+            if (grid.SelectedItem != null)
             {
-             
-                RequestOpenDocument?.Invoke(this, selectedDoc.Id);
+                // DÜZELTME: SelectedItem'ı cast etmek yerine, Id'yi doğrudan satırdan oku.
+                int docId = (int)grid.GetCellValue(grid.View.FocusedRowHandle, "Id");
+                RequestOpenDocument?.Invoke(this, docId);
             }
+            
+           
         }
+        
+        
 
 }

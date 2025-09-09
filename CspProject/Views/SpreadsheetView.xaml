@@ -9,6 +9,7 @@
              xmlns:dxb="http://schemas.devexpress.com/winfx/2008/xaml/bars"
              xmlns:dxsprui="clr-namespace:DevExpress.Xpf.Spreadsheet.UI;assembly=DevExpress.Xpf.Spreadsheet.v23.2"
              xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:local="clr-namespace:CspProject"
              mc:Ignorable="d" 
              d:DesignHeight="700" d:DesignWidth="1000">
     <Grid>
@@ -41,10 +42,11 @@
                             <dxb:BarButtonItem Content="Print" Command="{Binding Path=CommandProvider.Print, ElementName=spreadsheetControl}" Glyph="{dx:DXImage 'SvgImages/Dashboards/Print.svg'}"/>
                             <dxb:BarButtonItem Content="Print Preview" Command="{Binding Path=CommandProvider.PrintPreview, ElementName=spreadsheetControl}" Glyph="{dx:DXImage 'SvgImages/DiagramIcons/ShowPrintPreview.svg'}"/>
                         </dxr:RibbonPageGroup>
+                        
                         <dxr:RibbonPageGroup Caption="Edit">
                             <dxb:BarButtonItem Content="Undo" RibbonStyle="Large" Command="{Binding Path=CommandProvider.Undo, ElementName=spreadsheetControl}" Glyph="{dx:DXImage 'SvgImages/Dashboards/Undo.svg'}"/>
                             <dxb:BarButtonItem Content="Redo" RibbonStyle="Large" Command="{Binding Path=CommandProvider.Redo, ElementName=spreadsheetControl}" Glyph="{dx:DXImage 'SvgImages/Dashboards/Redo.svg'}"/>
-                        </dxr:RibbonPageGroup>
+                        </dxr:RibbonPageGroup> 
                     </dxr:RibbonPage>
                 </dxb:InsertAction>
                 
@@ -55,6 +57,17 @@
                             <dxb:BarButtonItem x:Name="ApproveButton" Content="Approve" ItemClick="ApproveButton_Click" RibbonStyle="Large" Glyph="{dx:DXImage 'SvgImages/DiagramIcons/Check.svg'}"/>
                             <dxb:BarButtonItem x:Name="RejectButton" Content="Reject" ItemClick="RejectButton_Click" RibbonStyle="Large" Glyph="{dx:DXImage 'SvgImages/Outlook Inspired/Cancel.svg'}"/>
 
+                        </dxr:RibbonPageGroup>
+                        
+                    </dxr:RibbonPage>
+                        
+                </dxb:InsertAction>
+                
+                <dxb:InsertAction ContainerName="{x:Static dxsps:DefaultBarItemNames.RibbonCategory_Default}" Index="9">
+                    <dxr:RibbonPage Caption="About">
+                        <dxr:RibbonPageGroup Caption="About">
+                            <dxb:BarStaticItem Content="{Binding Source={x:Static local:App.AppVersion}, StringFormat='Version: {0}'}" 
+                                               Glyph="{dx:FontIconSource 59718}"/>
                         </dxr:RibbonPageGroup>
                         
                     </dxr:RibbonPage>

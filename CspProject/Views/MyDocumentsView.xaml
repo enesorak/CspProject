@@ -10,7 +10,7 @@
              d:DesignHeight="700" d:DesignWidth="900">
     <DockPanel Margin="30">
         <TextBlock DockPanel.Dock="Top" Text="My Documents" FontSize="28" FontWeight="Light" Margin="0,0,0,20"/>
-        <dxg:GridControl x:Name="AllDocumentsGrid" AutoGenerateColumns="None" MouseDoubleClick="AllDocumentsGrid_MouseDoubleClick">
+        <dxg:GridControl x:Name="AllDocumentsGrid" AutoGenerateColumns="None" MaxHeight="400" MouseDoubleClick="AllDocumentsGrid_MouseDoubleClick">
             <dxg:GridControl.Columns>
                 <dxg:GridColumn FieldName="DocumentName" Header="Document Name"/>
                 <dxg:GridColumn FieldName="Status" Header="Status"/>

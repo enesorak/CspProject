@@ -48,9 +48,12 @@ public partial class ApprovalsView : UserControl
     private void ApprovalsGrid_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
         var grid = (DevExpress.Xpf.Grid.GridControl)sender;
-        if (grid.SelectedItem is Data.Entities.Document selectedDoc)
+        if (grid.SelectedItem != null)
         {
-            RequestOpenDocument?.Invoke(this, selectedDoc.Id);
+            // DÜZELTME: SelectedItem'ı cast etmek yerine, Id'yi doğrudan satırdan oku.
+            int docId = (int)grid.GetCellValue(grid.View.FocusedRowHandle, "Id");
+            RequestOpenDocument?.Invoke(this, docId);
         }
+
     }
 }
