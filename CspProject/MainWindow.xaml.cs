@@ -1,128 +1,116 @@
-﻿// ***********************************************************************************
-// File: CspProject/MainWindow.xaml.cs
-// Description: Manages UI events. Professional versioning logic added.
-// Author: Enes Orak
-// ***********************************************************************************
+﻿﻿using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Windows.Threading;
 using CspProject.Data;
 using CspProject.Data.Entities;
-using DevExpress.Xpf.Core;
-using System.Windows;
 using CspProject.Views;
-using Microsoft.EntityFrameworkCore;
-using MessageBox = System.Windows.MessageBox;
+using DevExpress.Xpf.Core;
 
-namespace CspProject;
- 
-public partial class MainWindow : ThemedWindow
+namespace CspProject
 {
-    
-    private const string DefaultTitle = "CSP Project";
-    private User? _currentUser; // YENİ
+    public partial class MainWindow : ThemedWindow, INotifyPropertyChanged
+    {
+        private readonly User _currentUser;
+        private readonly ApplicationDbContext _dbContext;
+        private bool _isWaitIndicatorVisible;
 
-    public MainWindow()
-    {
-        InitializeComponent();
-    
-   
-    }
-    
-    private async void ThemedWindow_Loaded(object sender, RoutedEventArgs e)
-    {
-        // Veritabanını ve test kullanıcılarını oluştur
-        using (var dbContext = new ApplicationDbContext())
+        public bool IsWaitIndicatorVisible
         {
-            await dbContext.Database.EnsureCreatedAsync();
-        }
-
-         // Start as the "Author" user by default
-        _currentUser = await new ApplicationDbContext().Users.FirstAsync(u => u.Role == "Author");
-        this.Title = DefaultTitle;
-        GoToHomeScreen();
-    }
-
-    private void GoToHomeScreen()
-    {            this.Title = DefaultTitle; // Ana ekrana dönerken başlığı sıfırla
-
-        var homeScreen = new HomeScreen(_currentUser!);
-        homeScreen.RequestNewDocument += (s, e) => _ = GoToSpreadsheetScreen(null);
-        homeScreen.RequestOpenDocument += async (s, docId) => await GoToSpreadsheetScreen(docId);
-        homeScreen.RequestNavigate += (s, page) => Navigate(page);
-
-        MainContentControl.Content = homeScreen;
-    }
-
-    private async Task GoToSpreadsheetScreen(int? documentId)
-    {
-        if (_currentUser == null) return;
-        DXSplashScreen.Show<LoadingSplashScreen>();
-        string message = documentId.HasValue ? "Loading document, please wait..." : "Creating new template, please wait...";
-        DXSplashScreen.SetState(message);
-
-        await Task.Delay(50);
-
-        try
-        {
-            var spreadsheetView = new SpreadsheetView(_currentUser);
-            spreadsheetView.RequestGoToHome += (s, e) => GoToHomeScreen();
-            spreadsheetView.DocumentInfoChanged += (info) => {
-                this.Title = $"{DefaultTitle} - {info}";
-            };
-
-            if (documentId.HasValue)
+            get => _isWaitIndicatorVisible;
+            set
             {
-                await spreadsheetView.LoadDocument(documentId.Value);
+                _isWaitIndicatorVisible = value;
+                OnPropertyChanged();
             }
-            else
-            {
-                spreadsheetView.CreateNewFmeaDocument();
-            }
+        }
 
-            MainContentControl.Content = spreadsheetView;
-        }
-        finally
+        private string _waitIndicatorText = "Processing...";
+
+        public string WaitIndicatorText
         {
-            DXSplashScreen.Close();
+            get => _waitIndicatorText;
+            set
+            {
+                _waitIndicatorText = value;
+                OnPropertyChanged();
+            }
         }
-    }
-    
-    private void Navigate(string pageTag)
-    {
-        switch(pageTag)
+
+        public MainWindow(User currentUser,ApplicationDbContext dbContext)
         {
-            case "Home":
-                GoToHomeScreen();
-                break;
-            case "Settings":
-                GoToSettingsScreen();
-                break;
-            default:
-                MessageBox.Show($"The '{pageTag}' feature is under construction.", "Coming Soon", MessageBoxButton.OK, MessageBoxImage.Information);
-                break;
+             
+            InitializeComponent();
+            this.DataContext = this;
+       
+            
+            _currentUser = currentUser;
+            _dbContext = dbContext;
+            
+            ShowHomeScreen();
         }
-    }
-    private void GoToSettingsScreen()
-    {
-        if (_currentUser == null) return;
-            
-        var settingsView = new SettingsView(_currentUser);
-        settingsView.UserSwitched += (s, newUser) => {
-            _currentUser = newUser;
-            GoToHomeScreen(); 
-        };
-        MainContentControl.Content = settingsView;
-    }
-    
-    private void GoToApprovalsScreen()
-    {
-        if (_currentUser == null) return;
-            
-        var settingsView = new SettingsView(_currentUser);
-        settingsView.UserSwitched += (s, newUser) => {
-            _currentUser = newUser;
-            GoToHomeScreen(); 
-        };
-        MainContentControl.Content = settingsView;
-    }
-    
+
+       /* private async void ThemedWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            // `App.xaml.cs` zaten kullanıcıyı kontrol ettiği için,
+            // burada sadece mevcut kullanıcıyı alıp HomeScreen'i yüklüyoruz.
+            _currentUser = await _dataContext.Users.FirstOrDefaultAsync();
+            if (_currentUser != null)
+            {
+                ShowHomeScreen();
+            }
+        }
+        */
+
+        private void ShowHomeScreen()
+        {
+        
+            var homeScreen = new HomeScreen(_currentUser);
+            homeScreen.RequestNewDocument += (_, _) => ShowSpreadsheetScreen(null);
+            homeScreen.RequestOpenDocument += (_, docId) => ShowSpreadsheetScreen(docId);
+            MainContentControl.Content = homeScreen;
+        }
+
+
+        private async void ShowSpreadsheetScreen(int? documentId)
+        {
+            // 1. Arayüz İşlemi: WaitIndicator'ı göster (Ana İş Parçacığı)
+            WaitIndicatorText = documentId.HasValue ? "Loading document..." : "Creating new document template...";
+            IsWaitIndicatorVisible = true;
+
+            // 2. Ağır işi, arayüz güncellendikten ve animasyon başladıktan sonra çalışacak şekilde,
+            //    daha düşük bir öncelikle sıraya koy.
+            await Dispatcher.InvokeAsync(async () =>
+            {
+                try
+                {
+                    var spreadsheetView = new SpreadsheetView(_currentUser);
+                    spreadsheetView.RequestGoToHome += (_, _) => ShowHomeScreen();
+
+                    if (documentId.HasValue)
+                    {
+                        await spreadsheetView.LoadDocument(documentId.Value);
+                    }
+                    else
+                    {
+                        await spreadsheetView.CreateNewFmeaDocumentAsync();
+                    }
+
+                    MainContentControl.Content = spreadsheetView;
+                }
+                finally
+                {
+                    // 3. Ağır iş bittiğinde (veya hata oluştuğunda),
+                    //    göstergeyi gizle.
+                    IsWaitIndicatorVisible = false;
+                }
+            }, DispatcherPriority.Background); // İşi 'Background' önceliğiyle sıraya al
+        }
  
+        public event PropertyChangedEventHandler? PropertyChanged;
+
+        private void OnPropertyChanged([CallerMemberName] string? name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+    }
 }

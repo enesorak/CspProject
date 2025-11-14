@@ -1,47 +1,121 @@
+using System;
+using System.IO;
+using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls; // EKLE: UserControl için
+using System.Windows.Threading;
+using CspProject.Data;
 using CspProject.Data.Entities;
+using CspProject.Services;
+using DevExpress.Mvvm;
+using Microsoft.Extensions.DependencyInjection;
 using Button = System.Windows.Controls.Button;
-using UserControl = System.Windows.Controls.UserControl;
 
-namespace CspProject.Views;
-
+namespace CspProject.Views
+{
     public partial class HomeScreen : UserControl
     {
+        private readonly User _currentUser;
+        private readonly ApplicationDbContext _dbContext = new ApplicationDbContext();
+        private readonly DispatcherTimer _backgroundTimer;
+
+        public event EventHandler? RequestNewFmeaDocument;
+        
+        // --- YENİ EKLENEN OLAY ---
+        // Dosyadan şablon yükleme isteğini MainWindow'a iletmek için.
+        public event EventHandler<string>? RequestNewDocumentFromFile;
+        
+        
+ 
+        // --- YENİ OLAY SONU ---
+        
+        
+        // --- Event'ler ---
+        public event EventHandler<string>? RequestNewDocumentFromTemplate;
         public event EventHandler? RequestNewDocument;
         public event EventHandler<int>? RequestOpenDocument;
-        public event EventHandler<string>? RequestNavigate; // YENİ
+        public event EventHandler<string>? RequestNavigate;
+        
+        private readonly TemplateService _templateService;
+        private readonly string _templateDirectory;
 
         public HomeScreen(User currentUser)
         {
-            InitializeComponent(); 
-            CurrentUserTextBlock.Text = currentUser.Name;
-            VersionTextBlock.Text = $"Version: {App.AppVersion}"; // Versiyonu ayarla
+            InitializeComponent();
+            _currentUser = currentUser;
+            CurrentUserTextBlock.Text = _currentUser.Name;
+            VersionTextBlock.Text = $"Version: {App.AppVersion}";
 
-            NavigateTo("Home");
-        }
         
-        private void NavigationButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (sender is Button button && button.Tag is string page)
-            {
-                NavigateTo(page);
+            
+            NavigateTo("Home");
 
+            _backgroundTimer = new DispatcherTimer
+            {
+                Interval = TimeSpan.FromMinutes(5)
+            };
+            _backgroundTimer.Tick += BackgroundTimer_Tick;
+            _backgroundTimer.Start();
+            this.Unloaded += (s, e) => _backgroundTimer.Stop();
+        }
+
+        private async void BackgroundTimer_Tick(object? sender, EventArgs e)
+        {
+            await CheckForApprovals(isSilent: true);
+        }
+
+        private async Task CheckForApprovals(bool isSilent)
+        {
+            var receiverService = new EmailReceiverService(_dbContext);
+            string resultMessage = string.Empty;
+            try
+            {
+                resultMessage = await receiverService.CheckForApprovalEmailsAsync();
+                if (resultMessage.Contains("processed"))
+                {
+                    NavigateTo("Home");
+                }
+            }
+            catch (Exception ex)
+            {
+                resultMessage = $"Error: {ex.GetType().Name}";
+            }
+            finally
+            { 
+                if (!isSilent && resultMessage.Contains("processed"))
+                {
+                    var notificationService = ServiceContainer.Default.GetService<INotificationService>();
+            
+                    if (notificationService != null)
+                    {
+                        var notification = notificationService.CreatePredefinedNotification("Approvals Processed", resultMessage, "");
+                        await notification.ShowAsync();
+                    }
+                }
             }
         }
-         
 
-        private void NavigateTo(string pageTag)
+        private void NavigationButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (sender is Button button && button.Tag is string pageTag)
+            {
+                NavigateTo(pageTag);
+            }
+        }
+
+  private void NavigateTo(string pageTag)
         {
             switch (pageTag)
             {
                 case "Home":
                     var homeContent = new HomeContentView();
-                    homeContent.RequestNewDocument += (s, e) => RequestNewDocument?.Invoke(s, e);
+                    // Home ekranındaki "Create New" butonu, mevcut FMEA olayını tetikler.
+                    homeContent.RequestNewDocument += (s, e) => RequestNewFmeaDocument?.Invoke(s, e);
                     homeContent.RequestOpenDocument += (s, id) => RequestOpenDocument?.Invoke(s, id);
                     PageContentControl.Content = homeContent;
                     break;
                 case "MyDocuments":
-                    var myDocsView = new MyDocumentsView();
+                    var myDocsView = new MyDocumentsView(_dbContext);
                     myDocsView.RequestOpenDocument += (s, id) => RequestOpenDocument?.Invoke(s, id);
                     PageContentControl.Content = myDocsView;
                     break;
@@ -51,16 +125,27 @@ namespace CspProject.Views;
                     PageContentControl.Content = approvalsView;
                     break;
                 case "Templates":
-                    var templatesView = new TemplatesView();
-                    templatesView.RequestNewFmeaDocument += (s, e) => RequestNewDocument?.Invoke(s, e);
+                    // --- GÜNCELLENMİŞ BÖLÜM ---
+                    var templatesView = new TemplatesView(); 
+                    
+                    // 1. Dahili FMEA şablonu isteğini dinle
+                    templatesView.RequestNewFmeaDocument += (s, e) => 
+                        RequestNewFmeaDocument?.Invoke(this, e);
+                    
+                    // 2. Dosyadan şablon isteğini dinle
+                    templatesView.RequestNewDocumentFromFile += (s, filePath) => 
+                        RequestNewDocumentFromFile?.Invoke(this, filePath);
+                    
                     PageContentControl.Content = templatesView;
                     break;
+                    // --- GÜNCELLEME SONU ---
                 case "ChangeLog":
-                    PageContentControl.Content = new ChangeLogView();
+                    PageContentControl.Content = new ChangeLogView(_dbContext);
                     break;
                 case "Settings":
                     RequestNavigate?.Invoke(this, pageTag);
                     break;
             }
         }
-         }
+    }
+}

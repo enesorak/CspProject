@@ -1,38 +1,88 @@
+using System.Globalization;
 using System.IO;
 using System.Windows;
+using System.Windows.Media;
+using System.Windows.Media.Animation;
 using CspProject.Data;
 using CspProject.Data.Entities;
 using CspProject.Services;
-using DevExpress.Spreadsheet;
-using DevExpress.Xpf.Core;
+using DevExpress.Mvvm;
+using DevExpress.XtraSpreadsheet;
 using Microsoft.EntityFrameworkCore;
-using Application = System.Windows.Application;
-using MessageBox = System.Windows.MessageBox;
-using UserControl = System.Windows.Controls.UserControl;
-
 
 namespace CspProject.Views;
 
 public partial class SpreadsheetView : UserControl
 {
+    public event EventHandler<string> ProcessingStarted;
+    public event EventHandler ProcessingFinished;
+    
     public event EventHandler? RequestGoToHome;
     public event Action<string>? DocumentInfoChanged;
 
     private readonly User? _currentUser;
     private Document? _currentDocument;
     private readonly ApplicationDbContext _dbContext = new ApplicationDbContext();
+    private bool _isAuditPanelOpen = false;
 
+    private INotificationService? NotificationService => ServiceContainer.Default.GetService<INotificationService>();
 
     public SpreadsheetView(User currentUser)
     {
         InitializeComponent();
         _currentUser = currentUser;
 
-
         StatusLabel.Content =
             $"Status: {(string.IsNullOrWhiteSpace(_currentDocument?.Status) ? "New" : _currentDocument?.Status)}";
 
-        //VersionLabel.Content = $"Version: {_currentDocument?.Version}";
+        this.Loaded += SpreadsheetView_Loaded;
+        this.Unloaded += SpreadsheetView_Unloaded;
+        
+        spreadsheetControl.CellValueChanged += SpreadsheetControl_CellValueChanged;
+    }
+    
+    private async void SpreadsheetControl_CellValueChanged(object sender, SpreadsheetCellEventArgs e)
+    {
+        if (_currentDocument == null || _currentDocument.Id == 0 || _currentUser == null) return;
+        if (e.RowIndex < 8) return;
+
+        var log = new AuditLog
+        {
+            DocumentId = _currentDocument.Id,
+            UserId = _currentUser.Id,
+            Timestamp = DateTime.Now,
+            FieldChanged = $"Cell: {e.Cell.GetReferenceA1()}",
+            OldValue = e.OldValue.ToString(),
+            NewValue = e.Value.ToString(),
+            Revision = _currentDocument.Version,
+            Rationale = "N/A"
+        };
+
+        _dbContext.AuditLogs.Add(log);
+        await _dbContext.SaveChangesAsync();
+    }
+
+    private void SpreadsheetView_Loaded(object sender, RoutedEventArgs e)
+    {
+        DocumentUpdateService.Instance.DocumentUpdated += OnDocumentUpdatedInBackground;
+    }
+
+    private void SpreadsheetView_Unloaded(object sender, RoutedEventArgs e)
+    {
+        DocumentUpdateService.Instance.DocumentUpdated -= OnDocumentUpdatedInBackground;
+    }
+
+    private async void OnDocumentUpdatedInBackground(object? sender, int updatedDocumentId)
+    {
+        if (_currentDocument != null && _currentDocument.Id == updatedDocumentId)
+        {
+            await Dispatcher.InvokeAsync(async () =>
+            {
+                await LoadDocument(_currentDocument.Id);
+                MessageBox.Show("The status of the current document was updated in the background.", "Document Updated",
+                    MessageBoxButton.OK, MessageBoxImage.Information);
+            });
+        }
     }
 
     public void CreateNewFmeaDocument()
@@ -44,25 +94,52 @@ public partial class SpreadsheetView : UserControl
         spreadsheetControl.Modified = false;
         UpdateUiForDocumentStatus();
     }
+    
+    public async Task CreateNewFmeaDocumentAsync()
+    {
+        if (_currentUser == null) return;
+
+        _currentDocument = new Document { AuthorId = _currentUser.Id };
+
+        byte[] bytes = await Task.Run(() =>
+        {
+            var prev = Thread.CurrentThread.CurrentCulture;
+            try
+            {
+                Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+                return CspProject.Services.FmeaTemplateGenerator.GenerateFmeaTemplateBytes();
+            }
+            finally
+            {
+                Thread.CurrentThread.CurrentCulture = prev;
+            }
+        });
+
+        using var ms = new MemoryStream(bytes);
+        spreadsheetControl.LoadDocument(ms, DevExpress.Spreadsheet.DocumentFormat.Xlsx);
+
+        spreadsheetControl.Modified = false;
+        UpdateUiForDocumentStatus();
+    }
+
     public async Task LoadDocument(int documentId)
     {
-        _currentDocument = await _dbContext.Documents.FindAsync(documentId);
+        _currentDocument = await _dbContext.Documents
+            .Include(d => d.Author)
+            .Include(d => d.Approver)
+            .FirstOrDefaultAsync(d => d.Id == documentId);
         if (_currentDocument?.Content != null)
         {
-            // FIX: The LoadDocument method must be called on the UI thread.
-            // The Task.Run was causing the cross-thread exception.
-            spreadsheetControl.LoadDocument(_currentDocument.Content, DocumentFormat.Xlsx);
+            spreadsheetControl.LoadDocument(_currentDocument.Content, DevExpress.Spreadsheet.DocumentFormat.Xlsx);
             spreadsheetControl.Modified = false;
             UpdateUiForDocumentStatus();
         }
     }
+
     private async void OpenButton_Click(object sender, RoutedEventArgs e)
     {
-        // This logic should also check for unsaved changes, will add later.
         var openWindow = new OpenDocumentWindow(_dbContext);
 
-        // FIX: The ShowDialog() method on a WPF window returns a nullable boolean (bool?).
-        // Comparing it directly to 'true' is the correct way to check if the user clicked "Open".
         if (openWindow.ShowDialog() == true)
         {
             int docId = openWindow.SelectedDocumentId;
@@ -71,7 +148,7 @@ public partial class SpreadsheetView : UserControl
             if (documentToOpen != null && documentToOpen.Content != null)
             {
                 _currentDocument = documentToOpen;
-                spreadsheetControl.LoadDocument(documentToOpen.Content, DocumentFormat.Xlsx);
+                spreadsheetControl.LoadDocument(documentToOpen.Content, DevExpress.Spreadsheet.DocumentFormat.Xlsx);
                 MessageBox.Show(
                     $"Document '{documentToOpen.DocumentName}' (Version: {documentToOpen.Version}) has been loaded.",
                     "Information", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -80,16 +157,17 @@ public partial class SpreadsheetView : UserControl
             }
         }
     }
+
     private async void SaveButton_Click(object sender, RoutedEventArgs e)
     {
         await PerformSaveAsync(true);
     }
+
     private async void RenameButton_Click(object sender, RoutedEventArgs e)
     {
         if (_currentDocument == null)
         {
-            MessageBox.Show("Please save the document first before renaming.", "Cannot Rename", MessageBoxButton.OK,
-                MessageBoxImage.Warning);
+            await ShowNotification("Cannot Rename", "Please save the document first before renaming.");
             return;
         }
 
@@ -98,17 +176,16 @@ public partial class SpreadsheetView : UserControl
         {
             _currentDocument.DocumentName = saveWindow.DocumentName;
             await _dbContext.SaveChangesAsync();
-            MessageBox.Show($"Document successfully renamed to '{_currentDocument.DocumentName}'.", "Rename Successful",
-                MessageBoxButton.OK, MessageBoxImage.Information);
+            await ShowNotification("Rename Successful", $"Document successfully renamed to '{_currentDocument.DocumentName}'.");
         }
 
         UpdateUiForDocumentStatus();
     }
-    private void ExportButton_Click(object sender, RoutedEventArgs e)
+
+    private async void ExportButton_Click(object sender, RoutedEventArgs e)
     {
         var activeSheet = spreadsheetControl.Document.Worksheets.ActiveWorksheet;
         var usedRange = activeSheet.GetUsedRange();
-
 
         bool isSheetEmpty = usedRange.RowCount == 1 &&
                             usedRange.ColumnCount == 1 &&
@@ -116,7 +193,7 @@ public partial class SpreadsheetView : UserControl
 
         if (isSheetEmpty)
         {
-            MessageBox.Show("There is no document to export.", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            await ShowNotification("Warning", "There is no document to export.");
             return;
         }
 
@@ -133,74 +210,31 @@ public partial class SpreadsheetView : UserControl
             Filter = "Excel Workbook (*.xlsx)|*.xlsx"
         };
 
-
         if (saveFileDialog.ShowDialog() == true)
         {
-            // DEĞİŞİKLİK: Arayüz çakışmasını önlemek için BeginUpdate/EndUpdate eklendi.
             try
             {
                 spreadsheetControl.BeginUpdate();
-                spreadsheetControl.SaveDocument(saveFileDialog.FileName, DocumentFormat.Xlsx);
+                spreadsheetControl.SaveDocument(saveFileDialog.FileName, DevExpress.Spreadsheet.DocumentFormat.Xlsx);
+                await ShowNotification("Export Successful", $"Document successfully exported to:\n{saveFileDialog.FileName}");
             }
             finally
             {
                 spreadsheetControl.EndUpdate();
             }
-
-            MessageBox.Show($"Document successfully exported to:\n{saveFileDialog.FileName}", "Export Successful",
-                MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
+
     private void BackToHome_Click(object sender, RoutedEventArgs e)
     {
         RequestGoToHome?.Invoke(this, EventArgs.Empty);
     }
-    private async Task UpdateDocumentFromSpreadsheet_c(Document doc)
-    {
-        // DEĞİŞİKLİK: NullReferenceException hatasını çözmek için tüm metod BeginUpdate/EndUpdate bloğuna alındı.
-        try
-        {
-            spreadsheetControl.BeginUpdate();
 
-            var worksheet = spreadsheetControl.Document.Worksheets[0];
-
-            // 1. ADIM: Spreadsheet'ten gerekli tüm bilgileri oku.
-            doc.ProductPart = worksheet.Cells["B4"].Value.ToString();
-            doc.FmeaId = worksheet.Cells["G4"].Value.ToString();
-            doc.ProjectName = worksheet.Cells["B6"].Value.ToString();
-            doc.ResponsibleParty = worksheet.Cells["G6"].Value.ToString();
-            doc.ApprovedBy = worksheet.Cells["I6"].Value.ToString();
-            doc.Team = worksheet.Cells["B8"].Value.ToString();
-
-            doc.ModifiedDate = DateTime.Now;
-            doc.Version = _currentDocument?.Version ?? "0.0.1";
-
-            // 2. ADIM: Gerekli tüm güncellemeleri spreadsheet'e yaz.
-            // DEĞİŞİKLİK: Versiyon numarasını kaydetmeden ÖNCE hücreye yazıyoruz.
-            // Bu, hatanın ana nedenini ortadan kaldırır.
-            worksheet.Cells["I4"].Value = doc.Version;
-
-            await Task.Delay(1);
-
-            // 3. ADIM: Tüm değişiklikler yapıldıktan sonra, dokümanın son halini kaydet.
-            using var memoryStream = new MemoryStream();
-            spreadsheetControl.SaveDocument(memoryStream, DocumentFormat.Xlsx);
-            doc.Content = memoryStream.ToArray();
-        }
-        finally
-        {
-            // Hata olsa bile arayüz güncellemelerini tekrar açarak kontrolün kilitlenmesini engelliyoruz.
-            spreadsheetControl.EndUpdate();
-        }
-    }
-
-    // Metodun imzasından "async Task" kaldırıldı, artık "void".
     private void UpdateDocumentFromSpreadsheet(Document doc)
     {
         spreadsheetControl.BeginUpdate();
         try
         {
-            // Asıl kaydetme mantığı
             var worksheet = spreadsheetControl.Document.Worksheets[0];
 
             doc.ProductPart = worksheet.Cells["B4"].Value.ToString();
@@ -209,23 +243,20 @@ public partial class SpreadsheetView : UserControl
             doc.ResponsibleParty = worksheet.Cells["G6"].Value.ToString();
             doc.ApprovedBy = worksheet.Cells["I6"].Value.ToString();
             doc.Team = worksheet.Cells["B8"].Value.ToString();
-          
+
             doc.ModifiedDate = DateTime.Now;
             doc.Version = _currentDocument?.Version ?? "0.0.1";
 
-            // Versiyonu hücreye yazıyoruz
             worksheet.Cells["I4"].Value = doc.Version;
 
-            // Son halini belleğe kaydedip Document nesnesine atıyoruz.
             using (var finalContentStream = new MemoryStream())
             {
-                spreadsheetControl.SaveDocument(finalContentStream, DocumentFormat.Xlsx);
+                spreadsheetControl.SaveDocument(finalContentStream, DevExpress.Spreadsheet.DocumentFormat.Xlsx);
                 doc.Content = finalContentStream.ToArray();
             }
         }
         catch (Exception ex)
         {
-            // Beklenmedik bir hata olursa kullanıcıyı bilgilendir.
             MessageBox.Show($"An error occurred while preparing the document for saving: {ex.Message}", "Error",
                 MessageBoxButton.OK, MessageBoxImage.Error);
         }
@@ -235,234 +266,176 @@ public partial class SpreadsheetView : UserControl
         }
     }
 
-    private string IncrementPatchVersion(string version)
-    {
-        if (string.IsNullOrWhiteSpace(version)) return "0.0.1";
-        try
-        {
-            var parts = version.Split('.').Select(int.Parse).ToList();
-            if (parts.Count == 3)
-            {
-                parts[2]++; // Increment Patch
-                return string.Join(".", parts);
-            }
-        }
-        catch
-        {
-            /* Fallback for invalid format */
-        }
-
-        return "0.0.1";
-    }
-    private string IncrementMinorVersion(string version)
-    {
-        if (string.IsNullOrWhiteSpace(version)) return "0.1.0";
-        try
-        {
-            var parts = version.Split('.').Select(int.Parse).ToList();
-            if (parts.Count == 3)
-            {
-                parts[1]++; // Increment Minor
-                parts[2] = 0; // Reset Patch
-                return string.Join(".", parts);
-            }
-        }
-        catch
-        {
-            /* Fallback for invalid format */
-        }
-
-        return "0.1.0";
-    }
-
-
     private async void SubmitButton_Click(object sender, RoutedEventArgs e)
     {
-        if (await PerformSaveAsync(false))
+        var saveResult = await PerformSaveAsync(showSuccessNotification: false);
+
+        if (!saveResult)
         {
-            if (_currentDocument == null) return;
+            return;
+        }
 
-            // Rastgele approver seçiyoruz bunu workflow a göre düzenlicez.
-            var approver = await _dbContext.Users.FirstOrDefaultAsync(u => u.Role == "Approver");
-            if (approver == null)
-            {
-                MessageBox.Show("No approver found in the system.", "Error", MessageBoxButton.OK,
-                    MessageBoxImage.Error);
-                return;
-            }
+        if (_currentDocument == null || _currentUser == null) return;
 
-            _currentDocument.ApproverId = approver.Id;
+        var selectionWindow = new ApproverSelectionWindow(_currentUser.Id) { Owner = Window.GetWindow(this) };
+        if (selectionWindow.ShowDialog() != true)
+        {
+            return;
+        }
+
+        int? approverId = selectionWindow.SelectedApproverId;
+        if (!approverId.HasValue) return;
+
+        var approver = await _dbContext.Users.FindAsync(approverId.Value);
+        if (approver == null)
+        {
+            await ShowNotification("Error", "Could not find the selected approver.");
+            return;
+        }
+        
+        ProcessingStarted?.Invoke(this, "Sending approval email, please wait...");
+
+        try
+        {
+            var oldStatus = _currentDocument.Status;
+            _currentDocument.ApproverId = approverId.Value;
             _currentDocument.Status = "Under Review";
-            _currentDocument.Version = IncrementMinorVersion(_currentDocument.Version); // YENİ: Alt versiyonu artır
+            _currentDocument.Version = VersioningService.IncrementMinorVersion(_currentDocument.Version);
+        
+            _dbContext.AuditLogs.Add(new AuditLog
+            {
+                DocumentId = _currentDocument.Id,
+                UserId = _currentUser.Id,
+                FieldChanged = "Status",
+                OldValue = oldStatus,
+                NewValue = "Under Review",
+                Revision = _currentDocument.Version,
+                Rationale = $"Submitted to {approver.Name}"
+            });
+
+            byte[] pdfBytes = PdfExportService.ExportToPdfBytes(spreadsheetControl);
+            var emailService = new EmailService(_dbContext);
+            await emailService.SendApprovalRequestEmailAsync(approver, _currentDocument, pdfBytes);
+
             await SaveAndRefreshUi();
+
+            ProcessingFinished?.Invoke(this, EventArgs.Empty);
+            await ShowNotification("Submission Successful",
+                $"Document has been submitted and an email was sent to {approver.Email}.");
+        }
+        catch (Exception ex)
+        { 
+            ProcessingFinished?.Invoke(this, EventArgs.Empty);
+            await ShowNotification("Email Sending Failed",
+                $"The document was NOT submitted. Please check your email settings.\n\nError: {ex.Message}"); 
         }
     }
 
-
-    private async Task<bool> PerformSaveAsync(bool showNoChangesWarning)
+    private async Task<bool> PerformSaveAsync(bool showSuccessNotification)
     {
-        if (_currentDocument == null || _currentDocument.Id == 0)
+        bool isNewDocument = _currentDocument == null || _currentDocument.Id == 0;
+       
+        if (!isNewDocument && !spreadsheetControl.Modified)
         {
-            var worksheet = spreadsheetControl.Document.Worksheets[0];
-            string defaultName = worksheet.Cells["G4"].Value.ToString() ?? "New Document";
-            var saveWindow = new SaveDocumentWindow(defaultName) { Owner = Window.GetWindow(this) };
-
-            if (saveWindow.ShowDialog() == true)
+            if (showSuccessNotification)
             {
-                if (_currentDocument == null)
-                {
-                    if (_currentUser != null) _currentDocument = new Document { AuthorId = _currentUser.Id };
-                }
-
-                _currentDocument.DocumentName = saveWindow.DocumentName;
-                _currentDocument.Version = "0.0.1";
-                _dbContext.Documents.Add(_currentDocument);
+                await ShowNotification("Information", "No changes to save.");
             }
-            else
-            {
-                return false;
-            }
-        }
-        else if (!spreadsheetControl.Modified && showNoChangesWarning)
-        {
-            MessageBox.Show("No changes to save.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
             return true;
         }
-        else
-        {
-            _currentDocument.Version = IncrementPatchVersion(_currentDocument.Version);
-        }
 
-
-        Application.Current.Dispatcher.Invoke(() =>
-        {
-            UpdateDocumentFromSpreadsheet(_currentDocument); // Artık async değil
-        });
-
-
-        await _dbContext.SaveChangesAsync();
-
-
-        Application.Current.Dispatcher.Invoke(() =>
-        {
-            spreadsheetControl.Modified = false;
-            
-            UpdateUiForDocumentStatus();
-            MessageBox.Show(
-                $"Document '{_currentDocument.DocumentName}' saved successfully as version {_currentDocument.Version}!",
-                "Save Successful", MessageBoxButton.OK, MessageBoxImage.Information);
-        });
-
-        return true;
-    }
-
-
-    private async Task<bool> PerformSaveAsyncxx(bool showNoChangesWarning)
-    {
-        // FIX: A new document is identified by having an Id of 0.
-        if (_currentDocument == null || _currentDocument.Id == 0)
+        if (isNewDocument)
         {
             var worksheet = spreadsheetControl.Document.Worksheets[0];
             string defaultName = worksheet.Cells["G4"].Value.ToString() ?? "New Document";
             var saveWindow = new SaveDocumentWindow(defaultName) { Owner = Window.GetWindow(this) };
-            if (saveWindow.ShowDialog() == true)
-            {
-                if (_currentDocument == null) // Should not happen, but as a safeguard
-                {
-                    if (_currentUser != null) _currentDocument = new Document { AuthorId = _currentUser.Id };
-                }
 
-                _currentDocument.DocumentName = saveWindow.DocumentName;
-                _currentDocument.Version = "0.0.1";
-                _dbContext.Documents.Add(_currentDocument);
-            }
-            else
-            {
-                return false; // User cancelled the save dialog
-            }
-        }
-        else if (!spreadsheetControl.Modified && showNoChangesWarning)
-        {
-            MessageBox.Show("No changes to save.", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-            return true; // No changes, but operation is considered successful
+            if (saveWindow.ShowDialog() != true) return false;
+
+            _currentDocument ??= new Document { AuthorId = _currentUser.Id };
+            _currentDocument.DocumentName = saveWindow.DocumentName;
+            _currentDocument.Version = "0.0.1";
+            _dbContext.Documents.Add(_currentDocument);
         }
         else
         {
-            _currentDocument.Version = IncrementPatchVersion(_currentDocument.Version);
+            _currentDocument.Version = VersioningService.IncrementPatchVersion(_currentDocument.Version);
         }
 
         UpdateDocumentFromSpreadsheet(_currentDocument);
         await _dbContext.SaveChangesAsync();
         spreadsheetControl.Modified = false;
-        MessageBox.Show(
-            $"Document '{_currentDocument.DocumentName}' saved successfully as version {_currentDocument.Version}!",
-            "Save Successful", MessageBoxButton.OK, MessageBoxImage.Information);
+            
         UpdateUiForDocumentStatus();
+
+        if (showSuccessNotification)
+        {
+            await ShowNotification("Save Successful", $"Document '{_currentDocument.DocumentName}' saved as version {_currentDocument.Version}!");
+        }
         return true;
     }
-
+   
     private async void ApproveButton_Click(object sender, RoutedEventArgs e)
     {
         if (_currentDocument == null || _currentUser == null) return;
         if (_currentDocument.AuthorId == _currentUser.Id)
         {
-            MessageBox.Show("Authors cannot approve their own documents.", "Authorization Error", MessageBoxButton.OK,
-                MessageBoxImage.Error);
+            await ShowNotification("Authorization Error", "Authors cannot approve their own documents.");
             return;
         }
 
+        var oldStatus = _currentDocument.Status;
         _currentDocument.Status = "Approved";
-        _currentDocument.Version = IncrementMajorVersion(_currentDocument.Version); // YENİ: Ana versiyonu artır
-
+        _currentDocument.Version = VersioningService.IncrementMajorVersion(_currentDocument.Version);
         _currentDocument.ApprovedBy = _currentUser.Name;
         _currentDocument.DateCompleted = DateTime.Now;
 
-        // YENİ: Onaylayan bilgilerini spreadsheet'e yaz
+        _dbContext.AuditLogs.Add(new AuditLog
+        {
+            DocumentId = _currentDocument.Id,
+            UserId = _currentUser.Id,
+            FieldChanged = "Status",
+            OldValue = oldStatus,
+            NewValue = "Approved",
+            Revision = _currentDocument.Version,
+            Rationale = "Approved via application UI"
+        });
+
         var worksheet = spreadsheetControl.Document.Worksheets[0];
         worksheet.Cells["I6"].Value = _currentUser.Name;
         worksheet.Cells["K6"].Value = DateTime.Now;
 
         await SaveAndRefreshUi();
+        
+        await ShowNotification("Document Approved", $"Document status changed to: {_currentDocument.Status}");
     }
-
-    private string IncrementMajorVersion(string version)
-    {
-        if (string.IsNullOrWhiteSpace(version)) return "1.0.0";
-        try
-        {
-            var parts = version.Split('.').Select(int.Parse).ToList();
-            if (parts.Count == 3)
-            {
-                parts[0]++; // Ana versiyonu artır
-                parts[1] = 0; // Alt versiyonu sıfırla
-                parts[2] = 0; // Yama versiyonunu sıfırla
-                return string.Join(".", parts);
-            }
-        }
-        catch
-        {
-            /* Hatalı format için geri dönüş */
-        }
-
-        return "1.0.0"; // Güvenli bir varsayılana geri dön
-    }
-
+ 
     private async void RejectButton_Click(object sender, RoutedEventArgs e)
     {
         if (_currentDocument == null) return;
-        _currentDocument.Status = "Draft";
-        await SaveAndRefreshUi();
-    }
 
-    
+        var oldStatus = _currentDocument.Status;
+        _currentDocument.Status = "Draft";
+
+        _dbContext.AuditLogs.Add(new AuditLog
+        {
+            DocumentId = _currentDocument.Id,
+            UserId = _currentUser.Id,
+            FieldChanged = "Status",
+            OldValue = oldStatus,
+            NewValue = "Draft",
+            Revision = _currentDocument.Version,
+            Rationale = "Rejected via application UI"
+        });
+        
+        await SaveAndRefreshUi();
+        await ShowNotification("Document Rejected", $"Document status changed to: {_currentDocument.Status}");
+    }
+ 
     private async Task SaveAndRefreshUi()
     {
-        // 1. Değişiklikleri veritabanına kaydet.
-        // Bu işlem bittiğinde _currentDocument nesnesi en güncel veriyi içerir.
         await _dbContext.SaveChangesAsync();
 
-        // --- İSTEĞİN ÜZERİNE GÜNCELLEME ---
-        // 2. Belgeyi yeniden yüklemek yerine, SADECE I4 hücresindeki versiyon bilgisini güncelle.
         spreadsheetControl.BeginUpdate();
         try
         {
@@ -470,64 +443,267 @@ public partial class SpreadsheetView : UserControl
             {
                 var worksheet = spreadsheetControl.Document.Worksheets[0];
                 worksheet.Cells["I4"].Value = _currentDocument.Version;
-                
                 spreadsheetControl.Document.CalculateFull();
-
             }
         }
         finally
         {
             spreadsheetControl.EndUpdate();
         }
-        // --- GÜNCELLEME SONA ERDİ ---
 
-        // 3. Butonların durumunu ve diğer etiketleri güncelle.
         UpdateUiForDocumentStatus();
-        MessageBox.Show($"Document status changed to: {_currentDocument?.Status}");
     }
 
-    private async Task SaveAndRefreshUix()
-    {
-        await _dbContext.SaveChangesAsync();
-        // --- EKLENEN ÇÖZÜM ---
-        // 2. Veritabanına kaydettiğimiz dokümanın son halini (Content)
-        //    spreadsheet kontrolüne yeniden yükleyerek arayüzü yenile.
-        //    Bu satır, I4 hücresindeki versiyonun güncellenmesini sağlar.
-        if (_currentDocument?.Content != null)
-        {
-            spreadsheetControl.LoadDocument(_currentDocument.Content, DocumentFormat.Xlsx);
-            spreadsheetControl.Modified = false; // Yeniden yüklendiği için "değiştirildi" bayrağını sıfırla.
-        }
-        UpdateUiForDocumentStatus();
-        MessageBox.Show($"Document status changed to: {_currentDocument?.Status}");
-    }
-    
- 
-
-    // --- YENİ: Arayüz Güncelleme Mantığı ---
     private void UpdateUiForDocumentStatus()
     {
         if (_currentDocument == null || _currentUser == null) return;
 
-
-        string status = _currentDocument.Status;
+        string status = _currentDocument.Status ?? "Draft";
         DocumentInfoChanged?.Invoke($"Status: {status} | Version: {_currentDocument.Version}");
 
-        StatusLabel.Content = $"Status: {(string.IsNullOrWhiteSpace(status) ? "New" : status)}";
+        StatusLabel.Content = $"Status: {status}";
         VersionLabel.Content = $"Version: {_currentDocument.Version}";
 
-        bool isAuthor = _currentDocument.AuthorId == _currentUser.Id;
-        bool isApprover = _currentUser.Role == "Approver";
+        bool isCurrentUserTheAuthor = _currentDocument.AuthorId == _currentUser.Id;
+        bool isCurrentUserTheApprover =
+            _currentDocument.ApproverId.HasValue && _currentDocument.ApproverId.Value == _currentUser.Id;
 
-        bool isEditable = (status == "Draft");
-        spreadsheetControl.ReadOnly = !isEditable;
+        if (status == "Approved")
+        {
+            spreadsheetControl.ReadOnly = true;
+            SubmitButton.IsEnabled = false;
+            ApproveButton.IsEnabled = false;
+            RejectButton.IsEnabled = false;
+            CheckApprovalsButton.IsEnabled = false;
+
+            ApprovalStatusLabel.IsVisible = true;
+            string approverName = _currentDocument.ApprovedBy ?? _currentDocument.Approver?.Name ?? "N/A";
+            string approvalDate = _currentDocument.DateCompleted?.ToString("d") ?? "N/A";
+            ApprovalStatusLabel.Content = $"Approved by {approverName} on {approvalDate}";
+        }
+        else
+        {
+            bool isEditable = (status == "Draft" && isCurrentUserTheAuthor);
+            spreadsheetControl.ReadOnly = !isEditable;
+
+            SubmitButton.IsEnabled = (status == "Draft" && isCurrentUserTheAuthor);
+            ApproveButton.IsEnabled = (status == "Under Review" && isCurrentUserTheApprover);
+            RejectButton.IsEnabled = (status == "Under Review" && isCurrentUserTheApprover);
+            CheckApprovalsButton.IsEnabled = true;
+
+            ApprovalStatusLabel.IsVisible = false;
+        }
 
         var worksheet = spreadsheetControl.Document.Worksheets[0];
         worksheet.Cells["I4"].Value = _currentDocument.Version;
-        
-        // Control button visibility based on status
-        SubmitButton.IsEnabled = (status == "Draft" && isAuthor);
-        ApproveButton.IsEnabled = (status == "Under Review" && isApprover);
-        RejectButton.IsEnabled = (status == "Under Review" && isApprover);
+        worksheet.Cells["K4"].Value = _currentDocument.ModifiedDate;
+    }
+
+    private async void CheckApprovalsButton_Click(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e)
+    {
+        CheckApprovalsButton.IsEnabled = false;
+        await ShowNotification("Checking Approvals", "Checking for new approvals in the background...");
+
+        var receiverService = new EmailReceiverService(_dbContext);
+        try
+        {
+            string result = await receiverService.CheckForApprovalEmailsAsync();
+
+            if (_currentDocument != null)
+            {
+                await _dbContext.Entry(_currentDocument).ReloadAsync();
+                UpdateUiForDocumentStatus();
+            }
+        }
+        catch (Exception ex)
+        {
+            await ShowNotification("Error", $"Failed to check for approvals. Please verify your email settings.\n\nError: {ex.Message}");
+        }
+        finally
+        {
+            CheckApprovalsButton.IsEnabled = true;
+        }
+    }
+    
+    private async Task ShowNotification(string title, string message)
+    {
+        if (NotificationService != null)
+        {
+            var notification = NotificationService.CreatePredefinedNotification(title, message, "");
+            await notification.ShowAsync();
+        }
+        else
+        {
+            MessageBox.Show(message, title);
+        }
+    }
+
+    // =============================================
+    // AUDIT PANEL METHODS - OPTİMİZE EDİLDİ
+    // =============================================
+    
+    private async void DocumentChangeLogButton_Click(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e)
+    {
+        if (_isAuditPanelOpen)
+        {
+            CloseAuditPanel();
+        }
+        else
+        {
+            if (_currentDocument == null || _currentDocument.Id == 0)
+            {
+                await ShowNotification("Information", "Please save the document first to view its history.");
+                return;
+            }
+
+            var logs = await _dbContext.AuditLogs
+                .Where(log => log.DocumentId == _currentDocument.Id)
+                .Include(log => log.User)
+                .OrderByDescending(log => log.Timestamp)
+                .Select(log => new
+                {
+                    log.Timestamp,
+                    UserName = log.User.Name,
+                    log.FieldChanged,
+                    log.OldValue,
+                    log.NewValue,
+                    log.Revision
+                })
+                .ToListAsync();
+
+            if (!logs.Any())
+            {
+                await ShowNotification("No History", "No change history available for this document.");
+                return;
+            }
+
+            AuditLogItemsControl.ItemsSource = logs;
+            OpenAuditPanel();
+        }
+    }
+    
+    private void OpenAuditPanel()
+    {
+        AuditLogPanel.Visibility = Visibility.Visible;
+        _isAuditPanelOpen = true;
+
+        var animation = new DoubleAnimation
+        {
+            From = 450,
+            To = 0,
+            Duration = TimeSpan.FromMilliseconds(350),
+            EasingFunction = new CubicEase { EasingMode = EasingMode.EaseOut }
+        };
+
+        PanelTransform.BeginAnimation(TranslateTransform.XProperty, animation);
+    }
+
+    private void CloseAuditPanel()
+    {
+        var animation = new DoubleAnimation
+        {
+            From = 0,
+            To = 450,
+            Duration = TimeSpan.FromMilliseconds(350),
+            EasingFunction = new CubicEase { EasingMode = EasingMode.EaseIn }
+        };
+
+        animation.Completed += (s, args) =>
+        {
+            AuditLogPanel.Visibility = Visibility.Collapsed;
+            _isAuditPanelOpen = false;
+        };
+
+        PanelTransform.BeginAnimation(TranslateTransform.XProperty, animation);
+    }
+
+    // CLOSE BUTTON EVENT - TEK VERSİYON
+    private void CloseAuditPanel_Click(object sender, RoutedEventArgs e)
+    {
+        CloseAuditPanel();
+    }
+
+    // EXPORT METHODS
+    private async void FlyoutExportExcel_Click(object sender, RoutedEventArgs e)
+    {
+        if (_currentDocument == null || _currentDocument.Id == 0)
+        {
+            await ShowNotification("Information", "Please save the document first to export its history.");
+            return;
+        }
+
+        // Fetch logs from database
+        var logs = await _dbContext.AuditLogs
+            .Where(log => log.DocumentId == _currentDocument.Id)
+            .Include(log => log.User)
+            .OrderByDescending(log => log.Timestamp)
+            .ToListAsync();
+
+        if (!logs.Any())
+        {
+            await ShowNotification("No History", "No change history available to export.");
+            return;
+        }
+
+        var saveFileDialog = new Microsoft.Win32.SaveFileDialog
+        {
+            FileName = $"AuditLog_{_currentDocument.DocumentName}_{DateTime.Now:yyyy-MM-dd}.xlsx",
+            Filter = "Excel Workbook (*.xlsx)|*.xlsx"
+        };
+
+        if (saveFileDialog.ShowDialog() == true)
+        {
+            try
+            {
+                AuditLogExportService.ExportToExcel(logs, saveFileDialog.FileName, _currentDocument.DocumentName);
+                await ShowNotification("Export Successful", $"Log successfully exported to:\n{saveFileDialog.FileName}");
+            }
+            catch (Exception ex)
+            {
+                await ShowNotification("Export Failed", $"Failed to export audit log.\n\nError: {ex.Message}");
+            }
+        }
+    }
+
+
+    private async void FlyoutExportPdf_Click(object sender, RoutedEventArgs e)
+    {
+        if (_currentDocument == null || _currentDocument.Id == 0)
+        {
+            await ShowNotification("Information", "Please save the document first to export its history.");
+            return;
+        }
+
+        // Fetch logs from database
+        var logs = await _dbContext.AuditLogs
+            .Where(log => log.DocumentId == _currentDocument.Id)
+            .Include(log => log.User)
+            .OrderByDescending(log => log.Timestamp)
+            .ToListAsync();
+
+        if (!logs.Any())
+        {
+            await ShowNotification("No History", "No change history available to export.");
+            return;
+        }
+
+        var saveFileDialog = new Microsoft.Win32.SaveFileDialog
+        {
+            FileName = $"AuditLog_{_currentDocument.DocumentName}_{DateTime.Now:yyyy-MM-dd}.pdf",
+            Filter = "PDF Document (*.pdf)|*.pdf"
+        };
+
+        if (saveFileDialog.ShowDialog() == true)
+        {
+            try
+            {
+                AuditLogExportService.ExportToPdf(logs, saveFileDialog.FileName, _currentDocument.DocumentName);
+                await ShowNotification("Export Successful", $"Log successfully exported to:\n{saveFileDialog.FileName}");
+            }
+            catch (Exception ex)
+            {
+                await ShowNotification("Export Failed", $"Failed to export audit log.\n\nError: {ex.Message}");
+            }
+        }
     }
 }

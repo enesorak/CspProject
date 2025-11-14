@@ -3,22 +3,85 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:local="clr-namespace:CspProject.Views"
              xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:dx="http://schemas.devexpress.com/winfx/2008/xaml/core"
              mc:Ignorable="d"
-             d:DesignHeight="300" d:DesignWidth="300">
-    <StackPanel Margin="30">
-        <TextBlock Text="Settings" FontSize="28" FontWeight="Light" Margin="0,0,0,20"/>
-        <TextBlock Text="Switch User for Testing" FontSize="20" FontWeight="Normal" Margin="0,0,0,10"/>
-        <TextBlock Text="Select a user to simulate their role and permissions within the application." Foreground="Gray" TextWrapping="Wrap" Margin="0,0,0,20"/>
-        
-        <Label Content="Current User:"/>
-        <dxe:ComboBoxEdit x:Name="UserComboBox" 
-                          Width="300" 
-                          DisplayMember="Name" 
-                          ValueMember="Id"
-                          HorizontalAlignment="Left"/>
-        
-        <Button Content="Switch User" Click="SwitchUser_Click" HorizontalAlignment="Left" Padding="15,8" Margin="0,20,0,0"/>
-    </StackPanel>
+             d:DesignHeight="700" d:DesignWidth="900">
+    <DockPanel Margin="30">
+        <TextBlock DockPanel.Dock="Top" Text="Settings" FontSize="28" FontWeight="Light" Margin="0,0,0,20"/>
+
+        <dx:DXTabControl>
+            <dx:DXTabItem Header="General">
+                <StackPanel Margin="20">
+                    <TextBlock Text="General Application Settings" FontSize="20" FontWeight="Normal" Margin="0,0,0,10"/>
+                    <TextBlock Text="Future settings for application behavior and startup options will be configured here." Foreground="Gray" TextWrapping="Wrap" Margin="0,0,0,20"/>
+                    <dxe:CheckEdit Content="Automatically check for approvals on startup" IsChecked="True" IsEnabled="False" Margin="0,10,0,0"/>
+                    <dxe:CheckEdit Content="Show notification popups for new approvals" IsChecked="True" IsEnabled="False" Margin="0,10,0,0"/>
+                    
+                    
+                    <StackPanel   Orientation="Horizontal" Margin="0,20,0,0">
+                        <Button Content="Test Sentry" Click="TestSentry_Click" HorizontalAlignment="Left" Padding="15,8"/>
+                        <Button Content="Test Error" Click="TestError_Click" HorizontalAlignment="Left" Padding="15,8" Margin="10,0,0,0"/>
+                    </StackPanel>
+                </StackPanel>
+            </dx:DXTabItem>
+            
+            <dx:DXTabItem Header="Email Settings">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                    <StackPanel Margin="20">
+                        <TextBlock Text="Email Configuration" FontSize="20" FontWeight="Normal" Margin="0,0,0,10"/>
+                        <TextBlock Text="Configure the email account for sending and receiving approval requests. Use a 'Google App Password' or equivalent for security." Foreground="Gray" TextWrapping="Wrap" Margin="0,0,0,20"/>
+
+                        <Grid HorizontalAlignment="Left" Width="450">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/><RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="Outgoing Mail (SMTP)" FontWeight="Bold" Margin="0,0,0,5"/>
+                            <Label Grid.Row="1" Grid.Column="0" Content="SMTP Server:" VerticalAlignment="Center" Margin="0,0,10,5"/>
+                            <dxe:TextEdit Grid.Row="1" Grid.Column="1" x:Name="SmtpServerTextEdit" Margin="0,0,0,5" ToolTip="Example: smtp.gmail.com"/>
+
+                            <Label Grid.Row="2" Grid.Column="0" Content="SMTP Port:" VerticalAlignment="Center" Margin="0,0,10,5"/>
+                            <dxe:TextEdit Grid.Row="2" Grid.Column="1" x:Name="SmtpPortTextEdit" Margin="0,0,0,5" ToolTip="Example: 465"/>
+
+                            <TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Text="Incoming Mail (IMAP)" FontWeight="Bold" Margin="0,10,0,5"/>
+                            <Label Grid.Row="4" Grid.Column="0" Content="IMAP Server:" VerticalAlignment="Center" Margin="0,0,10,5"/>
+                            <dxe:TextEdit Grid.Row="4" Grid.Column="1" x:Name="ImapServerTextEdit" Margin="0,0,0,5" ToolTip="Example: imap.gmail.com"/>
+
+                            <Label Grid.Row="5" Grid.Column="0" Content="IMAP Port:" VerticalAlignment="Center" Margin="0,0,10,5"/>
+                            <dxe:TextEdit Grid.Row="5" Grid.Column="1" x:Name="ImapPortTextEdit" Margin="0,0,0,5" ToolTip="Example: 993"/>
+
+                            <TextBlock Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Text="Credentials &amp; Options" FontWeight="Bold" Margin="0,10,0,5"/>
+                            <Label Grid.Row="7" Grid.Column="0" Content="Your Full Name:" VerticalAlignment="Center" Margin="0,0,10,5"/>
+                            <dxe:TextEdit Grid.Row="7" Grid.Column="1" x:Name="SenderNameTextEdit" Margin="0,0,0,5"/>
+
+                            <Label Grid.Row="8" Grid.Column="0" Content="Email Address:" VerticalAlignment="Center" Margin="0,0,10,5"/>
+                            <dxe:TextEdit Grid.Row="8" Grid.Column="1" x:Name="SenderEmailTextEdit" Margin="0,0,0,5"/>
+
+                            <Label Grid.Row="9" Grid.Column="0" Content="App Password:" VerticalAlignment="Center" Margin="0,0,10,5"/>
+                            <dxe:PasswordBoxEdit Grid.Row="9" Grid.Column="1" x:Name="PasswordBoxEdit" Margin="0,0,0,5"/>
+
+                            <Label Grid.Row="10" Grid.Column="0" Content="Enable SSL/TLS:" VerticalAlignment="Center" Margin="0,0,10,5"/>
+                            <dxe:CheckEdit Grid.Row="10" Grid.Column="1" x:Name="EnableSslCheckEdit" IsChecked="True" VerticalAlignment="Center"/>
+                        
+                            <StackPanel Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="0,20,0,0">
+                                <Button Content="Save Email Settings" Click="SaveEmailSettings_Click" HorizontalAlignment="Left" Padding="15,8"/>
+                                <Button Content="Test Connection" Click="TestConnection_Click" HorizontalAlignment="Left" Padding="15,8" Margin="10,0,0,0"/>
+                            </StackPanel>
+                            <TextBlock Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="2" x:Name="TestResultLabel" Margin="0,10,0,0" FontWeight="SemiBold" TextWrapping="Wrap"/>
+                        </Grid>
+                    </StackPanel>
+                </ScrollViewer>
+            </dx:DXTabItem>
+        </dx:DXTabControl>
+    </DockPanel>
 </UserControl>

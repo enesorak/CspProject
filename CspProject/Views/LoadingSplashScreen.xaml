@@ -4,18 +4,38 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:dxe="http://schemas.devexpress.com/winfx/2008/xaml/editors"
+             xmlns:local="clr-namespace:CspProject"
              mc:Ignorable="d" 
-             d:DesignHeight="120" d:DesignWidth="360">
-    <Border HorizontalAlignment="Center" VerticalAlignment="Center" Background="White" CornerRadius="5" BorderBrush="#CCCCCC" BorderThickness="1">
-        <StackPanel Orientation="Vertical" Margin="25">
-            <dxe:ProgressBarEdit  Width="240" Height="32">
-                <dxe:ProgressBarEdit.StyleSettings>
-                    <dxe:ProgressBarMarqueeStyleSettings />
-                </dxe:ProgressBarEdit.StyleSettings>
-            </dxe:ProgressBarEdit>
-            <TextBlock x:Name="LoadingMessageTextBlock" Text="Processing, please wait..." VerticalAlignment="Center" Margin="0,0,0,0" FontSize="14" Foreground="#333"/>
-        </StackPanel>
+             d:DesignHeight="300" d:DesignWidth="450">
+
+    <Border Background="Transparent" CornerRadius="5">
+        <Border.Effect>
+            <DropShadowEffect ShadowDepth="0" BlurRadius="15" Color="#000000" Opacity="0.3"/>
+        </Border.Effect>
+
+        <DockPanel Background="#FF333333">
+            
+            <TextBlock DockPanel.Dock="Bottom" 
+                       Text="{Binding Source={x:Static local:App.AppVersion}, StringFormat='Copyright © 2025 TOMCO. All rights reserved. v{0}'}"
+                       FontSize="11" 
+                       Foreground="#AAAAAA" 
+                       HorizontalAlignment="Center" 
+                       Margin="0,0,0,10"/>
+
+            <StackPanel DockPanel.Dock="Bottom" Margin="25,15">
+                <TextBlock x:Name="LoadingMessageTextBlock" Text="Initializing..." FontSize="14" Foreground="#CCCCCC" Margin="0,0,0,10"/>
+                <dxe:ProgressBarEdit>
+                    <dxe:ProgressBarEdit.StyleSettings>
+                        <dxe:ProgressBarMarqueeStyleSettings />
+                    </dxe:ProgressBarEdit.StyleSettings>
+                </dxe:ProgressBarEdit>
+            </StackPanel>
+            
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Image Source="/Images/csp_logo-bg-none.png" Height="80" Margin="0,0,0,15"/>
+                <TextBlock Text="Compliant Spreadsheet Platform" FontSize="18" Foreground="White" HorizontalAlignment="Center"/>
+            </StackPanel>
+            
+        </DockPanel>
     </Border>
-    
-     
 </UserControl>

@@ -3,4 +3,9 @@
   <PropertyGroup>
     <_LastSelectedProfileId>E:\Projects\CspProject\CspProject\Properties\PublishProfiles\FolderProfile.pubxml</_LastSelectedProfileId>
   </PropertyGroup>
+  <ItemGroup>
+    <Compile Update="ThemedSplashScreen\SplashScreen1.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
 </Project>

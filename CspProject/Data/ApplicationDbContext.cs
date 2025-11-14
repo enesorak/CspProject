@@ -15,6 +15,12 @@ public class ApplicationDbContext : DbContext
     
     public DbSet<User> Users { get; set; } // YENİ
 
+    public DbSet<EmailSetting> EmailSettings { get; set; }
+
+    public DbSet<ApprovalToken> ApprovalTokens { get; set; } 
+    
+    public DbSet<AuditLog> AuditLogs { get; set; }
+
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
@@ -23,9 +29,24 @@ public class ApplicationDbContext : DbContext
     
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<User>().HasData(
-            new User { Id = 1, Name = "Enes Orak (Author)", Role = "Author" },
-            new User { Id = 2, Name = "John Smith (Approver)", Role = "Approver" }
+        
+        
+        modelBuilder.Entity<EmailSetting>().HasData(
+            new EmailSetting
+            {
+                Id = 1,
+                // SMTP Ayarları
+                SmtpServer = "smtp.gmail.com",
+                SmtpPort = 587,
+                // YENİ EKLENEN SATIRLAR
+                ImapServer = "imap.gmail.com",
+                ImapPort = 993,
+                // ---
+                SenderEmail = "approval4testing@gmail.com",
+                SenderName = "CSP Application",
+                Password = "dqlb yeca kxwr drmb", // Kullanıcı tarafından girilecek
+                EnableSsl = true
+            }
         );
     }
 }

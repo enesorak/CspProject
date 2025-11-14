@@ -3,12 +3,12 @@
   "WorkspaceRootPath": "E:\\Projects\\CspProject\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{BC92FE43-472B-4BE2-88D9-2F53A1D73896}|CspProject\\CspProject.csproj|e:\\projects\\cspproject\\cspproject\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BC92FE43-472B-4BE2-88D9-2F53A1D73896}|CspProject\\CspProject.csproj|solutionrelative:cspproject\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{BC92FE43-472B-4BE2-88D9-2F53A1D73896}|CspProject\\CspProject.csproj|e:\\projects\\cspproject\\cspproject\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{BC92FE43-472B-4BE2-88D9-2F53A1D73896}|CspProject\\CspProject.csproj|solutionrelative:cspproject\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{BC92FE43-472B-4BE2-88D9-2F53A1D73896}|CspProject\\CspProject.csproj|e:\\projects\\cspproject\\cspproject\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BC92FE43-472B-4BE2-88D9-2F53A1D73896}|CspProject\\CspProject.csproj|solutionrelative:cspproject\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,24 +18,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "MainWindow.xaml.cs",
               "DocumentMoniker": "E:\\Projects\\CspProject\\CspProject\\MainWindow.xaml.cs",
               "RelativeDocumentMoniker": "CspProject\\MainWindow.xaml.cs",
               "ToolTip": "E:\\Projects\\CspProject\\CspProject\\MainWindow.xaml.cs",
               "RelativeToolTip": "CspProject\\MainWindow.xaml.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAA5AAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAK4AAAA5AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-07-27T21:59:28.363Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "MainWindow.xaml",
               "DocumentMoniker": "E:\\Projects\\CspProject\\CspProject\\MainWindow.xaml",
               "RelativeDocumentMoniker": "CspProject\\MainWindow.xaml",

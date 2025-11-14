@@ -1,20 +1,20 @@
 ﻿CspProject
-
+4.0.1.0
 
 winexe
 C#
 .cs
-E:\Projects\CspProject\CspProject\obj\Release\net9.0-windows\win-x64\
+C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\obj\Release\net9.0-windows\win-x64\
 CspProject
 none
 false
-TRACE;RELEASE;NET;NET9_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NET9_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WİNDOWS7_0_OR_GREATER
-E:\Projects\CspProject\CspProject\App.xaml
-122105329238
+TRACE;RELEASE;NET;NET9_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NET9_0_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
+C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\App.xaml
+16186059966
 
-20-628399025
-274-1415363387
-MainWindow.xaml;OpenDocumentWindow.xaml;SaveDocumentWindow.xaml;Views\ApprovalsView.xaml;Views\ChangeLogView.xaml;Views\HomeContentView.xaml;Views\HomeScreen.xaml;Views\LoadingSplashScreen.xaml;Views\MyDocumentsView.xaml;Views\SettingsView.xaml;Views\SpreadsheetView.xaml;Views\TemplatesView.xaml;
+41-1968346781
+298-937890349
+MainWindow.xaml;OpenDocumentWindow.xaml;SaveDocumentWindow.xaml;ThemedSplashScreen\SplashScreen1.xaml;Views\ApprovalsView.xaml;Views\ApproverSelectionWindow.xaml;Views\ChangeLogView.xaml;Views\DocumentChangeLogWindow.xaml;Views\HomeContentView.xaml;Views\HomeScreen.xaml;Views\LoadingSplashScreen.xaml;Views\MyDocumentsView.xaml;Views\SettingsView.xaml;Views\SpreadsheetView.xaml;Views\TemplatesView.xaml;Views\WelcomeView.xaml;
 
 False
 

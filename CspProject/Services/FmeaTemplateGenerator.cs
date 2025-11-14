@@ -3,8 +3,12 @@
 // Description: Contains all logic for creating the visual FMEA template.
 // Author: Enes Orak
 // ***********************************************************************************
+
+using System.IO;
 using CspProject.Models;
 using DevExpress.Spreadsheet;
+ 
+using Color = System.Drawing.Color;
 using DataValidationType = DevExpress.Spreadsheet.DataValidationType;
 using Worksheet = DevExpress.Spreadsheet.Worksheet;
 
@@ -129,15 +133,15 @@ namespace CspProject.Services;
                 worksheet.Rows[i - 1].RowHeight = 50;
             }
 
-            worksheet.Range[$"B{headerRow}:B100"].FillColor = groupGray;
-            worksheet.Range[$"G{headerRow}:G100"].FillColor = groupGray;
-            worksheet.Range[$"I{headerRow}:I100"].FillColor = groupGray;
-            worksheet.Range[$"L{headerRow}:L100"].FillColor = groupGray;
-            worksheet.Range[$"S{headerRow}:S100"].FillColor = groupGray;
-            worksheet.Range[$"T{headerRow}:T100"].FillColor = groupGray;
-            worksheet.Range[$"U{headerRow}:U100"].FillColor = groupGray;
-            worksheet.Range[$"M{headerRow}:M100"].FillColor = rpnCyan;
-            worksheet.Range[$"V{headerRow}:V100"].FillColor = rpnCyan;
+            worksheet.Range[$"B{headerRow}:B26"].FillColor = groupGray;
+            worksheet.Range[$"G{headerRow}:G26"].FillColor = groupGray;
+            worksheet.Range[$"I{headerRow}:I26"].FillColor = groupGray;
+            worksheet.Range[$"L{headerRow}:L26"].FillColor = groupGray;
+            worksheet.Range[$"S{headerRow}:S26"].FillColor = groupGray;
+            worksheet.Range[$"T{headerRow}:T26"].FillColor = groupGray;
+            worksheet.Range[$"U{headerRow}:U26"].FillColor = groupGray;
+            worksheet.Range[$"M{headerRow}:M26"].FillColor = rpnCyan;
+            worksheet.Range[$"V{headerRow}:V26"].FillColor = rpnCyan;
             worksheet.Cells[$"M{headerRow}"].FillColor = headerBlue;
             worksheet.Cells[$"M{subHeaderRow}"].FillColor = subHeaderBlue;
             worksheet.Cells[$"V{headerRow}"].FillColor = headerBlue;
@@ -233,8 +237,38 @@ namespace CspProject.Services;
             worksheet.Columns["T"].WidthInCharacters = 5.71;
             worksheet.Columns["U"].WidthInCharacters = 5.71;
             worksheet.Columns["V"].WidthInCharacters = 9;
-        }
+            
+            // 1. Hem yatay hem dikey ortalanacak hücreleri grupla ve tek seferde uygula.
+            var centerAlignedCells = worksheet.Range["G4, I4, K4, I6, K6"];
+            centerAlignedCells.Alignment.Horizontal = SpreadsheetHorizontalAlignment.Center;
+            centerAlignedCells.Alignment.Vertical = SpreadsheetVerticalAlignment.Center;
 
+// 2. Sadece dikey ortalanacak hücreleri grupla ve tek seferde uygula.
+// (dataStyle'dan dikey ortalamayı zaten aldılar ama burada tekrar belirtmek de sorun olmaz)
+            var verticallyAlignedCells = worksheet.Range["B4, B6, B8"];
+            verticallyAlignedCells.Alignment.Vertical = SpreadsheetVerticalAlignment.Center;
+            
+        }
+      
+      
+        /// <summary>
+        /// Creates a new FMEA template workbook and returns it as a byte array.
+        /// </summary>
+        /// <returns>A byte[] representing the XLSX file content.</returns>
+        /// 
+        [Obsolete]
+        public static byte[] GenerateFmeaTemplateBytes()
+        {
+            // 1. Create a new, blank workbook in memory.
+            var workbook = new Workbook();
+            Apply(workbook);
+            using (var memoryStream = new MemoryStream())
+            {
+                workbook.SaveDocument(memoryStream, DevExpress.Spreadsheet.DocumentFormat.Xlsx);
+                return memoryStream.ToArray();
+            }
+        }
+ 
         private static void CreateHeader(Worksheet worksheet, string column, string title, string subtitle, int rotation = 0, bool isCentered = false)
         {
             int headerRow = 11;
@@ -283,4 +317,8 @@ namespace CspProject.Services;
                 new FmeaRating(10, "Critical - No Warning", "Results in catastrophic failure, major harm, or system loss, without warning")
             }.OrderBy(r => r.Score).ToList();
         }
+        
+        
+        
+      
     }

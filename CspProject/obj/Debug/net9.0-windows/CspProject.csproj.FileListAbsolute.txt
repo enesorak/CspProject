@@ -185,6 +185,9 @@ C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\bin\Debug\net9.0-wind
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\bin\Debug\net9.0-windows\CspProject.runtimeconfig.json
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\bin\Debug\net9.0-windows\CspProject.dll
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\bin\Debug\net9.0-windows\CspProject.pdb
+C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\bin\Debug\net9.0-windows\BouncyCastle.Cryptography.dll
+C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\bin\Debug\net9.0-windows\ClosedXML.dll
+C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\bin\Debug\net9.0-windows\ClosedXML.Parser.dll
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\bin\Debug\net9.0-windows\DevExpress.Charts.v25.1.Core.dll
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\bin\Debug\net9.0-windows\DevExpress.CodeParser.v25.1.dll
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\bin\Debug\net9.0-windows\DevExpress.Data.v25.1.dll
@@ -209,6 +212,7 @@ C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\bin\Debug\net9.0-wind
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\bin\Debug\net9.0-windows\DevExpress.Xpf.Docking.v25.1.dll
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\bin\Debug\net9.0-windows\DevExpress.Xpf.Layout.v25.1.Core.dll
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\bin\Debug\net9.0-windows\DevExpress.Xpf.DocumentViewer.v25.1.Core.dll
+C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\bin\Debug\net9.0-windows\DevExpress.Xpf.ExpressionEditor.v25.1.dll
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\bin\Debug\net9.0-windows\DevExpress.Xpf.Grid.v25.1.Core.dll
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\bin\Debug\net9.0-windows\DevExpress.Xpf.Grid.v25.1.Extensions.dll
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\bin\Debug\net9.0-windows\DevExpress.Xpf.Grid.v25.1.dll
@@ -218,10 +222,15 @@ C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\bin\Debug\net9.0-wind
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\bin\Debug\net9.0-windows\DevExpress.Xpf.Printing.v25.1.dll
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\bin\Debug\net9.0-windows\DevExpress.Xpf.PropertyGrid.v25.1.dll
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\bin\Debug\net9.0-windows\DevExpress.Xpf.Ribbon.v25.1.dll
+C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\bin\Debug\net9.0-windows\DevExpress.Xpf.RichEdit.v25.1.dll
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\bin\Debug\net9.0-windows\DevExpress.Xpf.Spreadsheet.v25.1.dll
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\bin\Debug\net9.0-windows\DevExpress.Xpf.Themes.Office2019Colorful.v25.1.dll
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\bin\Debug\net9.0-windows\DevExpress.Xpf.TreeMap.v25.1.dll
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\bin\Debug\net9.0-windows\DevExpress.Xpo.v25.1.dll
+C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\bin\Debug\net9.0-windows\DocumentFormat.OpenXml.dll
+C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\bin\Debug\net9.0-windows\DocumentFormat.OpenXml.Framework.dll
+C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\bin\Debug\net9.0-windows\ExcelNumberFormat.dll
+C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\bin\Debug\net9.0-windows\MailKit.dll
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\bin\Debug\net9.0-windows\Microsoft.Data.Sqlite.dll
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\bin\Debug\net9.0-windows\Microsoft.EntityFrameworkCore.dll
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\bin\Debug\net9.0-windows\Microsoft.EntityFrameworkCore.Abstractions.dll
@@ -238,6 +247,9 @@ C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\bin\Debug\net9.0-wind
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\bin\Debug\net9.0-windows\Microsoft.Extensions.ObjectPool.dll
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\bin\Debug\net9.0-windows\Microsoft.Extensions.Options.dll
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\bin\Debug\net9.0-windows\Microsoft.Extensions.Primitives.dll
+C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\bin\Debug\net9.0-windows\MimeKit.dll
+C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\bin\Debug\net9.0-windows\RBush.dll
+C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\bin\Debug\net9.0-windows\SixLabors.Fonts.dll
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\bin\Debug\net9.0-windows\SQLitePCLRaw.batteries_v2.dll
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\bin\Debug\net9.0-windows\SQLitePCLRaw.core.dll
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\bin\Debug\net9.0-windows\SQLitePCLRaw.provider.e_sqlite3.dll
@@ -325,12 +337,16 @@ C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\bin\Debug\net9.0-wind
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\obj\Debug\net9.0-windows\CspProject.csproj.AssemblyReference.cache
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\obj\Debug\net9.0-windows\MainWindow.baml
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\obj\Debug\net9.0-windows\OpenDocumentWindow.baml
+C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\obj\Debug\net9.0-windows\Views\ApproverSelectionWindow.baml
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\obj\Debug\net9.0-windows\Views\HomeScreen.baml
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\obj\Debug\net9.0-windows\Views\LoadingSplashScreen.baml
+C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\obj\Debug\net9.0-windows\Views\SettingsView.baml
+C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\obj\Debug\net9.0-windows\Views\WelcomeView.baml
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\obj\Debug\net9.0-windows\MainWindow.g.cs
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\obj\Debug\net9.0-windows\OpenDocumentWindow.g.cs
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\obj\Debug\net9.0-windows\SaveDocumentWindow.g.cs
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\obj\Debug\net9.0-windows\Views\ApprovalsView.g.cs
+C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\obj\Debug\net9.0-windows\Views\ApproverSelectionWindow.g.cs
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\obj\Debug\net9.0-windows\Views\ChangeLogView.g.cs
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\obj\Debug\net9.0-windows\Views\HomeContentView.g.cs
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\obj\Debug\net9.0-windows\Views\HomeScreen.g.cs
@@ -339,6 +355,7 @@ C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\obj\Debug\net9.0-wind
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\obj\Debug\net9.0-windows\Views\SettingsView.g.cs
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\obj\Debug\net9.0-windows\Views\SpreadsheetView.g.cs
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\obj\Debug\net9.0-windows\Views\TemplatesView.g.cs
+C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\obj\Debug\net9.0-windows\Views\WelcomeView.g.cs
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\obj\Debug\net9.0-windows\App.g.cs
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\obj\Debug\net9.0-windows\CspProject_MarkupCompile.cache
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\obj\Debug\net9.0-windows\CspProject_MarkupCompile.lref
@@ -347,7 +364,6 @@ C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\obj\Debug\net9.0-wind
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\obj\Debug\net9.0-windows\Views\ChangeLogView.baml
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\obj\Debug\net9.0-windows\Views\HomeContentView.baml
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\obj\Debug\net9.0-windows\Views\MyDocumentsView.baml
-C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\obj\Debug\net9.0-windows\Views\SettingsView.baml
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\obj\Debug\net9.0-windows\Views\SpreadsheetView.baml
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\obj\Debug\net9.0-windows\Views\TemplatesView.baml
 C:\Users\penshark\Desktop\CspProject\CspProject\CspProject\obj\Debug\net9.0-windows\CspProject.g.resources

@@ -68,7 +68,7 @@ namespace CspProject {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/CspProject;component/opendocumentwindow.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/CspProject;V3.2.0.0;component/opendocumentwindow.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\OpenDocumentWindow.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

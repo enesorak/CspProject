@@ -1,18 +1,42 @@
-@"
-# Build outputs
-bin/
-obj/
-.vs/
-*.user
+# Visual Studio Code files
+.vscode
+
+# Visual Studio files
+.vs
 *.suo
-*.cache
-# Packages
-packages/
-# Logs
+*.user
+*.sln.docstates
+
+# Build results
+[Bb]in/
+[Oo]bj/
+[Rr]elease/
+[Dd]ebug/
+
+# Rider files
+.idea
+
+# User-specific files
+*.DotSettings.user
+
+# Other
+publish/
+csp_database.db
+
+
+# Paketler
+*.nupkg
+
+# Log ve cache
 *.log
-# VS code / Rider
-.vscode/
-.idea/
-# Optional: tüm zip'leri izleme dışı bırak
+*.cache
+
+# Test sonuçları
+TestResults/
+
+# DevExpress cache
+.dx/
+
+# Arşiv dosyaları
 *.zip
-"@ | Out-File -Encoding utf8 .gitignore
+*.rar

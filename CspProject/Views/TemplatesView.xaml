@@ -6,18 +6,29 @@
              xmlns:local="clr-namespace:CspProject.Views"
              xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid"
              mc:Ignorable="d"
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="700" d:DesignWidth="900">
     <DockPanel Margin="30">
         <TextBlock DockPanel.Dock="Top" Text="Templates" FontSize="28" FontWeight="Light" Margin="0,0,0,20"/>
         <TextBlock DockPanel.Dock="Top" Text="Create a new document from an available template." FontSize="14" Foreground="Gray" Margin="0,0,0,20"/>
-        <dxg:GridControl x:Name="TemplatesGrid" AutoGenerateColumns="None" MouseDoubleClick="TemplatesGrid_MouseDoubleClick">
-            <dxg:GridControl.Columns>
-                <dxg:GridColumn FieldName="Name" Header="Template Name"/>
-                <dxg:GridColumn FieldName="Description" Header="Description"/>
-            </dxg:GridControl.Columns>
-            <dxg:GridControl.View>
-                <dxg:TableView ShowGroupPanel="False" NavigationStyle="Row"/>
-            </dxg:GridControl.View>
-        </dxg:GridControl>
+
+        <Border BorderBrush="#E0E0E0" BorderThickness="1" CornerRadius="4">
+            <dxg:GridControl x:Name="TemplatesGrid" AutoGenerateColumns="None" MouseDoubleClick="TemplatesGrid_MouseDoubleClick" ShowBorder="True">
+                <dxg:GridControl.Columns>
+                    <dxg:GridColumn FieldName="Name" Header="Template Name" Width="*"/>
+                    <dxg:GridColumn FieldName="Description" Header="Description" Width="2*"/>
+                </dxg:GridControl.Columns>
+                <dxg:GridControl.View>
+                    <dxg:TableView
+                        ShowGroupPanel="False"
+                        NavigationStyle="Row"
+                        ShowVerticalLines="False"
+                        ShowIndicator="False"
+                        AlternateRowBackground="#F9F9F9"
+                        HeaderPanelMinHeight="35"
+                        RowMinHeight="35"
+                        Padding="10,5" />
+                </dxg:GridControl.View>
+            </dxg:GridControl>
+        </Border>
     </DockPanel>
 </UserControl>

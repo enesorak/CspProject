@@ -12,11 +12,11 @@ using System.Reflection;
 
 [assembly: System.Reflection.AssemblyCompanyAttribute("CspProject")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
-[assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f9e9d3ce826577ce62ba082e46ed185a0328c19c")]
+[assembly: System.Reflection.AssemblyFileVersionAttribute("4.0.1.0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("4.0.1+861dbf0224b3dd58d391d6167563c974ec15f5e0")]
 [assembly: System.Reflection.AssemblyProductAttribute("CspProject")]
 [assembly: System.Reflection.AssemblyTitleAttribute("CspProject")]
-[assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
+[assembly: System.Reflection.AssemblyVersionAttribute("4.0.1.0")]
 [assembly: System.Runtime.Versioning.TargetPlatformAttribute("Windows7.0")]
 [assembly: System.Runtime.Versioning.SupportedOSPlatformAttribute("Windows7.0")]
 
