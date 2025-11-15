@@ -1,4 +1,4 @@
-<UserControl x:Class="CspProject.Views.HomeContentView"
+<local:ViewBase x:Class="CspProject.Views.HomeContentView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -74,4 +74,4 @@
         </Grid>
             </Border>
     </DockPanel>
-</UserControl>
+</local:ViewBase>

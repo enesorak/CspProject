@@ -63,9 +63,16 @@ namespace CspProject
                 options.EnableDetailedErrors(false); // Disable in production
             }, ServiceLifetime.Scoped);
 
+            services.AddSingleton<IDbContextFactory, DbContextFactory>();
+
+            
             // ✅ Register other services here as needed
             // services.AddTransient<EmailService>();
             // services.AddScoped<TemplateService>();
+            
+            services.AddTransient<EmailService>();
+            services.AddTransient<EmailReceiverService>();
+            services.AddSingleton<DocumentUpdateService>();
         }
 
         protected override async void OnStartup(StartupEventArgs e)

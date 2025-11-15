@@ -1,31 +1,46 @@
+// Views/ApprovalsView.xaml.cs - GÜNCELLENECEK
+using System;
+using System.Linq;
+using System.Windows;
 using CspProject.Data;
 using Microsoft.EntityFrameworkCore;
- 
 
-namespace CspProject.Views;
- 
- 
- 
-public partial class ApprovalsView : UserControl
+namespace CspProject.Views
 {
-    public event EventHandler<int>? RequestOpenDocument;
-
-    public ApprovalsView()
+    public partial class ApprovalsView : ViewBase // ✅ UserControl → ViewBase
     {
-        InitializeComponent();
-        LoadApprovalDocuments();
-    }
+        public event EventHandler<int>? RequestOpenDocument;
 
-    private async void LoadApprovalDocuments()
-    {
-        using (var dbContext = new ApplicationDbContext())
+        public ApprovalsView()
         {
-            var documentsFromDb = await dbContext.Documents
-                .Where(d => d.Status == "Under Review")
-                .OrderByDescending(d => d.ModifiedDate).Include(document => document.Author)
-                .ToListAsync();
+            InitializeComponent();
             
-            var documentsForDisplay = documentsFromDb.Select(d => new 
+            // ❌ KALDIR - Çok erken
+            // LoadApprovalDocuments();
+        }
+
+        // ✅ EKLE - ViewBase lifecycle
+        protected override void OnViewLoaded(object sender, RoutedEventArgs e)
+        {
+            base.OnViewLoaded(sender, e);
+            
+            // DbContext artık hazır
+            LoadApprovalDocuments();
+        }
+
+        private async void LoadApprovalDocuments()
+        {
+            // ✅ DbContext null check
+            if (DbContext == null) return;
+
+            // ✅ Yeni instance yerine mevcut DbContext kullan
+            var documentsFromDb = await DbContext.Documents
+                .Where(d => d.Status == "Under Review")
+                .OrderByDescending(d => d.ModifiedDate)
+                .Include(document => document.Author)
+                .ToListAsync();
+
+            var documentsForDisplay = documentsFromDb.Select(d => new
             {
                 d.Id,
                 d.DocumentName,
@@ -36,24 +51,31 @@ public partial class ApprovalsView : UserControl
 
             ApprovalsGrid.ItemsSource = documentsForDisplay;
         }
-    }
-    
-    private string FormatDate(DateTime date)
-    {
-        if (date.Date == DateTime.Today) return "Today";
-        if (date.Date == DateTime.Today.AddDays(-1)) return "Yesterday";
-        return date.ToString("d");
-    }
 
-    private void ApprovalsGrid_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
-    {
-        var grid = (DevExpress.Xpf.Grid.GridControl)sender;
-        if (grid.SelectedItem != null)
+        private string FormatDate(DateTime date)
         {
-            // DÜZELTME: SelectedItem'ı cast etmek yerine, Id'yi doğrudan satırdan oku.
-            int docId = (int)grid.GetCellValue(grid.View.FocusedRowHandle, "Id");
-            RequestOpenDocument?.Invoke(this, docId);
+            if (date.Date == DateTime.Today) return "Today";
+            if (date.Date == DateTime.Today.AddDays(-1)) return "Yesterday";
+            return date.ToString("d");
         }
 
+        private void ApprovalsGrid_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
+        {
+            var grid = (DevExpress.Xpf.Grid.GridControl)sender;
+            if (grid.SelectedItem != null)
+            {
+                int docId = (int)grid.GetCellValue(grid.View.FocusedRowHandle, "Id");
+                RequestOpenDocument?.Invoke(this, docId);
+            }
+        }
+
+        // ✅ EKLE - Custom cleanup
+        protected override void OnDisposing()
+        {
+            base.OnDisposing();
+            
+            // Event cleanup
+            RequestOpenDocument = null;
+        }
     }
 }

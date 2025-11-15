@@ -1,3 +1,8 @@
+// Views/MyDocumentsView.xaml.cs - GÜNCELLENECEK
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using CspProject.Data;
 using CspProject.Data.Entities;
@@ -5,27 +10,43 @@ using CspProject.Services;
 using DevExpress.Mvvm;
 using Microsoft.EntityFrameworkCore;
 
-
 namespace CspProject.Views
 {
-    public partial class MyDocumentsView : UserControl
+    public partial class MyDocumentsView : ViewBase // ✅ UserControl → ViewBase
     {
         public event EventHandler<int>? RequestOpenDocument;
-        private readonly ApplicationDbContext _dbContext ;
 
-        public MyDocumentsView(ApplicationDbContext dbContext)
+        // ❌ KALDIR
+        // private readonly ApplicationDbContext _dbContext;
+
+        public MyDocumentsView()
         {
             InitializeComponent();
-            _dbContext = dbContext;
+            
+            // ❌ KALDIR - ViewBase constructor'ında hallediyor
+            // _dbContext = dbContext;
+            
+            // ❌ KALDIR - Çok erken, DbContext henüz hazır değil
+            // LoadAllDocuments();
+            
+            // ❌ KALDIR
+            // this.Loaded += MyDocumentsView_Loaded;
+        }
+
+        // ✅ EKLE - ViewBase lifecycle
+        protected override void OnViewLoaded(object sender, RoutedEventArgs e)
+        {
+            base.OnViewLoaded(sender, e);
+            
+            // DbContext artık hazır
             LoadAllDocuments();
             
-            // --- YENİ BÖLÜM: EKRAN YÜKLENDİĞİNDE ÇALIŞACAK KOD ---
-            // Bu, ekran her görünür olduğunda etiketin güncellenmesini sağlar.
-            this.Loaded += MyDocumentsView_Loaded;
+            // Last check time'ı göster
+            UpdateLastCheckLabel();
         }
-        private void MyDocumentsView_Loaded(object sender, RoutedEventArgs e)
+
+        private void UpdateLastCheckLabel()
         {
-            // Merkezi servisten en son kontrol zamanını oku ve etiketi güncelle.
             if (AppStateService.LastCheckTime.HasValue)
             {
                 LastCheckedLabel.Text = $"Last checked at: {AppStateService.LastCheckTime.Value:g}";
@@ -35,24 +56,25 @@ namespace CspProject.Views
                 LastCheckedLabel.Text = "Last checked at: Never";
             }
         }
-        // Metod artık arama metnini parametre olarak alıyor
+
         private async void LoadAllDocuments(string searchText = "")
         {
-            using (var dbContext = new ApplicationDbContext())
+            // ✅ DbContext null check
+            if (DbContext == null) return;
+
+            // ✅ Yeni DbContext instance kullanmak yerine mevcut olanı kullan
+            var query = DbContext.Documents.AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchText))
             {
-                var query = dbContext.Documents.AsQueryable();
-
-                // Arama metni varsa, doküman adına göre filtrele
-                if (!string.IsNullOrEmpty(searchText))
-                {
-                    query = query.Where(d => d.DocumentName.ToLower().Contains(searchText.ToLower()));
-                }
-
-                var documents = await query
-                    .OrderByDescending(d => d.ModifiedDate)
-                    .ToListAsync();
-                AllDocumentsGrid.ItemsSource = documents;
+                query = query.Where(d => d.DocumentName.ToLower().Contains(searchText.ToLower()));
             }
+
+            var documents = await query
+                .OrderByDescending(d => d.ModifiedDate)
+                .ToListAsync();
+            
+            AllDocumentsGrid.ItemsSource = documents;
         }
 
         private void AllDocumentsGrid_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
@@ -64,32 +86,27 @@ namespace CspProject.Views
             }
         }
 
-        // --- YENİ EKLENEN METODLAR ---
-
-        // Arama çubuğundaki metin her değiştiğinde listeyi yeniden yükler
         private void SearchBox_EditValueChanged(object sender, DevExpress.Xpf.Editors.EditValueChangedEventArgs e)
         {
             LoadAllDocuments(SearchBox.Text);
         }
 
-        // "Check for Approvals" butonuna tıklandığında çalışır
         private async void CheckNowButton_Click(object sender, RoutedEventArgs e)
         {
             CheckNowButton.IsEnabled = false;
             LastCheckedLabel.Text = "Checking...";
             await CheckForApprovals();
-           
         }
-
-        // E-postaları kontrol eden ve listeyi yenileyen ana mantık
-        // Views/MyDocumentsView.xaml.cs
-
-// ... (dosyanın geri kalanı aynı)
 
         private async Task CheckForApprovals()
         {
-            var receiverService = new EmailReceiverService(_dbContext);
+            // ✅ DbContext null check
+            if (DbContext == null) return;
+
+            // ✅ Yeni instance yerine mevcut DbContext'i kullan
+            var receiverService = new EmailReceiverService(DbContext);
             string resultMessage = string.Empty;
+            
             try
             {
                 resultMessage = await receiverService.CheckForApprovalEmailsAsync();
@@ -98,27 +115,38 @@ namespace CspProject.Views
             catch (Exception ex)
             {
                 resultMessage = $"Error: {ex.GetType().Name}";
+                SentrySdk.CaptureException(ex);
             }
             finally
             {
-                
                 var now = DateTime.Now;
                 AppStateService.LastCheckTime = now;
                 CheckNowButton.IsEnabled = true;
-                // GÜNCELLENMİŞ LABEL METNİ
                 LastCheckedLabel.Text = $"Last checked at: {now:g}";
+                
                 if (resultMessage.Contains("processed"))
                 {
                     var notificationService = ServiceContainer.Default.GetService<INotificationService>();
-            
+
                     if (notificationService != null)
                     {
-                        var notification = notificationService.CreatePredefinedNotification("Approvals Processed", resultMessage, "");
+                        var notification = notificationService.CreatePredefinedNotification(
+                            "Approvals Processed", 
+                            resultMessage, 
+                            "");
                         await notification.ShowAsync();
                     }
-
                 }
             }
+        }
+
+        // ✅ EKLE - Custom cleanup
+        protected override void OnDisposing()
+        {
+            base.OnDisposing();
+            
+            // Event cleanup
+            RequestOpenDocument = null;
         }
     }
 }

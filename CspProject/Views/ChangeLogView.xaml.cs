@@ -1,20 +1,38 @@
+// Views/ChangeLogView.xaml.cs - GÜNCELLENECEK
+using System;
+using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using CspProject.Data;
 using CspProject.Services;
 using Microsoft.EntityFrameworkCore;
-using System.Linq;
 
 namespace CspProject.Views
 {
-    public partial class ChangeLogView : UserControl
+    public partial class ChangeLogView : ViewBase // ✅ UserControl → ViewBase
     {
-        private readonly ApplicationDbContext _dbContext;
+        // ❌ KALDIR
+        // private readonly ApplicationDbContext _dbContext;
 
-        public ChangeLogView(ApplicationDbContext dbContext)
+        // ❌ ÖNCE
+        // public ChangeLogView(ApplicationDbContext dbContext)
+        // {
+        //     InitializeComponent();
+        //     _dbContext = dbContext;
+        //     LoadFilterDropDowns();
+        //     LoadChangeLogs();
+        // }
+
+        // ✅ SONRA
+        public ChangeLogView()
         {
             InitializeComponent();
-            _dbContext = dbContext;
+        }
+
+        // ✅ EKLE
+        protected override void OnViewLoaded(object sender, RoutedEventArgs e)
+        {
+            base.OnViewLoaded(sender, e);
             
             LoadFilterDropDowns();
             LoadChangeLogs();
@@ -22,18 +40,20 @@ namespace CspProject.Views
 
         private async void LoadFilterDropDowns()
         {
-            // Kullanıcı filtresini doldur
-            var users = await _dbContext.Users.OrderBy(u => u.Name).ToListAsync();
+            if (DbContext == null) return;
+
+            var users = await DbContext.Users.OrderBy(u => u.Name).ToListAsync();
             UserComboBox.ItemsSource = users;
 
-            // Doküman filtresini doldur
-            var documents = await _dbContext.Documents.OrderBy(d => d.DocumentName).ToListAsync();
+            var documents = await DbContext.Documents.OrderBy(d => d.DocumentName).ToListAsync();
             DocumentComboBox.ItemsSource = documents;
         }
 
         private async void LoadChangeLogs()
         {
-            var query = _dbContext.AuditLogs
+            if (DbContext == null) return;
+
+            var query = DbContext.AuditLogs
                 .Include(log => log.User)
                 .Include(log => log.Document)
                 .AsQueryable();
@@ -63,7 +83,7 @@ namespace CspProject.Views
 
             var logs = await query
                 .OrderByDescending(log => log.Timestamp)
-                .Select(log => new 
+                .Select(log => new
                 {
                     log.Timestamp,
                     UserName = log.User.Name,
@@ -80,11 +100,8 @@ namespace CspProject.Views
 
         private void Filter_Changed(object sender, RoutedEventArgs e)
         {
-            // Filtrelerden herhangi biri değiştiğinde listeyi yeniden yükle
             LoadChangeLogs();
         }
-
-        // ==================== EXPORT METHODS ====================
 
         private async void ExportToExcel_Click(object sender, RoutedEventArgs e)
         {
@@ -92,7 +109,8 @@ namespace CspProject.Views
 
             if (!logs.Any())
             {
-                MessageBox.Show("No change history available to export.", "No Data", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("No change history available to export.", "No Data", 
+                    MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
@@ -106,13 +124,14 @@ namespace CspProject.Views
             {
                 try
                 {
-                    // System-wide export - Document kolonu ile
                     ChangeLogExportService.ExportToExcel(logs, saveFileDialog.FileName);
-                    MessageBox.Show($"Log successfully exported to:\n{saveFileDialog.FileName}", "Export Successful", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show($"Log successfully exported to:\n{saveFileDialog.FileName}", 
+                        "Export Successful", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Failed to export log.\n\nError: {ex.Message}", "Export Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show($"Failed to export log.\n\nError: {ex.Message}", 
+                        "Export Failed", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
@@ -123,7 +142,8 @@ namespace CspProject.Views
 
             if (!logs.Any())
             {
-                MessageBox.Show("No change history available to export.", "No Data", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("No change history available to export.", "No Data", 
+                    MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
@@ -137,22 +157,23 @@ namespace CspProject.Views
             {
                 try
                 {
-                    // System-wide export - Document kolonu ile
                     ChangeLogExportService.ExportToPdf(logs, saveFileDialog.FileName);
-                    MessageBox.Show($"Log successfully exported to:\n{saveFileDialog.FileName}", "Export Successful", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show($"Log successfully exported to:\n{saveFileDialog.FileName}", 
+                        "Export Successful", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Failed to export log.\n\nError: {ex.Message}", "Export Failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                    MessageBox.Show($"Failed to export log.\n\nError: {ex.Message}", 
+                        "Export Failed", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
         }
 
-        // ==================== HELPER METHOD ====================
-
         private async Task<List<Data.Entities.AuditLog>> GetFilteredLogs()
         {
-            var query = _dbContext.AuditLogs
+            if (DbContext == null) return new List<Data.Entities.AuditLog>();
+
+            var query = DbContext.AuditLogs
                 .Include(log => log.User)
                 .Include(log => log.Document)
                 .AsQueryable();

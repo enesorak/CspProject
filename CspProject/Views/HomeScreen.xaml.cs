@@ -116,7 +116,7 @@ namespace CspProject.Views
                     PageContentControl.Content = homeContent;
                     break;
                 case "MyDocuments":
-                    var myDocsView = new MyDocumentsView(_dbContext);
+                    var myDocsView = new MyDocumentsView();
                     myDocsView.RequestOpenDocument += (s, id) => RequestOpenDocument?.Invoke(s, id);
                     PageContentControl.Content = myDocsView;
                     break;
@@ -144,7 +144,7 @@ namespace CspProject.Views
                     break;
                     // --- GÜNCELLEME SONU ---
                 case "ChangeLog":
-                    PageContentControl.Content = new ChangeLogView(_dbContext);
+                    PageContentControl.Content = new ChangeLogView();
                     break;
                 case "Settings":
                     PageContentControl.Content = new SettingsView(_currentUser);
