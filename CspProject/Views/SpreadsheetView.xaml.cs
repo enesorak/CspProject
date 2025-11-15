@@ -12,11 +12,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CspProject.Views;
 
-public partial class SpreadsheetView : UserControl
+public partial class SpreadsheetView : UserControl,IDisposable
 {
     public event EventHandler<string> ProcessingStarted;
     public event EventHandler ProcessingFinished;
-    
+
     public event EventHandler? RequestGoToHome;
     public event Action<string>? DocumentInfoChanged;
 
@@ -24,6 +24,9 @@ public partial class SpreadsheetView : UserControl
     private Document? _currentDocument;
     private readonly ApplicationDbContext _dbContext = new ApplicationDbContext();
     private bool _isAuditPanelOpen = false;
+    
+    private bool _disposed = false;
+
 
     private INotificationService? NotificationService => ServiceContainer.Default.GetService<INotificationService>();
 
@@ -37,10 +40,10 @@ public partial class SpreadsheetView : UserControl
 
         this.Loaded += SpreadsheetView_Loaded;
         this.Unloaded += SpreadsheetView_Unloaded;
-        
+
         spreadsheetControl.CellValueChanged += SpreadsheetControl_CellValueChanged;
     }
-    
+
     private async void SpreadsheetControl_CellValueChanged(object sender, SpreadsheetCellEventArgs e)
     {
         if (_currentDocument == null || _currentDocument.Id == 0 || _currentUser == null) return;
@@ -67,10 +70,7 @@ public partial class SpreadsheetView : UserControl
         DocumentUpdateService.Instance.DocumentUpdated += OnDocumentUpdatedInBackground;
     }
 
-    private void SpreadsheetView_Unloaded(object sender, RoutedEventArgs e)
-    {
-        DocumentUpdateService.Instance.DocumentUpdated -= OnDocumentUpdatedInBackground;
-    }
+ 
 
     private async void OnDocumentUpdatedInBackground(object? sender, int updatedDocumentId)
     {
@@ -85,54 +85,132 @@ public partial class SpreadsheetView : UserControl
         }
     }
 
-    public void CreateNewFmeaDocument()
-    {
-        if (_currentUser == null) return;
-        _currentDocument = new Document { AuthorId = _currentUser.Id };
-        spreadsheetControl.CreateNewDocument();
-        FmeaTemplateGenerator.Apply(spreadsheetControl.Document);
-        spreadsheetControl.Modified = false;
-        UpdateUiForDocumentStatus();
-    }
-    
+  
+
+    /// <summary>
+    /// Creates a new FMEA document with optimized template loading
+    /// </summary>
     public async Task CreateNewFmeaDocumentAsync()
     {
         if (_currentUser == null) return;
 
-        _currentDocument = new Document { AuthorId = _currentUser.Id };
+        ITransactionTracer transaction = SentrySdk.StartTransaction("create-fmea-document", "document");
 
-        byte[] bytes = await Task.Run(() =>
+        try
         {
-            var prev = Thread.CurrentThread.CurrentCulture;
-            try
-            {
-                Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
-                return CspProject.Services.FmeaTemplateGenerator.GenerateFmeaTemplateBytes();
-            }
-            finally
-            {
-                Thread.CurrentThread.CurrentCulture = prev;
-            }
-        });
+            _currentDocument = new Document { AuthorId = _currentUser.Id };
 
-        using var ms = new MemoryStream(bytes);
-        spreadsheetControl.LoadDocument(ms, DevExpress.Spreadsheet.DocumentFormat.Xlsx);
+            // ✅ Load template with caching
+            var templateSpan = transaction.StartChild("template.load");
+            byte[] bytes = await LoadTemplateWithCache();
+            templateSpan.Finish(SpanStatus.Ok);
 
-        spreadsheetControl.Modified = false;
-        UpdateUiForDocumentStatus();
-    }
+            // ✅ Load into UI
+            var uiSpan = transaction.StartChild("ui.load");
+            using var ms = new MemoryStream(bytes);
+            spreadsheetControl.LoadDocument(ms, DevExpress.Spreadsheet.DocumentFormat.Xlsx);
+            uiSpan.Finish(SpanStatus.Ok);
 
-    public async Task LoadDocument(int documentId)
-    {
-        _currentDocument = await _dbContext.Documents
-            .Include(d => d.Author)
-            .Include(d => d.Approver)
-            .FirstOrDefaultAsync(d => d.Id == documentId);
-        if (_currentDocument?.Content != null)
-        {
-            spreadsheetControl.LoadDocument(_currentDocument.Content, DevExpress.Spreadsheet.DocumentFormat.Xlsx);
             spreadsheetControl.Modified = false;
             UpdateUiForDocumentStatus();
+
+            transaction.Finish(SpanStatus.Ok);
+            SentrySdk.AddBreadcrumb("FMEA document created", "document");
+        }
+        catch (Exception ex)
+        {
+            transaction.Finish(ex);
+            SentrySdk.CaptureException(ex);
+            await ShowNotification("Error", $"Failed to create document: {ex.Message}");
+        }
+    }
+
+    private static byte[]? _cachedFmeaTemplate;
+    private static readonly object _cacheLock = new object();
+
+    /// <summary>
+    /// Loads FMEA template with caching for better performance
+    /// </summary>
+    private async Task<byte[]> LoadTemplateWithCache()
+    {
+        // ✅ Return from cache if available
+        if (_cachedFmeaTemplate != null)
+        {
+            SentrySdk.AddBreadcrumb("Template loaded from cache", "performance");
+            return _cachedFmeaTemplate;
+        }
+
+        // ✅ Thread-safe cache creation
+        return await Task.Run(() =>
+        {
+            lock (_cacheLock)
+            {
+                // Double-check locking pattern
+                if (_cachedFmeaTemplate != null)
+                    return _cachedFmeaTemplate;
+
+                var prevCulture = Thread.CurrentThread.CurrentCulture;
+                try
+                {
+                    Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+
+                    var workbook = new DevExpress.Spreadsheet.Workbook();
+                    FmeaTemplateGenerator.Apply(workbook);
+
+                    using var ms = new MemoryStream();
+                    workbook.SaveDocument(ms, DevExpress.Spreadsheet.DocumentFormat.Xlsx);
+                    _cachedFmeaTemplate = ms.ToArray();
+
+                    SentrySdk.AddBreadcrumb(
+                        $"Template cached ({_cachedFmeaTemplate.Length / 1024} KB)",
+                        "performance");
+
+                    return _cachedFmeaTemplate;
+                }
+                finally
+                {
+                    Thread.CurrentThread.CurrentCulture = prevCulture;
+                }
+            }
+        });
+    }
+
+    /// <summary>
+    /// Loads an existing document with performance tracking
+    /// </summary>
+    public async Task LoadDocument(int documentId)
+    {
+        ITransactionTracer transaction = SentrySdk.StartTransaction("load-document", "document");
+        transaction.SetExtra("document_id", documentId);
+
+        try
+        {
+            var loadSpan = transaction.StartChild("db.query");
+            _currentDocument = await _dbContext.Documents
+                .Include(d => d.Author)
+                .Include(d => d.Approver)
+                .AsNoTracking() // ✅ Performance boost
+                .FirstOrDefaultAsync(d => d.Id == documentId);
+            loadSpan.Finish(SpanStatus.Ok);
+
+            if (_currentDocument?.Content != null)
+            {
+                var renderSpan = transaction.StartChild("spreadsheet.render");
+                spreadsheetControl.LoadDocument(_currentDocument.Content,
+                    DevExpress.Spreadsheet.DocumentFormat.Xlsx);
+                spreadsheetControl.Modified = false;
+                renderSpan.Finish(SpanStatus.Ok);
+
+                UpdateUiForDocumentStatus();
+            }
+
+            transaction.Finish(SpanStatus.Ok);
+        }
+        catch (Exception ex)
+        {
+            transaction.Finish(ex);
+            SentrySdk.CaptureException(ex);
+            await ShowNotification("Error", $"Failed to load document: {ex.Message}");
         }
     }
 
@@ -143,18 +221,12 @@ public partial class SpreadsheetView : UserControl
         if (openWindow.ShowDialog() == true)
         {
             int docId = openWindow.SelectedDocumentId;
-            var documentToOpen = await _dbContext.Documents.FindAsync(docId);
-
-            if (documentToOpen != null && documentToOpen.Content != null)
-            {
-                _currentDocument = documentToOpen;
-                spreadsheetControl.LoadDocument(documentToOpen.Content, DevExpress.Spreadsheet.DocumentFormat.Xlsx);
-                MessageBox.Show(
-                    $"Document '{documentToOpen.DocumentName}' (Version: {documentToOpen.Version}) has been loaded.",
-                    "Information", MessageBoxButton.OK, MessageBoxImage.Information);
-                spreadsheetControl.Modified = false;
-                UpdateUiForDocumentStatus();
-            }
+        
+            // ✅ Use existing LoadDocument method
+            await LoadDocument(docId);
+        
+            await ShowNotification("Document Loaded",
+                $"Document '{_currentDocument?.DocumentName}' (Version: {_currentDocument?.Version}) loaded successfully.");
         }
     }
 
@@ -176,7 +248,8 @@ public partial class SpreadsheetView : UserControl
         {
             _currentDocument.DocumentName = saveWindow.DocumentName;
             await _dbContext.SaveChangesAsync();
-            await ShowNotification("Rename Successful", $"Document successfully renamed to '{_currentDocument.DocumentName}'.");
+            await ShowNotification("Rename Successful",
+                $"Document successfully renamed to '{_currentDocument.DocumentName}'.");
         }
 
         UpdateUiForDocumentStatus();
@@ -216,7 +289,8 @@ public partial class SpreadsheetView : UserControl
             {
                 spreadsheetControl.BeginUpdate();
                 spreadsheetControl.SaveDocument(saveFileDialog.FileName, DevExpress.Spreadsheet.DocumentFormat.Xlsx);
-                await ShowNotification("Export Successful", $"Document successfully exported to:\n{saveFileDialog.FileName}");
+                await ShowNotification("Export Successful",
+                    $"Document successfully exported to:\n{saveFileDialog.FileName}");
             }
             finally
             {
@@ -266,81 +340,102 @@ public partial class SpreadsheetView : UserControl
         }
     }
 
-    private async void SubmitButton_Click(object sender, RoutedEventArgs e)
+ private async void SubmitButton_Click(object sender, RoutedEventArgs e)
+{
+    ITransactionTracer transaction = SentrySdk.StartTransaction("submit-for-review", "workflow");
+    
+    try
     {
         var saveResult = await PerformSaveAsync(showSuccessNotification: false);
 
         if (!saveResult)
         {
+            transaction.Finish(SpanStatus.Cancelled);
             return;
         }
 
-        if (_currentDocument == null || _currentUser == null) return;
+        if (_currentDocument == null || _currentUser == null)
+        {
+            transaction.Finish(SpanStatus.InvalidArgument);
+            return;
+        }
 
         var selectionWindow = new ApproverSelectionWindow(_currentUser.Id) { Owner = Window.GetWindow(this) };
         if (selectionWindow.ShowDialog() != true)
         {
+            transaction.Finish(SpanStatus.Cancelled);
             return;
         }
 
         int? approverId = selectionWindow.SelectedApproverId;
-        if (!approverId.HasValue) return;
+        if (!approverId.HasValue)
+        {
+            transaction.Finish(SpanStatus.InvalidArgument);
+            return;
+        }
 
         var approver = await _dbContext.Users.FindAsync(approverId.Value);
         if (approver == null)
         {
             await ShowNotification("Error", "Could not find the selected approver.");
+            transaction.Finish(SpanStatus.NotFound);
             return;
         }
-        
+
         ProcessingStarted?.Invoke(this, "Sending approval email, please wait...");
 
-        try
+        var oldStatus = _currentDocument.Status;
+        _currentDocument.ApproverId = approverId.Value;
+        _currentDocument.Status = "Under Review";
+        _currentDocument.Version = VersioningService.IncrementMinorVersion(_currentDocument.Version);
+
+        _dbContext.AuditLogs.Add(new AuditLog
         {
-            var oldStatus = _currentDocument.Status;
-            _currentDocument.ApproverId = approverId.Value;
-            _currentDocument.Status = "Under Review";
-            _currentDocument.Version = VersioningService.IncrementMinorVersion(_currentDocument.Version);
+            DocumentId = _currentDocument.Id,
+            UserId = _currentUser.Id,
+            FieldChanged = "Status",
+            OldValue = oldStatus,
+            NewValue = "Under Review",
+            Revision = _currentDocument.Version,
+            Rationale = $"Submitted to {approver.Name}"
+        });
+
+        var emailSpan = transaction.StartChild("email.send");
+        byte[] pdfBytes = PdfExportService.ExportToPdfBytes(spreadsheetControl);
+        var emailService = new EmailService(_dbContext);
+        await emailService.SendApprovalRequestEmailAsync(approver, _currentDocument, pdfBytes);
+        emailSpan.Finish(SpanStatus.Ok);
+
+        await SaveAndRefreshUi();
+
+        ProcessingFinished?.Invoke(this, EventArgs.Empty);
+        transaction.Finish(SpanStatus.Ok);
         
-            _dbContext.AuditLogs.Add(new AuditLog
-            {
-                DocumentId = _currentDocument.Id,
-                UserId = _currentUser.Id,
-                FieldChanged = "Status",
-                OldValue = oldStatus,
-                NewValue = "Under Review",
-                Revision = _currentDocument.Version,
-                Rationale = $"Submitted to {approver.Name}"
-            });
-
-            byte[] pdfBytes = PdfExportService.ExportToPdfBytes(spreadsheetControl);
-            var emailService = new EmailService(_dbContext);
-            await emailService.SendApprovalRequestEmailAsync(approver, _currentDocument, pdfBytes);
-
-            await SaveAndRefreshUi();
-
-            ProcessingFinished?.Invoke(this, EventArgs.Empty);
-            await ShowNotification("Submission Successful",
-                $"Document has been submitted and an email was sent to {approver.Email}.");
-        }
-        catch (Exception ex)
-        { 
-            ProcessingFinished?.Invoke(this, EventArgs.Empty);
-            await ShowNotification("Email Sending Failed",
-                $"The document was NOT submitted. Please check your email settings.\n\nError: {ex.Message}"); 
-        }
+        await ShowNotification("Submission Successful",
+            $"Document has been submitted and an email was sent to {approver.Email}.");
     }
+    catch (Exception ex)
+    {
+        ProcessingFinished?.Invoke(this, EventArgs.Empty);
+        transaction.Finish(ex);
+        SentrySdk.CaptureException(ex); // ✅ Added
+        
+        await ShowNotification("Email Sending Failed",
+            $"The document was NOT submitted. Please check your email settings.\n\nError: {ex.Message}");
+    }
+}
 
     private async Task<bool> PerformSaveAsync(bool showSuccessNotification)
     {
         bool isNewDocument = _currentDocument == null || _currentDocument.Id == 0;
-       
+
         if (!isNewDocument && !spreadsheetControl.Modified)
         {
             if (showSuccessNotification)
             {
                 await ShowNotification("Information", "No changes to save.");
             }
+
             return true;
         }
 
@@ -365,16 +460,18 @@ public partial class SpreadsheetView : UserControl
         UpdateDocumentFromSpreadsheet(_currentDocument);
         await _dbContext.SaveChangesAsync();
         spreadsheetControl.Modified = false;
-            
+
         UpdateUiForDocumentStatus();
 
         if (showSuccessNotification)
         {
-            await ShowNotification("Save Successful", $"Document '{_currentDocument.DocumentName}' saved as version {_currentDocument.Version}!");
+            await ShowNotification("Save Successful",
+                $"Document '{_currentDocument.DocumentName}' saved as version {_currentDocument.Version}!");
         }
+
         return true;
     }
-   
+
     private async void ApproveButton_Click(object sender, RoutedEventArgs e)
     {
         if (_currentDocument == null || _currentUser == null) return;
@@ -406,10 +503,10 @@ public partial class SpreadsheetView : UserControl
         worksheet.Cells["K6"].Value = DateTime.Now;
 
         await SaveAndRefreshUi();
-        
+
         await ShowNotification("Document Approved", $"Document status changed to: {_currentDocument.Status}");
     }
- 
+
     private async void RejectButton_Click(object sender, RoutedEventArgs e)
     {
         if (_currentDocument == null) return;
@@ -427,11 +524,11 @@ public partial class SpreadsheetView : UserControl
             Revision = _currentDocument.Version,
             Rationale = "Rejected via application UI"
         });
-        
+
         await SaveAndRefreshUi();
         await ShowNotification("Document Rejected", $"Document status changed to: {_currentDocument.Status}");
     }
- 
+
     private async Task SaveAndRefreshUi()
     {
         await _dbContext.SaveChangesAsync();
@@ -517,14 +614,15 @@ public partial class SpreadsheetView : UserControl
         }
         catch (Exception ex)
         {
-            await ShowNotification("Error", $"Failed to check for approvals. Please verify your email settings.\n\nError: {ex.Message}");
+            await ShowNotification("Error",
+                $"Failed to check for approvals. Please verify your email settings.\n\nError: {ex.Message}");
         }
         finally
         {
             CheckApprovalsButton.IsEnabled = true;
         }
     }
-    
+
     private async Task ShowNotification(string title, string message)
     {
         if (NotificationService != null)
@@ -541,7 +639,7 @@ public partial class SpreadsheetView : UserControl
     // =============================================
     // AUDIT PANEL METHODS - OPTİMİZE EDİLDİ
     // =============================================
-    
+
     private async void DocumentChangeLogButton_Click(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e)
     {
         if (_isAuditPanelOpen)
@@ -581,7 +679,7 @@ public partial class SpreadsheetView : UserControl
             OpenAuditPanel();
         }
     }
-    
+
     private void OpenAuditPanel()
     {
         AuditLogPanel.Visibility = Visibility.Visible;
@@ -656,7 +754,8 @@ public partial class SpreadsheetView : UserControl
             try
             {
                 AuditLogExportService.ExportToExcel(logs, saveFileDialog.FileName, _currentDocument.DocumentName);
-                await ShowNotification("Export Successful", $"Log successfully exported to:\n{saveFileDialog.FileName}");
+                await ShowNotification("Export Successful",
+                    $"Log successfully exported to:\n{saveFileDialog.FileName}");
             }
             catch (Exception ex)
             {
@@ -698,12 +797,259 @@ public partial class SpreadsheetView : UserControl
             try
             {
                 AuditLogExportService.ExportToPdf(logs, saveFileDialog.FileName, _currentDocument.DocumentName);
-                await ShowNotification("Export Successful", $"Log successfully exported to:\n{saveFileDialog.FileName}");
+                await ShowNotification("Export Successful",
+                    $"Log successfully exported to:\n{saveFileDialog.FileName}");
             }
             catch (Exception ex)
             {
                 await ShowNotification("Export Failed", $"Failed to export audit log.\n\nError: {ex.Message}");
             }
         }
+    }
+
+ 
+        /// <summary>
+        /// Loads a template from file with performance tracking
+        /// </summary>
+        public async Task LoadTemplateFromFile(string filePath)
+        {
+            if (_currentUser == null) return;
+
+            ITransactionTracer transaction = SentrySdk.StartTransaction("load-template-file", "document");
+            transaction.SetExtra("file_path", filePath);
+
+            try
+            {
+                if (!File.Exists(filePath))
+                {
+                    throw new FileNotFoundException($"Template file not found: {filePath}");
+                }
+
+                _currentDocument = new Document
+                {
+                    AuthorId = _currentUser.Id,
+                    DocumentName = Path.GetFileNameWithoutExtension(filePath),
+                    Status = "Draft",
+                    Version = "0.0.1"
+                };
+
+                // ✅ Async file read
+                var readSpan = transaction.StartChild("file.read");
+                byte[] templateBytes = await File.ReadAllBytesAsync(filePath);
+                readSpan.SetExtra("file_size", templateBytes.Length);
+                readSpan.Finish(SpanStatus.Ok);
+
+                // ✅ Load into spreadsheet
+                var loadSpan = transaction.StartChild("spreadsheet.load");
+                using (var ms = new MemoryStream(templateBytes))
+                {
+                    spreadsheetControl.LoadDocument(ms, DevExpress.Spreadsheet.DocumentFormat.Xlsx);
+                }
+                loadSpan.Finish(SpanStatus.Ok);
+
+                spreadsheetControl.Modified = false;
+                UpdateUiForDocumentStatus();
+
+                transaction.Finish(SpanStatus.Ok);
+
+                await ShowNotification("Template Loaded",
+                    $"Template '{Path.GetFileName(filePath)}' loaded successfully.");
+            }
+            catch (Exception ex)
+            {
+                transaction.Finish(ex);
+                SentrySdk.CaptureException(ex);
+                await ShowNotification("Error", $"Failed to load template: {ex.Message}");
+            }
+        }
+
+    
+    
+           /// <summary>
+        /// Creates a blank document with title block
+        /// </summary>
+        public async Task CreateBlankDocument()
+        {
+            if (_currentUser == null) return;
+
+            ITransactionTracer transaction = SentrySdk.StartTransaction("create-blank-document", "document");
+
+            try
+            {
+                _currentDocument = new Document
+                {
+                    AuthorId = _currentUser.Id,
+                    DocumentName = "Blank Template",
+                    Status = "Draft",
+                    Version = "0.0.1"
+                };
+
+                // ✅ Create template with title block only
+                await Task.Run(() =>
+                {
+                    var prevCulture = Thread.CurrentThread.CurrentCulture;
+                    try
+                    {
+                        Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+
+                        var workbook = new DevExpress.Spreadsheet.Workbook();
+                        FmeaTemplateGenerator.ApplyTitleBlockOnly(workbook);
+
+                        using (var ms = new MemoryStream())
+                        {
+                            workbook.SaveDocument(ms, DevExpress.Spreadsheet.DocumentFormat.Xlsx);
+                            ms.Position = 0;
+
+                            Dispatcher.Invoke(() =>
+                            {
+                                spreadsheetControl.LoadDocument(ms, DevExpress.Spreadsheet.DocumentFormat.Xlsx);
+                            });
+                        }
+                    }
+                    finally
+                    {
+                        Thread.CurrentThread.CurrentCulture = prevCulture;
+                    }
+                });
+
+                spreadsheetControl.Modified = false;
+                UpdateUiForDocumentStatus();
+
+                transaction.Finish(SpanStatus.Ok);
+
+                await ShowNotification("Template Base Created",
+                    "Template with standard title block created. Add your custom content and save as template.");
+            }
+            catch (Exception ex)
+            {
+                transaction.Finish(ex);
+                SentrySdk.CaptureException(ex);
+                await ShowNotification("Error", $"Failed to create blank document: {ex.Message}");
+            }
+        }
+
+    /// <summary>
+    /// Mevcut spreadsheet'i template olarak kaydeder
+    /// </summary>
+    private async void SaveAsTemplateButton_Click(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e)
+    {
+        var activeSheet = spreadsheetControl.Document.Worksheets.ActiveWorksheet;
+        var usedRange = activeSheet.GetUsedRange();
+
+        bool isSheetEmpty = usedRange.RowCount == 1 &&
+                            usedRange.ColumnCount == 1 &&
+                            usedRange[0, 0].Value.IsEmpty;
+
+        if (isSheetEmpty)
+        {
+            await ShowNotification("Cannot Save Template",
+                "The spreadsheet is empty. Please add some content first.");
+            return;
+        }
+
+        // Template adı sor
+        var inputWindow = new TemplateNameInputWindow
+        {
+            Owner = Window.GetWindow(this)
+        };
+
+        if (inputWindow.ShowDialog() != true)
+            return;
+
+        string templateName = inputWindow.TemplateName;
+
+        if (string.IsNullOrWhiteSpace(templateName))
+        {
+            await ShowNotification("Invalid Name", "Please enter a valid template name.");
+            return;
+        }
+
+        try
+        {
+            string templatesDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Templates");
+
+            if (!Directory.Exists(templatesDir))
+                Directory.CreateDirectory(templatesDir);
+
+            // .xlsx uzantısı yoksa ekle
+            if (!templateName.EndsWith(".xlsx", StringComparison.OrdinalIgnoreCase))
+                templateName += ".xlsx";
+
+            string templatePath = Path.Combine(templatesDir, templateName);
+
+            // Var olan dosya kontrolü
+            if (File.Exists(templatePath))
+            {
+                var result = MessageBox.Show(
+                    $"A template named '{templateName}' already exists. Do you want to replace it?",
+                    "Confirm Replace",
+                    MessageBoxButton.YesNo,
+                    MessageBoxImage.Question);
+
+                if (result != MessageBoxResult.Yes)
+                    return;
+            }
+
+            // Template olarak kaydet
+            spreadsheetControl.SaveDocument(templatePath, DevExpress.Spreadsheet.DocumentFormat.Xlsx);
+
+            await ShowNotification("Template Saved",
+                $"Template '{templateName}' saved successfully!\n\n" +
+                $"You can now find it in the Templates screen.");
+        }
+        catch (Exception ex)
+        {
+            SentrySdk.CaptureException(ex);
+            await ShowNotification("Error",
+                $"Failed to save template.\n\nError: {ex.Message}");
+        }
+    }
+
+    /// <summary>
+    /// Template hakkında bilgi gösterir
+    /// </summary>
+    private async void TemplateInfoButton_Click(object sender, DevExpress.Xpf.Bars.ItemClickEventArgs e)
+    {
+        var worksheet = spreadsheetControl.Document.Worksheets.ActiveWorksheet;
+
+        int totalSheets = spreadsheetControl.Document.Worksheets.Count;
+        var usedRange = worksheet.GetUsedRange();
+
+        string info = $"Spreadsheet Information\n\n" +
+                      $"Active Sheet: {worksheet.Name}\n" +
+                      $"Total Sheets: {totalSheets}\n" +
+                      $"Used Range: {usedRange.GetReferenceA1()}\n" +
+                      $"Rows: {usedRange.RowCount}\n" +
+                      $"Columns: {usedRange.ColumnCount}";
+
+        await ShowNotification("Template Info", info);
+    }
+
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+    
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!_disposed)
+        {
+            if (disposing)
+            {
+                // Dispose managed resources
+                _dbContext?.Dispose();
+            }
+            _disposed = true;
+        }
+    }
+
+    // ✅ Cleanup on unload
+    private void SpreadsheetView_Unloaded(object sender, RoutedEventArgs e)
+    {
+        DocumentUpdateService.Instance.DocumentUpdated -= OnDocumentUpdatedInBackground;
+        
+        // ✅ Dispose when view is unloaded
+        Dispose();
     }
 }

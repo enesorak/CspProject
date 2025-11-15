@@ -40,6 +40,22 @@
                                                Glyph="{dx:DXImage 'SvgImages/Export/ExportToXLSX.svg'}"
                                                ItemClick="ExportButton_Click" />
                         </dxr:RibbonPageGroup>
+                      
+                            <dxr:RibbonPageGroup Caption="Template Management">
+                                <dxb:BarButtonItem x:Name="SaveAsTemplateButton"
+                                                   Content="Save as Template"
+                                                   ItemClick="SaveAsTemplateButton_Click"
+                                                   RibbonStyle="Large"
+                                                   Glyph="{dx:DXImage 'SvgImages/Save/SaveAs.svg'}" />
+            
+                                <dxb:BarButtonItem x:Name="TemplateInfoButton"
+                                                   Content="Template Info"
+                                                   ItemClick="TemplateInfoButton_Click"
+                                                   RibbonStyle="Large"
+                                                   Glyph="{dx:DXImage 'SvgImages/Icon Builder/Actions_Info.svg'}" />
+                            </dxr:RibbonPageGroup>
+                     
+                        
                         <dxr:RibbonPageGroup Caption="Print">
                             <dxb:BarButtonItem Content="Quick Print"
                                                Command="{Binding Path=CommandProvider.QuickPrint, ElementName=spreadsheetControl}"
@@ -87,7 +103,7 @@
                         </dxr:RibbonPageGroup>
                     </dxr:RibbonPage>
                 </dxb:InsertAction>
-
+                 
                 <dxb:InsertAction ContainerName="{x:Static dxsps:DefaultBarItemNames.RibbonCategory_Default}" Index="4">
                     <dxr:RibbonPage Caption="Audit">
                         <dxr:RibbonPageGroup Caption="History">

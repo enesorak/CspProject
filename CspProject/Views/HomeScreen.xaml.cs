@@ -18,6 +18,7 @@ namespace CspProject.Views
         private readonly User _currentUser;
         private readonly ApplicationDbContext _dbContext = new ApplicationDbContext();
         private readonly DispatcherTimer _backgroundTimer;
+        public event EventHandler? RequestBlankSpreadsheet; // YENİ
 
         public event EventHandler? RequestNewFmeaDocument;
         
@@ -136,6 +137,9 @@ namespace CspProject.Views
                     templatesView.RequestNewDocumentFromFile += (s, filePath) => 
                         RequestNewDocumentFromFile?.Invoke(this, filePath);
                     
+                    templatesView.RequestBlankSpreadsheet += (s, e) =>
+                        RequestBlankSpreadsheet?.Invoke(this, e);
+                    
                     PageContentControl.Content = templatesView;
                     break;
                     // --- GÜNCELLEME SONU ---
@@ -143,7 +147,7 @@ namespace CspProject.Views
                     PageContentControl.Content = new ChangeLogView(_dbContext);
                     break;
                 case "Settings":
-                    RequestNavigate?.Invoke(this, pageTag);
+                    PageContentControl.Content = new SettingsView(_currentUser);
                     break;
             }
         }

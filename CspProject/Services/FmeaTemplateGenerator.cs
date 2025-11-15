@@ -319,6 +319,113 @@ namespace CspProject.Services;
         }
         
         
-        
+        /// <summary>
+/// Sadece title block (ilk 9 satır) içeren minimal template oluşturur.
+/// Kullanıcı bu template'i temel alarak kendi template'ini yaratabilir.
+/// </summary>
+public static void ApplyTitleBlockOnly(IWorkbook workbook)
+{
+    workbook.Styles.DefaultStyle.Font.Name = "Century Gothic";
+    workbook.Unit = DevExpress.Office.DocumentUnit.Point;
+
+    Worksheet worksheet = workbook.Worksheets[0];
+    worksheet.Name = "Template";
+
+    Color titleBlockLabelGray = ColorTranslator.FromHtml("#F2F2F2");
+
+    // İlk 9 satırı ekle (0-8 index)
+    worksheet.Rows.Insert(0, 10);
+    
+    // Label ve Data stilleri
+    var labelStyle = workbook.Styles.Add("LabelStyle");
+    labelStyle.Fill.BackgroundColor = titleBlockLabelGray;
+    labelStyle.Alignment.Vertical = SpreadsheetVerticalAlignment.Center;
+    labelStyle.Alignment.Horizontal = SpreadsheetHorizontalAlignment.Center;
+    labelStyle.Alignment.WrapText = true;
+    labelStyle.Borders.SetAllBorders(Color.Gray, BorderLineStyle.Thin);
+    
+    var dataStyle = workbook.Styles.Add("DataStyle");
+    dataStyle.Borders.SetAllBorders(Color.Gray, BorderLineStyle.Thin);
+
+    // ==================== ROW 3 ====================
+    worksheet.MergeCells(worksheet.Range["B3:F3"]);
+    worksheet.Cells["B3"].Value = "Product / Part";
+    worksheet.MergeCells(worksheet.Range["G3:H3"]);
+    worksheet.Cells["G3"].Value = "Document ID";
+    worksheet.MergeCells(worksheet.Range["I3:J3"]);
+    worksheet.Cells["I3"].Value = "Revision";
+    worksheet.MergeCells(worksheet.Range["K3:L3"]);
+    worksheet.Cells["K3"].Value = "Date";
+    worksheet.Range["B3:L3"].Style = labelStyle;
+    
+    // ROW 4 - Data cells
+    worksheet.MergeCells(worksheet.Range["B4:F4"]);
+    worksheet.MergeCells(worksheet.Range["G4:H4"]);
+    worksheet.MergeCells(worksheet.Range["I4:J4"]);
+    worksheet.MergeCells(worksheet.Range["K4:L4"]);
+    worksheet.Range["B4:L4"].Style = dataStyle;
+
+    // ==================== ROW 5 ====================
+    worksheet.MergeCells(worksheet.Range["B5:F5"]);
+    worksheet.Cells["B5"].Value = "Project";
+    worksheet.MergeCells(worksheet.Range["G5:H5"]);
+    worksheet.Cells["G5"].Value = "Party Responsible";
+    worksheet.MergeCells(worksheet.Range["I5:J5"]);
+    worksheet.Cells["I5"].Value = "Approved By";
+    worksheet.MergeCells(worksheet.Range["K5:L5"]);
+    worksheet.Cells["K5"].Value = "Date Completed";
+    worksheet.Range["B5:L5"].Style = labelStyle;
+    
+    // ROW 6 - Data cells
+    worksheet.MergeCells(worksheet.Range["B6:F6"]);
+    worksheet.MergeCells(worksheet.Range["G6:H6"]);
+    worksheet.MergeCells(worksheet.Range["I6:J6"]);
+    worksheet.MergeCells(worksheet.Range["K6:L6"]);
+    worksheet.Range["B6:L6"].Style = dataStyle;
+
+    // ==================== ROW 7 ====================
+    worksheet.MergeCells(worksheet.Range["B7:L7"]);
+    worksheet.Cells["B7"].Value = "Team";
+    worksheet.Range["B7:L7"].Style = labelStyle;
+    
+    // ROW 8 - Data cell
+    worksheet.MergeCells(worksheet.Range["B8:L8"]);
+    worksheet.Range["B8:L8"].Style = dataStyle;
+
+    // Row heights
+    worksheet.Rows[2].RowHeight = 25;
+    worksheet.Rows[3].RowHeight = 25;
+    worksheet.Rows[4].RowHeight = 25;
+    worksheet.Rows[5].RowHeight = 25;
+    worksheet.Rows[6].RowHeight = 25;
+    worksheet.Rows[7].RowHeight = 25;
+
+    // Column widths (sadece title block için gerekli olanlar)
+    worksheet.Columns["A"].WidthInCharacters = 2;
+    worksheet.Columns["B"].WidthInCharacters = 13.71;
+    worksheet.Columns["C"].WidthInCharacters = 13.71;
+    worksheet.Columns["D"].WidthInCharacters = 13.71;
+    worksheet.Columns["E"].WidthInCharacters = 13.71;
+    worksheet.Columns["F"].WidthInCharacters = 13.71;
+    worksheet.Columns["G"].WidthInCharacters = 13.14;
+    worksheet.Columns["H"].WidthInCharacters = 13.14;
+    worksheet.Columns["I"].WidthInCharacters = 13.14;
+    worksheet.Columns["J"].WidthInCharacters = 13.14;
+    worksheet.Columns["K"].WidthInCharacters = 12;
+    worksheet.Columns["L"].WidthInCharacters = 12;
+
+    // Alignment düzeltmeleri
+    var centerAlignedCells = worksheet.Range["G4, I4, K4, I6, K6"];
+    centerAlignedCells.Alignment.Horizontal = SpreadsheetHorizontalAlignment.Center;
+    centerAlignedCells.Alignment.Vertical = SpreadsheetVerticalAlignment.Center;
+
+    var verticallyAlignedCells = worksheet.Range["B4, B6, B8"];
+    verticallyAlignedCells.Alignment.Vertical = SpreadsheetVerticalAlignment.Center;
+
+    // ROW 10'a açıklama ekle (opsiyonel)
+    worksheet.Cells["B10"].Value = "Add your custom content below...";
+    worksheet.Cells["B10"].Font.Italic = true;
+    worksheet.Cells["B10"].Font.Color = Color.Gray;
+}
       
     }

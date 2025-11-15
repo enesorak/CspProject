@@ -18,7 +18,6 @@ namespace CspProject
 {
     public partial class App : Application
     {
-        
         public static string AppVersion
         {
             get
@@ -28,201 +27,228 @@ namespace CspProject
             }
         }
 
-        
-        // --- DEPENDENCY INJECTION KURULUMU ---
         public static IServiceProvider ServiceProvider { get; private set; }
-
-     
 
         public App()
         {
             Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
             Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
-          
 
             var services = new ServiceCollection();
             ConfigureServices(services);
             ServiceProvider = services.BuildServiceProvider();
 
-
-     
+            // ✅ Show splash screen on startup
             var splashScreenViewModel = new DXSplashScreenViewModel
             {
-                
-                Title = "Compliant Spreadsheet Platform",  
+                Title = "Compliant Spreadsheet Platform",
                 Subtitle = "",
                 Status = "Initializing...",
                 IsIndeterminate = true,
                 Logo = new Uri("pack://application:,,,/CspProject;component/Images/csp_logo-bg-none-13.png"),
                 Copyright = $"Copyright © {DateTime.Now.Year} TOMCO. All rights reserved. v{AppVersion}"
             };
-            
-            SplashScreenManager.CreateFluent(splashScreenViewModel
-            ).ShowOnStartup();
-     
+
+            SplashScreenManager.CreateFluent(splashScreenViewModel).ShowOnStartup();
         }
-       
+
         private void ConfigureServices(IServiceCollection services)
         {
-            // "Ne zaman birisi ApplicationDbContext isterse, ona yeni bir tane ver"
-            // Scoped, her pencere veya işlem için bir tane oluşturulmasını sağlar, en iyi yöntem budur.
-            services.AddScoped<ApplicationDbContext>();
+            // ✅ Register ApplicationDbContext as scoped service
+            // Each window or operation will get its own instance
+            services.AddDbContext<ApplicationDbContext>(options =>
+            {
+                options.UseSqlite("Data Source=csp_database.db");
+                options.EnableSensitiveDataLogging(false); // Disable in production
+                options.EnableDetailedErrors(false); // Disable in production
+            }, ServiceLifetime.Scoped);
 
-            // Gelecekte EmailService gibi diğer servisleri de buraya ekleyebiliriz.
+            // ✅ Register other services here as needed
             // services.AddTransient<EmailService>();
-            
-          
+            // services.AddScoped<TemplateService>();
         }
-        
-        // OnStartup metodunu 'async void' olarak değiştiriyoruz.
-        // Bu, en üst seviye olay yöneticileri için standart bir yaklaşımdır.
+
         protected override async void OnStartup(StartupEventArgs e)
         {
-            #region Sentry
+            #region Sentry Initialization
 
             DispatcherUnhandledException += App_DispatcherUnhandledException;
             SentrySdk.Init(o =>
             {
-                // Tells which project in Sentry to send events to:
                 o.Dsn = "https://a98df4d25514031308051bd110811bb5@o4508148841709568.ingest.de.sentry.io/4510001337729104";
-                // When configuring for the first time, to see what the SDK is doing:
-                o.Debug = true;
-
+                o.Debug = false; // Set to false in production
                 o.Release = AppVersion;
                 o.AttachStacktrace = true;
-                
-                
+                o.TracesSampleRate = 1.0; // Performance monitoring
+                o.ProfilesSampleRate = 1.0; // Profiling
+
                 o.SetBeforeSend((sentryEvent, hint) =>
                 {
                     sentryEvent.User = new SentryUser
                     {
                         Username = Environment.UserName,
                         Id = Environment.MachineName,
-                         
                     };
-                    
-                    // Extra context
+
+                    // Add extra context
                     sentryEvent.SetExtra("OS", Environment.OSVersion.ToString());
                     sentryEvent.SetExtra("CLR", Environment.Version.ToString());
                     sentryEvent.SetExtra("MachineName", Environment.MachineName);
                     sentryEvent.SetExtra("ProcessorCount", Environment.ProcessorCount);
-                    
+                    sentryEvent.SetExtra("WorkingSet", Environment.WorkingSet / 1024 / 1024 + " MB");
+
                     return sentryEvent;
                 });
             });
 
             SentrySdk.AddBreadcrumb("Application starting", "app.lifecycle");
-            SentrySdk.CaptureMessage("CspProject application started");
-            
+
             #endregion
-       
-            
+
             SetupGlobalExceptionHandling();
-            
+
             Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
             Thread.CurrentThread.CurrentUICulture = CultureInfo.InvariantCulture;
-         
-            // bu kodu test ediyoruz bakalım !
-            FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement), new FrameworkPropertyMetadata(
-                XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
-            
-          
+
+            // Set language property for framework elements
+            FrameworkElement.LanguageProperty.OverrideMetadata(typeof(FrameworkElement),
+                new FrameworkPropertyMetadata(
+                    XmlLanguage.GetLanguage(CultureInfo.CurrentCulture.IetfLanguageTag)));
 
             base.OnStartup(e);
-            
 
-         
+            // ✅ Register notification service
             var notificationService = new NotificationService
             {
                 UseWin8NotificationsIfAvailable = true,
                 PredefinedNotificationTemplate = NotificationTemplate.ShortHeaderAndLongText,
                 CustomNotificationScreen = NotificationScreen.Primary,
                 CustomNotificationPosition = NotificationPosition.TopRight,
-                ApplicationId = "CspProject" // 2. ApplicationId'yi burada ata!
+                ApplicationId = "CspProject"
             };
-            
 
-            // 3. Bu yapılandırılmış servisi kaydet - İki yöntemle de:
-             ServiceContainer.Default.RegisterService("NotificationService", notificationService);
-    
-        
+            ServiceContainer.Default.RegisterService("NotificationService", notificationService);
+
             try
             {
-                await PerformStartupAsync();
+                // ✅ Track startup performance with Sentry
+                var transaction = SentrySdk.StartTransaction("app-startup", "app.lifecycle");
+
+                try
+                {
+                    await PerformStartupAsync();
+                    transaction.Finish(SpanStatus.Ok);
+                }
+                catch (Exception ex)
+                {
+                    transaction.Finish(ex);
+                    throw;
+                }
             }
             catch (Exception ex)
             {
                 SentrySdk.CaptureException(ex);
                 if (DXSplashScreen.IsActive) DXSplashScreen.Close();
-                MessageBox.Show($"A fatal error occurred during startup: {ex.Message}", "Application Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"A fatal error occurred during startup: {ex.Message}",
+                    "Application Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 Shutdown();
-            } 
-        }
-        
-        
-        private async Task PerformStartupAsync()
-        {
-            using (var scope = ServiceProvider.CreateScope())
-            {
-                var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                
-                await dbContext.Database.EnsureCreatedAsync();
-                
-                await EnsureDefaultTemplatesExist();
-                var currentUser = await dbContext.Users.FirstOrDefaultAsync();
-
-                if (currentUser == null)
-                {
-                    await Dispatcher.InvokeAsync(ShowWelcomeWindow);
-                }
-                else
-                {
-                    // Ana pencereyi hemen göster
-                    await Dispatcher.InvokeAsync(() => ShowMainWindow(currentUser, dbContext));
-                    
-                    // E-posta kontrolünü arka planda, kullanıcıyı engellemeden başlat
-                    _ = Task.Run(async () => 
-                    {
-                        using (var backgroundScope = ServiceProvider.CreateScope())
-                        {
-                            var backgroundDbContext = backgroundScope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
-                            var receiverService = new EmailReceiverService(backgroundDbContext);
-                            await receiverService.CheckForApprovalEmailsAsync();
-                            AppStateService.LastCheckTime = DateTime.Now;
-                        }
-                    });
-                }
             }
         }
-        
+
+        private async Task PerformStartupAsync()
+        {
+            // ✅ Track database initialization performance
+            var dbSpan = SentrySdk.GetSpan()?.StartChild("db.init");
+
+            try
+            {
+                using (var scope = ServiceProvider.CreateScope())
+                {
+                    var dbContext = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
+                    // ✅ Set database command timeout
+                    dbContext.Database.SetCommandTimeout(30);
+
+                    await dbContext.Database.EnsureCreatedAsync();
+
+                    dbSpan?.Finish(SpanStatus.Ok);
+
+                    // ✅ Ensure default templates exist
+                    var templateSpan = SentrySdk.GetSpan()?.StartChild("templates.init");
+                    await EnsureDefaultTemplatesExist();
+                    templateSpan?.Finish(SpanStatus.Ok);
+
+                    var currentUser = await dbContext.Users.FirstOrDefaultAsync();
+
+                    if (currentUser == null)
+                    {
+                        // Show welcome window for first-time users
+                        await Dispatcher.InvokeAsync(ShowWelcomeWindow);
+                    }
+                    else
+                    {
+                        // Show main window for existing users
+                        await Dispatcher.InvokeAsync(() => ShowMainWindow(currentUser, dbContext));
+
+                        // ✅ Check for approval emails in background (non-blocking)
+                        _ = Task.Run(async () =>
+                        {
+                            var emailSpan = SentrySdk.GetSpan()?.StartChild("email.check");
+                            try
+                            {
+                                using (var backgroundScope = ServiceProvider.CreateScope())
+                                {
+                                    var backgroundDbContext = backgroundScope.ServiceProvider
+                                        .GetRequiredService<ApplicationDbContext>();
+                                    var receiverService = new EmailReceiverService(backgroundDbContext);
+                                    await receiverService.CheckForApprovalEmailsAsync();
+                                    AppStateService.LastCheckTime = DateTime.Now;
+                                }
+                                emailSpan?.Finish(SpanStatus.Ok);
+                            }
+                            catch (Exception ex)
+                            {
+                                emailSpan?.Finish(ex);
+                                SentrySdk.CaptureException(ex);
+                            }
+                        });
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                dbSpan?.Finish(ex);
+                throw;
+            }
+        }
+
         private void ShowMainWindow(User currentUser, ApplicationDbContext dbContext)
         {
-            // Yükleme ekranını burada, ana pencere gösterilmeden hemen önce kapatıyoruz.
+            // Close splash screen before showing main window
             if (DXSplashScreen.IsActive) DXSplashScreen.Close();
-            
+
             var mainWindow = new MainWindow(currentUser, dbContext);
             this.MainWindow = mainWindow;
             mainWindow.Show();
         }
-        
+
         private void SetupGlobalExceptionHandling()
         {
-            // 1. AppDomain exceptions
+            // 1. Handle AppDomain unhandled exceptions
             AppDomain.CurrentDomain.UnhandledException += (sender, args) =>
             {
                 var exception = args.ExceptionObject as Exception;
-                
-                // WithScope yerine ConfigureScope kullan
+
                 SentrySdk.ConfigureScope(scope =>
                 {
                     scope.SetTag("exception_source", "AppDomain.UnhandledException");
                     scope.Level = SentryLevel.Fatal;
                 });
-                
+
                 SentrySdk.CaptureException(exception);
             };
 
-            // 2. WPF UI thread exceptions  
+            // 2. Handle WPF UI thread exceptions
             DispatcherUnhandledException += (sender, args) =>
             {
                 SentrySdk.ConfigureScope(scope =>
@@ -230,11 +256,11 @@ namespace CspProject
                     scope.SetTag("exception_source", "Dispatcher.UnhandledException");
                     scope.Level = SentryLevel.Error;
                 });
-                
+
                 SentrySdk.CaptureException(args.Exception);
-                
+
                 args.Handled = true;
-                
+
                 MessageBox.Show(
                     "An unexpected error occurred. The error has been reported.",
                     "Error",
@@ -242,7 +268,7 @@ namespace CspProject
                     MessageBoxImage.Warning);
             };
 
-            // 3. Task exceptions
+            // 3. Handle Task unobserved exceptions
             TaskScheduler.UnobservedTaskException += (sender, args) =>
             {
                 SentrySdk.ConfigureScope(scope =>
@@ -250,20 +276,25 @@ namespace CspProject
                     scope.SetTag("exception_source", "TaskScheduler.UnobservedTaskException");
                     scope.Level = SentryLevel.Error;
                 });
-                
+
                 SentrySdk.CaptureException(args.Exception);
                 args.SetObserved();
             };
         }
-
-      
 
         private void ShowWelcomeWindow()
         {
             if (DXSplashScreen.IsActive) DXSplashScreen.Close();
 
             var welcomeView = new WelcomeView();
-            var tempWindow = new Window { Content = welcomeView, Width = 500, Height = 400, WindowStartupLocation = WindowStartupLocation.CenterScreen };
+            var tempWindow = new Window
+            {
+                Content = welcomeView,
+                Width = 500,
+                Height = 400,
+                WindowStartupLocation = WindowStartupLocation.CenterScreen
+            };
+
             welcomeView.UserCreated += (s, newUser) =>
             {
                 using (var scope = ServiceProvider.CreateScope())
@@ -273,21 +304,18 @@ namespace CspProject
                 }
                 tempWindow.Close();
             };
+
             tempWindow.Show();
         }
-        
-        
+
         private void App_DispatcherUnhandledException(object sender, DispatcherUnhandledExceptionEventArgs e)
         {
             SentrySdk.CaptureException(e.Exception);
-
-            // If you want to avoid the application from crashing:
-            e.Handled = true;
+            e.Handled = true; // Prevent application crash
         }
-        
-        // --- YENİ EKLENEN METOD ---
+
         /// <summary>
-        /// 'Templates' klasörünün var olduğundan ve varsayılan şablonları içerdiğinden emin olur.
+        /// Ensures that the 'Templates' folder exists and contains default templates.
         /// </summary>
         private async Task EnsureDefaultTemplatesExist()
         {
@@ -296,32 +324,47 @@ namespace CspProject
                 string exePath = AppDomain.CurrentDomain.BaseDirectory;
                 string templateDirectory = Path.Combine(exePath, "Templates");
 
-                // 1. Templates klasörü yoksa oluştur.
                 if (!Directory.Exists(templateDirectory))
                 {
                     Directory.CreateDirectory(templateDirectory);
                 }
 
-                // 2. Varsayılan FMEA şablonunun dosya yolunu belirle.
                 string fmeaTemplatePath = Path.Combine(templateDirectory, "FMEA_Template.xlsx");
 
-                // 3. Eğer bu dosya YOKSA, oluştur.
                 if (!File.Exists(fmeaTemplatePath))
                 {
-                    // Yeni oluşturduğumuz metodu kullanarak şablonu byte dizisi olarak al.
-                    byte[] templateBytes = FmeaTemplateGenerator.GenerateFmeaTemplateBytes();
-            
-                    // Bu byte dizisini bir dosya olarak diske yaz.
-                    await File.WriteAllBytesAsync(fmeaTemplatePath, templateBytes);
+                    // ✅ Run template creation in thread pool
+                    await Task.Run(() =>
+                    {
+                        var prevCulture = Thread.CurrentThread.CurrentCulture;
+                        try
+                        {
+                            Thread.CurrentThread.CurrentCulture = CultureInfo.InvariantCulture;
+
+                            var workbook = new DevExpress.Spreadsheet.Workbook();
+                            FmeaTemplateGenerator.Apply(workbook);
+
+                            using (var fileStream = new FileStream(fmeaTemplatePath, FileMode.Create))
+                            {
+                                workbook.SaveDocument(fileStream, DevExpress.Spreadsheet.DocumentFormat.Xlsx);
+                            }
+                        }
+                        finally
+                        {
+                            Thread.CurrentThread.CurrentCulture = prevCulture;
+                        }
+                    });
+
+                    SentrySdk.AddBreadcrumb("FMEA template created", "templates");
                 }
             }
             catch (Exception ex)
             {
-                // Yetki hatası vb. durumlarda Sentry'e bildir.
                 SentrySdk.CaptureException(ex);
-                MessageBox.Show($"Could not create or verify default templates: {ex.Message}", "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+                // ✅ Don't crash the app if template creation fails
+                MessageBox.Show($"Could not create default templates: {ex.Message}",
+                    "Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
-        
     }
 }

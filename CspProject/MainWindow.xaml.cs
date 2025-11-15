@@ -1,5 +1,6 @@
 ﻿﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using System.Windows.Threading;
 using CspProject.Data;
 using CspProject.Data.Entities;
@@ -67,9 +68,70 @@ namespace CspProject
             var homeScreen = new HomeScreen(_currentUser);
             homeScreen.RequestNewDocument += (_, _) => ShowSpreadsheetScreen(null);
             homeScreen.RequestOpenDocument += (_, docId) => ShowSpreadsheetScreen(docId);
+            
+            homeScreen.RequestNewDocumentFromFile += (_, filePath) => 
+                ShowSpreadsheetScreenFromTemplate(filePath);
+            
+            homeScreen.RequestBlankSpreadsheet += (_, _) => ShowBlankSpreadsheet();
+
+            
+            
             MainContentControl.Content = homeScreen;
         }
+        
+        private async void ShowBlankSpreadsheet()
+        {
+            WaitIndicatorText = "Creating blank spreadsheet...";
+            IsWaitIndicatorVisible = true;
 
+            await Dispatcher.InvokeAsync(async () =>
+            {
+                try
+                {
+                    var spreadsheetView = new SpreadsheetView(_currentUser);
+                    spreadsheetView.RequestGoToHome += (_, _) => ShowHomeScreen();
+
+                    await spreadsheetView.CreateBlankDocument();
+
+                    MainContentControl.Content = spreadsheetView;
+                }
+                finally
+                {
+                    IsWaitIndicatorVisible = false;
+                }
+            }, DispatcherPriority.Background);
+        }
+
+        private async void ShowSpreadsheetScreenFromTemplate(string templateFilePath)
+        {
+            WaitIndicatorText = "Loading template...";
+            IsWaitIndicatorVisible = true;
+
+            await Dispatcher.InvokeAsync(async () =>
+            {
+                try
+                {
+                    var spreadsheetView = new SpreadsheetView(_currentUser);
+                    spreadsheetView.RequestGoToHome += (_, _) => ShowHomeScreen();
+
+                    // Template'i yükle
+                    await spreadsheetView.LoadTemplateFromFile(templateFilePath);
+
+                    MainContentControl.Content = spreadsheetView;
+                }
+                catch (Exception ex)
+                {
+                    SentrySdk.CaptureException(ex);
+                    MessageBox.Show($"Failed to load template: {ex.Message}", 
+                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                }
+                finally
+                {
+                    IsWaitIndicatorVisible = false;
+                    WaitIndicatorText = "";
+                }
+            }, DispatcherPriority.Background);
+        }
 
         private async void ShowSpreadsheetScreen(int? documentId)
         {
@@ -111,6 +173,19 @@ namespace CspProject
         private void OnPropertyChanged([CallerMemberName] string? name = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+        
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+    
+            // ✅ Cleanup
+            _dbContext?.Dispose();
+    
+            // ✅ Sentry flush
+            SentrySdk.FlushAsync(TimeSpan.FromSeconds(2)).Wait();
+    
+            SentrySdk.AddBreadcrumb("Application closing", "app.lifecycle");
         }
     }
 }

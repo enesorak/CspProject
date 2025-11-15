@@ -7,9 +7,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
 
-      <Version>4.0.1</Version>
-      <AssemblyVersion>4.0.1.0</AssemblyVersion>
-      <FileVersion>4.0.1.0</FileVersion>
+      <Version>5.0.0</Version>
+      <AssemblyVersion>5.0.0.0</AssemblyVersion>
+      <FileVersion>5.0.0.0</FileVersion>
 
       <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     
@@ -81,6 +81,14 @@
 
     <ItemGroup>
       <Folder Include="Templates\" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Page Update="Views\TemplateNameInputWindow.xaml">
+        <Generator>MSBuild:Compile</Generator>
+        <XamlRuntime>Wpf</XamlRuntime>
+        <SubType>Designer</SubType>
+      </Page>
     </ItemGroup>
 
 </Project>

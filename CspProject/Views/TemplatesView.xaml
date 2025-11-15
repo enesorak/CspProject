@@ -11,6 +11,31 @@
         <TextBlock DockPanel.Dock="Top" Text="Templates" FontSize="28" FontWeight="Light" Margin="0,0,0,20"/>
         <TextBlock DockPanel.Dock="Top" Text="Create a new document from an available template." FontSize="14" Foreground="Gray" Margin="0,0,0,20"/>
 
+        <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Margin="0,0,0,15">
+            <Button x:Name="ImportTemplateButton" Click="ImportTemplateButton_Click" 
+                    Padding="15,10" FontWeight="SemiBold" Background="#007ACC" 
+                    Foreground="White" BorderThickness="0" Cursor="Hand">
+                <StackPanel Orientation="Horizontal">
+                    <Path Data="M19,13H13V19H11V13H5V11H11V5H13V11H19V13Z" 
+                          Fill="White" Width="16" Height="16" 
+                          Stretch="Uniform" Margin="0,0,8,0"/>
+                    <TextBlock Text="Import Template" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+        
+            <Button x:Name="BlankSheetButton" Click="BlankSheetButton_Click" 
+                    Padding="15,10" Margin="10,0,0,0" 
+                    Background="White" Foreground="#007ACC" 
+                    BorderBrush="#007ACC" BorderThickness="1" Cursor="Hand">
+                <StackPanel Orientation="Horizontal">
+                    <Path Data="M14,2H6A2,2 0 0,0 4,4V20A2,2 0 0,0 6,22H18A2,2 0 0,0 20,20V8L14,2M18,20H6V4H13V9H18V20Z" 
+                          Fill="#007ACC" Width="16" Height="16" 
+                          Stretch="Uniform" Margin="0,0,8,0"/>
+                    <TextBlock Text="Blank Spreadsheet" VerticalAlignment="Center"/>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+        
         <Border BorderBrush="#E0E0E0" BorderThickness="1" CornerRadius="4">
             <dxg:GridControl x:Name="TemplatesGrid" AutoGenerateColumns="None" MouseDoubleClick="TemplatesGrid_MouseDoubleClick" ShowBorder="True">
                 <dxg:GridControl.Columns>
