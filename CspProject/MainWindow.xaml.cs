@@ -5,6 +5,8 @@ using System.Windows.Threading;
 using CspProject.Data;
 using CspProject.Data.Entities;
 using CspProject.Views;
+using CspProject.Views.Documents;
+using CspProject.Views.Home;
 using DevExpress.Xpf.Core;
 
 namespace CspProject
