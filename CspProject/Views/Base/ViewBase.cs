@@ -1,4 +1,4 @@
-// Views/ViewBase.cs (YENİ DOSYA)
+// Views/ViewBase.cs - FIXED VERSION
 
 using System.Windows;
 using CspProject.Data;
@@ -14,9 +14,10 @@ namespace CspProject.Views.Base
     {
         private IServiceScope? _scope;
         private bool _disposed;
+        private bool _isInitialized;
 
         /// <summary>
-        /// Database context for this view. Available after Loaded event.
+        /// Database context for this view. Available after initialization.
         /// </summary>
         protected ApplicationDbContext? DbContext { get; private set; }
 
@@ -33,7 +34,12 @@ namespace CspProject.Views.Base
         /// </summary>
         protected virtual void OnViewLoaded(object sender, RoutedEventArgs e)
         {
-            InitializeDbContext();
+            // ✅ Only initialize once
+            if (!_isInitialized)
+            {
+                InitializeDbContext();
+                _isInitialized = true;
+            }
         }
 
         /// <summary>
@@ -42,11 +48,12 @@ namespace CspProject.Views.Base
         /// </summary>
         protected virtual void OnViewUnloaded(object sender, RoutedEventArgs e)
         {
-            Dispose();
+            // ✅ Don't dispose on unload - only when view is truly destroyed
+            // This allows navigation back to the same view
         }
 
         /// <summary>
-        /// Initialize the database context. Called automatically on Loaded.
+        /// Initialize the database context. Called automatically on first Loaded.
         /// Can be called manually if needed before Loaded event.
         /// </summary>
         protected virtual void InitializeDbContext()
@@ -54,8 +61,17 @@ namespace CspProject.Views.Base
             if (DbContext != null)
                 return; // Already initialized
 
-            _scope = App.ServiceProvider.CreateScope();
-            DbContext = _scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+            try
+            {
+                _scope = App.ServiceProvider.CreateScope();
+                DbContext = _scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+            }
+            catch (Exception ex)
+            {
+                SentrySdk.CaptureException(ex);
+                MessageBox.Show($"Failed to initialize database context: {ex.Message}", 
+                    "Initialization Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         /// <summary>
@@ -79,6 +95,10 @@ namespace CspProject.Views.Base
                     // Dispose managed resources
                     DbContext?.Dispose();
                     _scope?.Dispose();
+                    
+                    // Clear references
+                    DbContext = null;
+                    _scope = null;
                 }
 
                 _disposed = true;

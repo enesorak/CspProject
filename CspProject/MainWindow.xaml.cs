@@ -1,4 +1,4 @@
-﻿﻿using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Windows;
 using System.Windows.Threading;
@@ -16,6 +16,7 @@ namespace CspProject
         private readonly User _currentUser;
         private readonly ApplicationDbContext _dbContext;
         private bool _isWaitIndicatorVisible;
+        private HomeScreen? _currentHomeScreen;
 
         public bool IsWaitIndicatorVisible
         {
@@ -39,45 +40,56 @@ namespace CspProject
             }
         }
 
-        public MainWindow(User currentUser,ApplicationDbContext dbContext)
+        public MainWindow(User currentUser, ApplicationDbContext dbContext)
         {
-             
             InitializeComponent();
             this.DataContext = this;
        
-            
             _currentUser = currentUser;
             _dbContext = dbContext;
             
             ShowHomeScreen();
         }
 
-       /* private async void ThemedWindow_Loaded(object sender, RoutedEventArgs e)
-        {
-            // `App.xaml.cs` zaten kullanıcıyı kontrol ettiği için,
-            // burada sadece mevcut kullanıcıyı alıp HomeScreen'i yüklüyoruz.
-            _currentUser = await _dataContext.Users.FirstOrDefaultAsync();
-            if (_currentUser != null)
-            {
-                ShowHomeScreen();
-            }
-        }
-        */
-
         private void ShowHomeScreen()
         {
-        
             var homeScreen = new HomeScreen(_currentUser);
-            homeScreen.RequestNewFmeaDocument += (_, _) => ShowSpreadsheetScreen(null); // <-- DOĞRUSU BU            homeScreen.RequestOpenDocument += (_, docId) => ShowSpreadsheetScreen(docId);
             
-            homeScreen.RequestNewDocumentFromFile += (_, filePath) => 
+            // ✅ DEBUG: Log event subscription
+            SentrySdk.AddBreadcrumb("Subscribing to HomeScreen events", "navigation");
+            
+            // FMEA Template
+            homeScreen.RequestNewFmeaDocument += (_, _) =>
+            {
+                SentrySdk.AddBreadcrumb("RequestNewFmeaDocument triggered", "navigation");
+                ShowSpreadsheetScreen(null);
+            };
+            
+            // Open existing document
+            homeScreen.RequestOpenDocument += (_, docId) =>
+            {
+                SentrySdk.AddBreadcrumb($"RequestOpenDocument triggered for ID: {docId}", "navigation");
+                ShowSpreadsheetScreen(docId);
+            };
+            
+            // Template from file
+            homeScreen.RequestNewDocumentFromFile += (_, filePath) =>
+            {
+                SentrySdk.AddBreadcrumb($"RequestNewDocumentFromFile triggered: {filePath}", "navigation");
                 ShowSpreadsheetScreenFromTemplate(filePath);
+            };
             
-            homeScreen.RequestBlankSpreadsheet += (_, _) => ShowBlankSpreadsheet();
-
+            // Blank spreadsheet
+            homeScreen.RequestBlankSpreadsheet += (_, _) =>
+            {
+                SentrySdk.AddBreadcrumb("RequestBlankSpreadsheet triggered", "navigation");
+                ShowBlankSpreadsheet();
+            };
             
-            
+            _currentHomeScreen = homeScreen;
             MainContentControl.Content = homeScreen;
+            
+            SentrySdk.AddBreadcrumb("HomeScreen displayed", "navigation");
         }
         
         private async void ShowBlankSpreadsheet()
@@ -95,6 +107,12 @@ namespace CspProject
                     await spreadsheetView.CreateBlankDocument();
 
                     MainContentControl.Content = spreadsheetView;
+                }
+                catch (Exception ex)
+                {
+                    SentrySdk.CaptureException(ex);
+                    MessageBox.Show($"Error creating blank spreadsheet: {ex.Message}", 
+                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 finally
                 {
@@ -115,7 +133,6 @@ namespace CspProject
                     var spreadsheetView = new SpreadsheetView(_currentUser);
                     spreadsheetView.RequestGoToHome += (_, _) => ShowHomeScreen();
 
-                    // Template'i yükle
                     await spreadsheetView.LoadTemplateFromFile(templateFilePath);
 
                     MainContentControl.Content = spreadsheetView;
@@ -136,12 +153,12 @@ namespace CspProject
 
         private async void ShowSpreadsheetScreen(int? documentId)
         {
-            // 1. Arayüz İşlemi: WaitIndicator'ı göster (Ana İş Parçacığı)
+            // ✅ DEBUG: Log the call
+            SentrySdk.AddBreadcrumb($"ShowSpreadsheetScreen called with documentId: {documentId}", "navigation");
+            
             WaitIndicatorText = documentId.HasValue ? "Loading document..." : "Creating new document template...";
             IsWaitIndicatorVisible = true;
 
-            // 2. Ağır işi, arayüz güncellendikten ve animasyon başladıktan sonra çalışacak şekilde,
-            //    daha düşük bir öncelikle sıraya koy.
             await Dispatcher.InvokeAsync(async () =>
             {
                 try
@@ -151,22 +168,29 @@ namespace CspProject
 
                     if (documentId.HasValue)
                     {
+                        SentrySdk.AddBreadcrumb($"Loading document ID: {documentId.Value}", "document");
                         await spreadsheetView.LoadDocument(documentId.Value);
                     }
                     else
                     {
+                        SentrySdk.AddBreadcrumb("Creating new FMEA document", "document");
                         await spreadsheetView.CreateNewFmeaDocumentAsync();
                     }
 
                     MainContentControl.Content = spreadsheetView;
+                    SentrySdk.AddBreadcrumb("SpreadsheetView displayed", "navigation");
+                }
+                catch (Exception ex)
+                {
+                    SentrySdk.CaptureException(ex);
+                    MessageBox.Show($"Error loading document: {ex.Message}", 
+                        "Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 }
                 finally
                 {
-                    // 3. Ağır iş bittiğinde (veya hata oluştuğunda),
-                    //    göstergeyi gizle.
                     IsWaitIndicatorVisible = false;
                 }
-            }, DispatcherPriority.Background); // İşi 'Background' önceliğiyle sıraya al
+            }, DispatcherPriority.Background);
         }
  
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -180,10 +204,10 @@ namespace CspProject
         {
             base.OnClosed(e);
     
-            // ✅ Cleanup
+            // Cleanup
             _dbContext?.Dispose();
     
-            // ✅ Sentry flush
+            // Sentry flush
             SentrySdk.FlushAsync(TimeSpan.FromSeconds(2)).Wait();
     
             SentrySdk.AddBreadcrumb("Application closing", "app.lifecycle");

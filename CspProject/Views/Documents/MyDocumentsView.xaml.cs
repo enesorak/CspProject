@@ -1,4 +1,4 @@
-// Views/MyDocumentsView.xaml.cs - GÜNCELLENECEK
+// Views/MyDocumentsView.xaml.cs - FIXED VERSION
 
 using System.Windows;
 using CspProject.Data.Entities;
@@ -10,28 +10,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CspProject.Views.Documents
 {
-    public partial class MyDocumentsView : ViewBase // ✅ UserControl → ViewBase
+    public partial class MyDocumentsView : ViewBase
     {
         public event EventHandler<int>? RequestOpenDocument;
-
-        // ❌ KALDIR
-        // private readonly ApplicationDbContext _dbContext;
 
         public MyDocumentsView()
         {
             InitializeComponent();
-            
-            // ❌ KALDIR - ViewBase constructor'ında hallediyor
-            // _dbContext = dbContext;
-            
-            // ❌ KALDIR - Çok erken, DbContext henüz hazır değil
-            // LoadAllDocuments();
-            
-            // ❌ KALDIR
-            // this.Loaded += MyDocumentsView_Loaded;
         }
 
-        // ✅ EKLE - ViewBase lifecycle
         protected override void OnViewLoaded(object sender, RoutedEventArgs e)
         {
             base.OnViewLoaded(sender, e);
@@ -57,30 +44,70 @@ namespace CspProject.Views.Documents
 
         private async void LoadAllDocuments(string searchText = "")
         {
-            // ✅ DbContext null check
             if (DbContext == null) return;
 
-            // ✅ Yeni DbContext instance kullanmak yerine mevcut olanı kullan
-            var query = DbContext.Documents.AsQueryable();
-
-            if (!string.IsNullOrEmpty(searchText))
+            try
             {
-                query = query.Where(d => d.DocumentName.ToLower().Contains(searchText.ToLower()));
-            }
+                var query = DbContext.Documents.AsQueryable();
 
-            var documents = await query
-                .OrderByDescending(d => d.ModifiedDate)
-                .ToListAsync();
-            
-            AllDocumentsGrid.ItemsSource = documents;
+                if (!string.IsNullOrEmpty(searchText))
+                {
+                    query = query.Where(d => d.DocumentName.ToLower().Contains(searchText.ToLower()));
+                }
+
+                var documents = await query
+                    .OrderByDescending(d => d.ModifiedDate)
+                    .AsNoTracking()
+                    .ToListAsync();
+                
+                AllDocumentsGrid.ItemsSource = documents;
+                
+                SentrySdk.AddBreadcrumb($"Loaded {documents.Count} documents", "data");
+            }
+            catch (Exception ex)
+            {
+                SentrySdk.CaptureException(ex);
+                MessageBox.Show($"Error loading documents: {ex.Message}", 
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
 
         private void AllDocumentsGrid_MouseDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            var grid = (DevExpress.Xpf.Grid.GridControl)sender;
-            if (grid.SelectedItem is Document selectedDoc)
+            try
             {
-                RequestOpenDocument?.Invoke(this, selectedDoc.Id);
+                var grid = (DevExpress.Xpf.Grid.GridControl)sender;
+                
+                // ✅ METHOD 1: Direct cast (if ItemsSource is List<Document>)
+                if (grid.SelectedItem is Document selectedDoc)
+                {
+                    SentrySdk.AddBreadcrumb($"Opening document: {selectedDoc.DocumentName} (ID: {selectedDoc.Id})", "user_action");
+                    RequestOpenDocument?.Invoke(this, selectedDoc.Id);
+                    return;
+                }
+                
+                // ✅ METHOD 2: Get ID from grid (if ItemsSource is anonymous type)
+                if (grid.SelectedItem != null && grid.View.FocusedRowHandle >= 0)
+                {
+                    var idValue = grid.GetCellValue(grid.View.FocusedRowHandle, "Id");
+                    if (idValue != null && int.TryParse(idValue.ToString(), out int docId))
+                    {
+                        SentrySdk.AddBreadcrumb($"Opening document ID: {docId}", "user_action");
+                        RequestOpenDocument?.Invoke(this, docId);
+                        return;
+                    }
+                }
+                
+                // ✅ If nothing worked, log it
+                SentrySdk.AddBreadcrumb("Failed to open document - no valid selection", "error");
+                MessageBox.Show("Please select a document to open.", 
+                    "No Selection", MessageBoxButton.OK, MessageBoxImage.Warning);
+            }
+            catch (Exception ex)
+            {
+                SentrySdk.CaptureException(ex);
+                MessageBox.Show($"Error opening document: {ex.Message}", 
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
@@ -98,10 +125,8 @@ namespace CspProject.Views.Documents
 
         private async Task CheckForApprovals()
         {
-            // ✅ DbContext null check
             if (DbContext == null) return;
 
-            // ✅ Yeni instance yerine mevcut DbContext'i kullan
             var receiverService = new EmailReceiverService(DbContext);
             string resultMessage = string.Empty;
             
@@ -138,7 +163,6 @@ namespace CspProject.Views.Documents
             }
         }
 
-        // ✅ EKLE - Custom cleanup
         protected override void OnDisposing()
         {
             base.OnDisposing();

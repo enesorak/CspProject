@@ -3,14 +3,12 @@ using System.Windows.Threading;
 using CspProject.Data;
 using CspProject.Data.Entities;
 using CspProject.Services.Email;
-using CspProject.Services.Template;
 using CspProject.Views.Approvals;
 using CspProject.Views.Audit;
 using CspProject.Views.Documents;
 using CspProject.Views.Settings;
 using CspProject.Views.Templates;
 using DevExpress.Mvvm;
-// EKLE: UserControl için
 using Button = System.Windows.Controls.Button;
 
 namespace CspProject.Views.Home
@@ -20,27 +18,17 @@ namespace CspProject.Views.Home
         private readonly User _currentUser;
         private readonly ApplicationDbContext _dbContext = new ApplicationDbContext();
         private readonly DispatcherTimer _backgroundTimer;
-        public event EventHandler? RequestBlankSpreadsheet; // YENİ
-
+        
+        // ✅ Cache views to prevent multiple instances
+        private readonly Dictionary<string, UserControl> _cachedViews = new();
+        
+        public event EventHandler? RequestBlankSpreadsheet;
         public event EventHandler? RequestNewFmeaDocument;
-        
-        // --- YENİ EKLENEN OLAY ---
-        // Dosyadan şablon yükleme isteğini MainWindow'a iletmek için.
         public event EventHandler<string>? RequestNewDocumentFromFile;
-        
-        
- 
-        // --- YENİ OLAY SONU ---
-        
-        
-        // --- Event'ler ---
         public event EventHandler<string>? RequestNewDocumentFromTemplate;
         public event EventHandler? RequestNewDocument;
         public event EventHandler<int>? RequestOpenDocument;
         public event EventHandler<string>? RequestNavigate;
-        
-        private readonly TemplateService _templateService;
-        private readonly string _templateDirectory;
 
         public HomeScreen(User currentUser)
         {
@@ -49,8 +37,6 @@ namespace CspProject.Views.Home
             CurrentUserTextBlock.Text = _currentUser.Name;
             VersionTextBlock.Text = $"Version: {App.AppVersion}";
 
-        
-            
             NavigateTo("Home");
 
             _backgroundTimer = new DispatcherTimer
@@ -59,7 +45,12 @@ namespace CspProject.Views.Home
             };
             _backgroundTimer.Tick += BackgroundTimer_Tick;
             _backgroundTimer.Start();
-            this.Unloaded += (s, e) => _backgroundTimer.Stop();
+            
+            this.Unloaded += (s, e) =>
+            {
+                _backgroundTimer.Stop();
+                CleanupViews();
+            };
         }
 
         private async void BackgroundTimer_Tick(object? sender, EventArgs e)
@@ -76,12 +67,14 @@ namespace CspProject.Views.Home
                 resultMessage = await receiverService.CheckForApprovalEmailsAsync();
                 if (resultMessage.Contains("processed"))
                 {
-                    NavigateTo("Home");
+                    // ✅ Refresh current view instead of navigating
+                    RefreshCurrentView();
                 }
             }
             catch (Exception ex)
             {
                 resultMessage = $"Error: {ex.GetType().Name}";
+                SentrySdk.CaptureException(ex);
             }
             finally
             { 
@@ -91,7 +84,8 @@ namespace CspProject.Views.Home
             
                     if (notificationService != null)
                     {
-                        var notification = notificationService.CreatePredefinedNotification("Approvals Processed", resultMessage, "");
+                        var notification = notificationService.CreatePredefinedNotification(
+                            "Approvals Processed", resultMessage, "");
                         await notification.ShowAsync();
                     }
                 }
@@ -106,52 +100,97 @@ namespace CspProject.Views.Home
             }
         }
 
-  private void NavigateTo(string pageTag)
+        private void NavigateTo(string pageTag)
+        {
+            // ✅ Get or create cached view
+            if (!_cachedViews.TryGetValue(pageTag, out var view))
+            {
+                view = CreateView(pageTag);
+                if (view != null)
+                {
+                    _cachedViews[pageTag] = view;
+                }
+            }
+            
+            if (view != null)
+            {
+                PageContentControl.Content = view;
+            }
+        }
+
+        private UserControl? CreateView(string pageTag)
         {
             switch (pageTag)
             {
                 case "Home":
                     var homeContent = new HomeContentView();
-                    // Home ekranındaki "Create New" butonu, mevcut FMEA olayını tetikler.
                     homeContent.RequestNewDocument += (s, e) => RequestNewFmeaDocument?.Invoke(s, e);
                     homeContent.RequestOpenDocument += (s, id) => RequestOpenDocument?.Invoke(s, id);
-                    PageContentControl.Content = homeContent;
-                    break;
+                    return homeContent;
+                    
                 case "MyDocuments":
                     var myDocsView = new MyDocumentsView();
                     myDocsView.RequestOpenDocument += (s, id) => RequestOpenDocument?.Invoke(s, id);
-                    PageContentControl.Content = myDocsView;
-                    break;
+                    return myDocsView;
+                    
                 case "Approvals":
                     var approvalsView = new ApprovalsView();
                     approvalsView.RequestOpenDocument += (s, id) => RequestOpenDocument?.Invoke(s, id);
-                    PageContentControl.Content = approvalsView;
-                    break;
-                case "Templates":
-                    // --- GÜNCELLENMİŞ BÖLÜM ---
-                    var templatesView = new TemplatesView(); 
+                    return approvalsView;
                     
-                    // 1. Dahili FMEA şablonu isteğini dinle
+                case "Templates":
+                    var templatesView = new TemplatesView();
                     templatesView.RequestNewFmeaDocument += (s, e) => 
                         RequestNewFmeaDocument?.Invoke(this, e);
-                    
-                    // 2. Dosyadan şablon isteğini dinle
                     templatesView.RequestNewDocumentFromFile += (s, filePath) => 
                         RequestNewDocumentFromFile?.Invoke(this, filePath);
-                    
                     templatesView.RequestBlankSpreadsheet += (s, e) =>
                         RequestBlankSpreadsheet?.Invoke(this, e);
+                    return templatesView;
                     
-                    PageContentControl.Content = templatesView;
-                    break;
-                    // --- GÜNCELLEME SONU ---
                 case "ChangeLog":
-                    PageContentControl.Content = new ChangeLogView();
-                    break;
+                    return new ChangeLogView();
+                    
                 case "Settings":
-                    PageContentControl.Content = new SettingsView(_currentUser);
-                    break;
+                    return new SettingsView(_currentUser);
+                    
+                default:
+                    return null;
             }
+        }
+
+        /// <summary>
+        /// Refreshes the currently displayed view
+        /// </summary>
+        private void RefreshCurrentView()
+        {
+            if (PageContentControl.Content is HomeContentView homeView)
+            {
+                // HomeContentView will auto-refresh via its Loaded event
+                _cachedViews.Remove("Home");
+                NavigateTo("Home");
+            }
+            else if (PageContentControl.Content is MyDocumentsView docsView)
+            {
+                _cachedViews.Remove("MyDocuments");
+                NavigateTo("MyDocuments");
+            }
+        }
+
+        /// <summary>
+        /// Cleanup all cached views
+        /// </summary>
+        private void CleanupViews()
+        {
+            foreach (var view in _cachedViews.Values)
+            {
+                if (view is IDisposable disposable)
+                {
+                    disposable.Dispose();
+                }
+            }
+            _cachedViews.Clear();
+            _dbContext?.Dispose();
         }
     }
 }
