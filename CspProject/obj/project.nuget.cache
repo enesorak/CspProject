@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ArBvACwvgG8=",
+  "dgSpecHash": "xqyUyDU7swM=",
   "success": true,
   "projectFilePath": "C:\\Users\\penshark\\Desktop\\CspProject\\CspProject\\CspProject\\CspProject.csproj",
   "expectedPackageFiles": [
@@ -128,19 +128,6 @@
     "C:\\Users\\penshark\\.nuget\\packages\\system.threading.channels\\7.0.0\\system.threading.channels.7.0.0.nupkg.sha512"
   ],
   "logs": [
-    {
-      "code": "NU1603",
-      "level": "Warning",
-      "message": "CspProject depends on DevExpress.Wpf.Grid (>= 23.2.6) but DevExpress.Wpf.Grid 23.2.6 was not found. DevExpress.Wpf.Grid 25.1.3 was resolved instead.",
-      "projectPath": "C:\\Users\\penshark\\Desktop\\CspProject\\CspProject\\CspProject\\CspProject.csproj",
-      "warningLevel": 1,
-      "filePath": "C:\\Users\\penshark\\Desktop\\CspProject\\CspProject\\CspProject\\CspProject.csproj",
-      "libraryId": "DevExpress.Wpf.Grid",
-      "targetGraphs": [
-        "net9.0-windows7.0",
-        "net9.0-windows7.0/win-x64"
-      ]
-    },
     {
       "code": "NU1603",
       "level": "Warning",

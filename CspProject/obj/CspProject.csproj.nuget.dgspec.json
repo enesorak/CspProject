@@ -68,7 +68,7 @@
             },
             "DevExpress.Wpf.Grid": {
               "target": "Package",
-              "version": "[23.2.6, )"
+              "version": "[25.1.3, )"
             },
             "DevExpress.Wpf.Ribbon": {
               "target": "Package",

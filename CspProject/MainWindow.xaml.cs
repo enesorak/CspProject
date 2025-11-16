@@ -68,8 +68,7 @@ namespace CspProject
         {
         
             var homeScreen = new HomeScreen(_currentUser);
-            homeScreen.RequestNewDocument += (_, _) => ShowSpreadsheetScreen(null);
-            homeScreen.RequestOpenDocument += (_, docId) => ShowSpreadsheetScreen(docId);
+            homeScreen.RequestNewFmeaDocument += (_, _) => ShowSpreadsheetScreen(null); // <-- DOĞRUSU BU            homeScreen.RequestOpenDocument += (_, docId) => ShowSpreadsheetScreen(docId);
             
             homeScreen.RequestNewDocumentFromFile += (_, filePath) => 
                 ShowSpreadsheetScreenFromTemplate(filePath);
